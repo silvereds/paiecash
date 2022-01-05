@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import useAsyncStorage from "../../services/DataStorage/DataStorage";
+import useAsyncData from "../../services/DataStorage/UseAsyncData";
 import HomeTabScreens from "./HomeTab/HomeTabScreens";
 import QrCodeTabScreens from "./QrCodeTab/QrCodeTabScreens";
 import ProfileTabScreens from "./ProfileTab/ProfileTabScreens";
@@ -11,7 +11,7 @@ const Tab = createBottomTabNavigator();
 
 export default function Dashboard({navigation}) {
     const [state, setState] = useState({});
-    const {data} = useAsyncStorage('data')
+    const {data} = useAsyncData('data')
 
     useEffect(() => {
         data !== null && setState(JSON.parse(data))

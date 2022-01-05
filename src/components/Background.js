@@ -1,41 +1,49 @@
 import React from 'react'
-import {ImageBackground, KeyboardAvoidingView, StyleSheet} from 'react-native'
-import {theme} from '../core/theme'
+import {
+  ImageBackground,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet
+} from 'react-native'
 import LoaderActivity from "./Loader/LoaderActivity";
 
 export default function Background({children, loader = false}) {
 
   return (
-      <ImageBackground
-          source={require('../assets/background_dot.png')}
-          resizeMode="repeat"
-          style={styles.background}
-      >
-      {loader === true  ?
-          <LoaderActivity/>
-      :
-          <KeyboardAvoidingView style={styles.container} behavior="padding">
-            {children}
-          </KeyboardAvoidingView>
-      }
-    </ImageBackground>
+      <SafeAreaView>
+        <ScrollView contentInsetAdjustmentBehavior="automatic">
+          <ImageBackground
+              source={require('../assets/background_dot.png')}
+              resizeMode="repeat"
+              style={styles.background}
+          >
+            {loader === true  ?
+                <LoaderActivity/>
+                :
+                {children}
+            }
+          </ImageBackground>
+        </ScrollView>
+      </SafeAreaView>
+
   )
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    width: '100%',
-    backgroundColor: theme.colors.surface,
+  sectionContainer: {
+    marginTop: 32,
+    paddingHorizontal: 24,
   },
-  container: {
-    flex: 1,
-    paddingLeft: 10,
-    paddingRight: 10,
-    width: '100%',
-    maxWidth: 340,
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: '600',
   },
-})
+  sectionDescription: {
+    marginTop: 8,
+    fontSize: 18,
+    fontWeight: '400',
+  },
+  highlight: {
+    fontWeight: '700',
+  },
+});

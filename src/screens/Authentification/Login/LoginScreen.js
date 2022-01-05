@@ -12,13 +12,13 @@ import {emailValidator} from '../../../helpers/validators/emailValidator'
 import {passwordValidator} from '../../../helpers/validators/passwordValidator'
 import {APPENV} from "../../../core/config";
 import useFetchApi from "../../../helpers/fetchApi/useFetchApi";
-import useAsyncStorage from "../../../services/DataStorage/DataStorage";
+import useAsyncData from "../../../services/DataStorage/UseAsyncData";
 import Toast from "react-native-toast-message";
-import Authentification from "../../../context/Authentification";
+import {AuthentificationContext} from "../../../context/AuthentificationContext";
 
 export default function LoginScreen({navigation}) {
-    const {setAuthData} = useContext(Authentification);
-    const {updateStorage} = useAsyncStorage('data')
+    const {setAuthData} = useContext(AuthentificationContext);
+    const {updateStorage} = useAsyncData('data')
     const {data: dataLogin, loading, postData, status, error} = useFetchApi(APPENV.domain + '/api/auth/login')
     const [email, setEmail] = useState({value: '', error: ''})
     const [password, setPassword] = useState({value: '', error: ''})

@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {Image, ImageBackground, StyleSheet} from "react-native";
 import {Avatar, Card, IconButton, Paragraph, Title} from 'react-native-paper';
 import {theme} from "../../../../../core/theme";
-import Authentification from "../../../../../context/Authentification";
+import {AuthentificationContext} from "../../../../../context/AuthentificationContext";
 
 const LeftContent = props => <Avatar.Icon {...props} icon="folder"/>
 
@@ -10,7 +10,7 @@ const LeftContent = props => <Avatar.Icon {...props} icon="folder"/>
  * @author Jaures Kano <ruddyjaures@gmail.com>
  */
 export default function CardInfo(props) {
-    const {authData} = useContext(Authentification)
+    const {authData} = useContext(AuthentificationContext)
 
     return (
         <Card style={styles.container}>

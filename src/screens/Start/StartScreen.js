@@ -3,12 +3,11 @@ import Background from '../../components/Background'
 import Logo from '../../components/Logo'
 import Button from '../../components/Button'
 import Paragraph from '../../components/Paragraph'
-import FadeInAnimation from "../../animations/FadeInAnimation";
 import {StyleSheet} from "react-native";
-import Authentification from "../../context/Authentification";
+import AuthentificationContext from "../../context/AuthentificationContext";
 
 export default function StartScreen({ navigation }) {
-    const {authData} = useContext(Authentification)
+    const {authData} = useContext(AuthentificationContext)
     const [state, setState] = useState(true)
 
     useEffect(() => {
@@ -30,7 +29,7 @@ export default function StartScreen({ navigation }) {
     <Background loader={false}>
       <Logo />
         {state === true ?
-            <FadeInAnimation style={styles.root}>
+            <>
                 <Paragraph>
                     Envoyer de l'argent en toute simpliciter
                 </Paragraph>
@@ -46,7 +45,7 @@ export default function StartScreen({ navigation }) {
                 >
                     Inscription
                 </Button>
-            </FadeInAnimation>
+            </>
         : null}
     </Background>
   )
