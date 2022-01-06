@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {SafeAreaView, ScrollView, Text, View} from "react-native";
 import Button from "../../../components/Button";
 import useAsyncData from "../../../services/DataStorage/UseAsyncData";
-import {AuthentificationContext} from "../../../context/AuthentificationContext";
+import AuthentificationContext from "../../../context/AuthentificationContext";
 
 /**
  * @author Jaures Kano <ruddyjaures@gmail.com>

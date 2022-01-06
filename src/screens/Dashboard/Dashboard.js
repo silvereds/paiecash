@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import useAsyncData from "../../services/DataStorage/UseAsyncData";
 import HomeTabScreens from "./HomeTab/HomeTabScreens";
 import QrCodeTabScreens from "./QrCodeTab/QrCodeTabScreens";
 import ProfileTabScreens from "./ProfileTab/ProfileTabScreens";
@@ -10,16 +9,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const Tab = createBottomTabNavigator();
 
 export default function Dashboard({navigation}) {
-    const [state, setState] = useState({});
-    const {data} = useAsyncData('data')
-
-    useEffect(() => {
-        data !== null && setState(JSON.parse(data))
-    }, []);
 
     return (
         <Tab.Navigator
-            initialRouteName="HomeTabScreens"
+            initialRouteName="Profile"
             screenOptions={{
                 tabBarActiveTintColor: theme.colors.primary,
                 tabBarStyle: {position: 'absolute'}

@@ -1,5 +1,6 @@
+import React from 'react';
 import {Text, View} from 'react-native'
-import { BaseToast, ErrorToast } from 'react-native-toast-message';
+import {BaseToast, ErrorToast} from 'react-native-toast-message';
 import {theme} from "./theme";
 
 

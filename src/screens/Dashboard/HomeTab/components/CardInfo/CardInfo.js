@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {Image, ImageBackground, StyleSheet} from "react-native";
 import {Avatar, Card, IconButton, Paragraph, Title} from 'react-native-paper';
 import {theme} from "../../../../../core/theme";
-import {AuthentificationContext} from "../../../../../context/AuthentificationContext";
+import AuthentificationContext from "../../../../../context/AuthentificationContext";
 
 const LeftContent = props => <Avatar.Icon {...props} icon="folder"/>
 

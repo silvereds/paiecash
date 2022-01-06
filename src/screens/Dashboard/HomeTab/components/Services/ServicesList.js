@@ -12,9 +12,6 @@ const LeftContent = props => <Avatar.Icon {...props} icon="folder"/>
  * @author Jaures Kano <ruddyjaures@gmail.com>
  */
 export default function ServicesList(props) {
-    const renderItem = ({item}) => (
-        <Item data={item}/>
-    );
 
     return (
         <View style={{width: '100%', marginBottom: 100}}>
@@ -24,6 +21,7 @@ export default function ServicesList(props) {
 }
 
 const Item = ({data}) => {
+
     return (
         <Card style={styles.item}
               onPress={() => Toast.show({
