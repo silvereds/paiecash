@@ -14,7 +14,7 @@ import {APPENV} from "../../../core/config";
 import useFetchApi from "../../../helpers/fetchApi/useFetchApi";
 import useAsyncData from "../../../services/DataStorage/UseAsyncData";
 import Toast from "react-native-toast-message";
-import {AuthentificationContext} from "../../../context/AuthentificationContext";
+import AuthentificationContext from "../../../context/AuthentificationContext";
 
 export default function LoginScreen({navigation}) {
     const {setAuthData} = useContext(AuthentificationContext);
@@ -37,11 +37,11 @@ export default function LoginScreen({navigation}) {
 
     useEffect(() => {
         if(status >= 400 && status <= 600){
-            Toast.show({
-                type: 'error',
-                text1: 'Erreur de connexion',
-                text2: error.error
-            });
+            // Toast.show({
+            //     type: 'error',
+            //     text1: 'Erreur de connexion',
+            //     text2: error.error
+            // });
         }
     }, [error])
 

@@ -5,26 +5,13 @@ import {
   ScrollView,
   StyleSheet
 } from 'react-native'
-import LoaderActivity from "./Loader/LoaderActivity";
 
 export default function Background({children, loader = false}) {
 
   return (
-      <SafeAreaView>
         <ScrollView contentInsetAdjustmentBehavior="automatic">
-          <ImageBackground
-              source={require('../assets/background_dot.png')}
-              resizeMode="repeat"
-              style={styles.background}
-          >
-            {loader === true  ?
-                <LoaderActivity/>
-                :
                 {children}
-            }
-          </ImageBackground>
         </ScrollView>
-      </SafeAreaView>
 
   )
 }
