@@ -1,36 +1,32 @@
 import React from 'react'
-import {
-  ImageBackground,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet
-} from 'react-native'
+import {ScrollView, StyleSheet, View} from 'react-native'
+import {theme} from "../core/theme";
 
-export default function Background({children, loader = false}) {
+export default function Background({children}) {
 
   return (
-        <ScrollView contentInsetAdjustmentBehavior="automatic">
-                {children}
-        </ScrollView>
-
+      <ScrollView style={styles.background}
+                  contentInsetAdjustmentBehavior="automatic">
+        <View style={styles.container}>
+          {children}
+        </View>
+      </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  background: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: theme.colors.surface,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+  container: {
+    flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+    width: '100%',
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 });
