@@ -1,5 +1,5 @@
 import React from 'react'
-import {ScrollView, StyleSheet, View} from 'react-native'
+import {Dimensions, ScrollView, StyleSheet, View} from 'react-native'
 import {theme} from "../core/theme";
 
 export default function Background({children}) {
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     width: '100%',
+    minHeight: Dimensions.get("window").height,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',

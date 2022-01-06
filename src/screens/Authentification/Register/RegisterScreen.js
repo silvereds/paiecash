@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {StyleSheet} from 'react-native'
+import {Dimensions, ImageBackground, StyleSheet} from 'react-native'
 import Background from '../../../components/Background'
 import BackButton from '../../../components/BackButton'
 import {theme} from '../../../core/theme'
@@ -13,12 +13,18 @@ export default function RegisterScreen({navigation}) {
 
     return (
         <Background>
-            <BackButton goBack={navigation.goBack}/>
-            {step === false ?
-                <FirstRegistrations navigation={navigation} setEmailRegister={setEmailRegister} setView={setStep}/>
-                :
-                <CompleteRegistration emailRegister={emailRegister} navigation={navigation}/>
-            }
+            <ImageBackground
+                source={require('../../../assets/background_dot.png')}
+                resizeMode="repeat"
+                style={styles.imageBackground}
+            >
+                <BackButton goBack={navigation.goBack}/>
+                {step === false ?
+                    <FirstRegistrations navigation={navigation} setEmailRegister={setEmailRegister} setView={setStep}/>
+                    :
+                    <CompleteRegistration emailRegister={emailRegister} navigation={navigation}/>
+                }
+            </ImageBackground>
         </Background>
     )
 }
@@ -27,6 +33,15 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         marginTop: 4,
+    },
+    imageBackground: {
+        flex: 1,
+        width: '100%',
+        minHeight: Dimensions.get("window").height,
+        backgroundColor: theme.colors.surface,
+        alignSelf: 'center',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     link: {
         fontWeight: 'bold',
