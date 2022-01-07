@@ -12,7 +12,7 @@ export default function Dashboard({navigation}) {
 
     return (
         <Tab.Navigator
-            initialRouteName="Profile"
+            initialRouteName="Acceuil"
             screenOptions={{
                 tabBarActiveTintColor: theme.colors.primary,
                 tabBarStyle: {position: 'absolute'}

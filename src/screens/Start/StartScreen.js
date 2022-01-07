@@ -18,12 +18,16 @@ export default function StartScreen({ navigation }) {
                 routes: [{name: 'Dashboard'}],
             })
         }
+
+        return () => null
     }, [authData]);
 
     useEffect(() => {
         setTimeout(() => {
             authData.user === undefined && setState(true)
         }, 3000)
+
+        return () => null
     }, [navigation])
 
     return (

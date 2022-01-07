@@ -4,6 +4,7 @@ import QrCodeScan from "../../../components/QrCode/QrCodeScan";
 import PaiementScanInfo from "./PaiementScanInfo";
 import useFetchApi from "../../../helpers/fetchApi/useFetchApi";
 import {APPENV} from "../../../core/config";
+import CardSlider from "../../../components/CardSlider/CardSlider";
 
 
 /**
@@ -16,16 +17,29 @@ export default function QrCodeTabScreens(props) {
 
     return (
         <SafeAreaView style={{width: '100%'}}>
-            {data === '' ?
-                <View style={{flex: 1}}>
-                    <QrCodeScan reactivate={reactivate} setData={setData} data={data}/>
-                </View>
-            :
-                <View>
-                    <PaiementScanInfo setData={setData} data={data}
-                                      getItem={getItem} dataFetch={dataFetch} loading={loading}/>
-                </View>
-            }
+            <ScrollView style={{width: '100%', padding: 10}}
+                        showsVerticalScrollIndicator={false}
+                        scrollEventThrottle={16}
+                        directionalLockEnabled={false}
+                        disableScrollViewPanResponder
+                        nestedScrollEnabled
+                        removeClippedSubviews={false}>
+                {data === '' ?
+                    <View style={{flex: 1}}>
+                        <QrCodeScan reactivate={reactivate} setData={setData} data={data}/>
+                    </View>
+                    :
+                    <View>
+                        <PaiementScanInfo setData={setData} data={data}
+                                          getItem={getItem} dataFetch={dataFetch} loading={loading}/>
+                        <View style={{width: '100%'}}>
+                            <CardSlider/>
+                        </View>
+
+                    </View>
+                }
+            </ScrollView>
+
         </SafeAreaView>
     );
 }
