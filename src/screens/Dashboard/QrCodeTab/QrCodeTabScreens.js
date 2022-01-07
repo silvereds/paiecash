@@ -1,23 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView, ScrollView, Text, View} from "react-native";
-import {theme} from "../../../core/theme";
+import QrCodeScan from "../../../components/QrCode/QrCodeScan";
+
 
 /**
  * @author Jaures Kano <ruddyjaures@gmail.com>
  */
 export default function QrCodeTabScreens(props) {
+    const [reactivate, setActivate] = useState(true)
+    const [data, setData] = useState('')
+
     return (
         <SafeAreaView style={{width: '100%'}}>
-            <ScrollView style={{width: '100%', padding: 10}}>
-                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 50}}>
-                    <Text>
-                        Scanner le qrcode
-                    </Text>
-                    <View style={{borderWidth: 2, borderColor: theme.colors.primary, width: '75%', height: 300}}>
-
-                    </View>
+            {data === '' ?
+                <View style={{flex: 1}}>
+                    <QrCodeScan reactivate={reactivate} setData={setData} data={data}/>
                 </View>
-            </ScrollView>
+            :
+                <View style={{flex: 1}}>
+
+                </View>
+            }
+
         </SafeAreaView>
     );
 }
