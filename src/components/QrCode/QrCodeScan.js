@@ -11,7 +11,7 @@ export default function QrCodeScan({reactivate, setData, data}) {
     useEffect(() => {
         setData('')
         return () => null
-    }, [input]);
+    }, []);
 
     const onSuccess = (e)  => {
         e.type === 'QR_CODE' && setData(e.data)
