@@ -21,8 +21,10 @@ export default function QrCodeTabScreens(props) {
                     <QrCodeScan reactivate={reactivate} setData={setData} data={data}/>
                 </View>
             :
-                <PaiementScanInfo setData={setData} data={data}
-                                  getItem={getItem} dataFetch={dataFetch} loading={loading}/>
+                <View>
+                    <PaiementScanInfo setData={setData} data={data}
+                                      getItem={getItem} dataFetch={dataFetch} loading={loading}/>
+                </View>
             }
         </SafeAreaView>
     );
