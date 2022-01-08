@@ -11,9 +11,6 @@ import useFetchApi from "../../../helpers/fetchApi/useFetchApi";
 import useAsyncData from "../../../services/DataStorage/UseAsyncData";
 import Toast from "react-native-toast-message";
 import AuthentificationContext from "../../../context/AuthentificationContext";
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Octicons from 'react-native-vector-icons/Octicons';
 import styles from "./LoginStyle";
 import Button from "../../../components/Button";
 
@@ -34,7 +31,6 @@ export default function LoginScreen({navigation}) {
             })
         }
     }, [dataLogin])
-
 
     useEffect(() => {
         if(status >= 400 && status <= 600) {
@@ -59,7 +55,6 @@ export default function LoginScreen({navigation}) {
 
     return (
         <Background navigation={navigation} back={true} background={true}>
-
                 <View style={styles.bodyContent}>
                     <Text style={styles.largeText}>Bon retour parmis!</Text>
                     <Text style={styles.smallText}>

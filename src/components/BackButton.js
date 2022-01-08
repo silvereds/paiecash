@@ -14,11 +14,11 @@ export default function BackButton({ goBack }) {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    top: getStatusBarHeight(),
-    left: 5,
     display: 'flex',
     flexDirection: 'row',
+    justifySelf: '',
+    paddingVertical: 16,
+    width: '100%'
   },
   image: {
     width: 24,

@@ -1,39 +1,42 @@
 import React from 'react'
-import {Dimensions, ImageBackground, ScrollView, StyleSheet, View} from 'react-native'
+import {Dimensions, ImageBackground, SafeAreaView, ScrollView, StyleSheet, View} from 'react-native'
 import {theme} from "../core/theme";
 import BackButton from "./BackButton";
 
 export default function Background({children, navigation, back = false, background}) {
 
     return (
-        <ScrollView style={styles.background}
-                    contentInsetAdjustmentBehavior="automatic">
+        <SafeAreaView style={styles.background}>
+            {back === true && <BackButton goBack={navigation.goBack}/>}
             {background === true ?
-                <ImageBackground
-                    source={require('../assets/background_dot.png')}
-                    resizeMode="repeat"
-                    style={{
-                        flex: 1,
-                        paddingLeft: 12,
-                        paddingRight: 12,
-                        width: '100%',
-                        background: theme.colors.surface,
-                        minHeight: Dimensions.get("window").height,
-                        alignSelf: 'center',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}
-                >
-                    {back === true && <BackButton goBack={navigation.goBack}/>}
-                    {children}
-                </ImageBackground>
+                <ScrollView style={{width: '100%'}} centerContent={true}>
+                    <ImageBackground
+                        source={require('../assets/background_dot.png')}
+                        resizeMode="repeat"
+                        style={{
+                            flex: 1,
+                            paddingLeft: 12,
+                            paddingRight: 12,
+                            width: '100%',
+                            background: theme.colors.surface,
+                            minHeight: Dimensions.get("window").height,
+                            alignSelf: 'center',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                    >
+                            {children}
+                    </ImageBackground>
+                </ScrollView>
                 :
-                <View style={styles.container}>
-                    {back === true && <BackButton goBack={navigation.goBack}/>}
-                    {children}
-                </View>
+                <ScrollView style={styles.background} centerContent={true}
+                            contentInsetAdjustmentBehavior="automatic">
+                    <View style={styles.container}>
+                        {children}
+                    </View>
+                </ScrollView>
             }
-        </ScrollView>
+        </SafeAreaView>
     )
 }
 

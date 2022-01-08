@@ -9,23 +9,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         paddingBottom: 40,
     },
-    backButton: {
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'row',
-        paddingVertical: 16,
-        paddingHorizontal: 20,
-    },
-    backText: {
-        fontSize: 17,
-        marginLeft: 10,
-        color: 'gray',
-    },
     bodyContent: {
         flex: 1,
         width: '100%',
         justifyContent: 'center',
-        justifyItems: 'center'
+        justifyItems: 'center',
+        minHeight: Dimensions.get("window").height
     },
     largeText: {
         fontWeight: 'bold',
