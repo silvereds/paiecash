@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {ScrollView, Text, TouchableOpacity, View} from "react-native";
 import ProgressCircle from 'react-native-progress-circle';
 import SafeAreaView from "react-native/Libraries/Components/SafeAreaView/SafeAreaView";
@@ -9,11 +9,13 @@ import {theme} from "../../../core/theme";
 import projectState from "../../../helpers/projectState";
 import tasksState from "../../../helpers/taskState";
 import TaskInfo from "./components/TaskInfo";
+import AuthentificationContext from "../../../context/AuthentificationContext";
 
 /**
  * @author Jaures Kano <ruddyjaures@gmail.com>
  */
 export default function HomeTabScreens({navigation}) {
+    const {authData} = useContext(AuthentificationContext)
     const project = projectState.projects[2];
     const tasks = tasksState.tasks;
 
@@ -43,40 +45,57 @@ export default function HomeTabScreens({navigation}) {
                         <View style={styles.projectTeamAndProgress}>
                             <View style={styles.projectProgressWrapper}>
                                 <ProgressCircle
-                                    percent={project?.progress}
-                                    radius={50}
+                                    percent={15}
+                                    radius={35}
                                     borderWidth={10}
-                                    color={theme.colors.primary}
+                                    color={theme.colors.error}
                                     shadowColor="#f4f4f4"
                                     bgColor="#fff">
-                                    <Text style={styles.projectProgress}>{project?.progress}%</Text>
+                                    <Text style={styles.projectProgress}>15 %</Text>
                                 </ProgressCircle>
                             </View>
                             <View>
                                 <View style={styles.projectTitleWrapper}>
-                                    <Text style={styles.projectTitle}>{project?.title}</Text>
+
                                     <TouchableOpacity>
                                         <MaterialCommunityIcons
-                                            name="shield-check"
+                                            name="account-alert"
                                             size={30}
-                                            color={theme.colors.primary}
+                                            color={theme.colors.error}
                                         />
                                     </TouchableOpacity>
+                                    <Text style={styles.projectTitle}>
+                                        {authData.user?.firstName} {authData.user?.lastName}
+                                    </Text>
                                 </View>
-                                <Text style={styles.projectDescription}>{project?.description}</Text>
-                                <Text style={styles.projectDescription}>{project?.description}</Text>
+                                <Text style={styles.projectDescription}>{authData.user?.email}</Text>
+                                <Text style={styles.projectDescription}>{authData.user?.phone}</Text>
+                                <Text style={{
+                                    color: theme.colors.error,
+                                    width: '100%',
+                                    marginBottom: 5
+                                }}>
+                                    Profile non certifier</Text>
                             </View>
                         </View>
                         <View style={{
                             display: 'flex',
-                            flexDirection: 'row',
-                            alignItems: 'center',
+                            flexDirection: "row",
+                            justifyContent: 'space-around',
+                            alignItems: 'center'
                         }}>
-                            <Text style={styles.projectStatus}>{project?.status}</Text>
-                            <Text style={styles.projectStatus}>{project?.status}</Text>
-                            <Text style={styles.projectStatus}>{project?.status}</Text>
+                            <View style={{flex: 1}}>
+                                <Text style={styles.projectStatus}>Envoie</Text>
+                            </View>
+                            <View style={{flex: 2}}>
+                                <Text style={styles.projectStatus}>Envoie</Text>
+                            </View>
+                            <View style={{flex: 3}}>
+                                <Text style={styles.projectStatus}>Envoie</Text>
+                            </View>
                         </View>
                     </View>
+
                     <View style={styles.projectBody}>
                         <Text style={{
                             color: theme.colors.disabled,

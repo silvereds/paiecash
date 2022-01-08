@@ -46,13 +46,14 @@ const styles = StyleSheet.create({
     projectTeamTitle: {fontWeight: 'bold', marginBottom: 5, color: theme.colors.disabled},
     projectDescription: {
         color: theme.colors.disabled,
+        width: '100%',
         marginBottom: 5,
     },
     projectProgressWrapper: {marginRight: 30},
     projectProgress: {
         fontWeight: 'bold',
         color: theme.colors.text,
-        fontSize: 25,
+        fontSize: 18,
     },
     projectTeamWrapper: {
         display: 'flex',

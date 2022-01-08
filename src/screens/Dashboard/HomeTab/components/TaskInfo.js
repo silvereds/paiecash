@@ -11,7 +11,7 @@ function TaskInfo({task}) {
                 <MaterialCommunityIcons
                     name="shield-check"
                     size={40}
-                    color={task?.progress === 100 ? theme.colors.primary : theme.colors.secondary}
+                    color={theme.colors.primary}
                     style={styles.taskProgressIndicator}
                 />
                 <View style={styles.taskMiddleColumn}>
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         marginBottom: 3,
     },
     taskDesc: {
-        color: theme.colors.text,
+        color: theme.colors.disabled,
         marginBottom: 3,
     },
     taskProgressBar: {borderRadius: 7, height: 6},
