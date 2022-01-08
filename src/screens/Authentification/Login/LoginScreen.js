@@ -1,12 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react'
-import {Dimensions, ImageBackground, StyleSheet, TouchableOpacity, View} from 'react-native'
+import {Dimensions, ImageBackground, StyleSheet, Switch, TouchableOpacity, View} from 'react-native'
 import {Text} from 'react-native-paper'
 import Background from '../../../components/Background'
-import Logo from '../../../components/Logo'
-import Header from '../../../components/Header'
-import Button from '../../../components/Button'
 import TextInput from '../../../components/TextInput'
-import BackButton from '../../../components/BackButton'
 import {theme} from '../../../core/theme'
 import {emailValidator} from '../../../helpers/validators/emailValidator'
 import {passwordValidator} from '../../../helpers/validators/passwordValidator'
@@ -15,6 +11,11 @@ import useFetchApi from "../../../helpers/fetchApi/useFetchApi";
 import useAsyncData from "../../../services/DataStorage/UseAsyncData";
 import Toast from "react-native-toast-message";
 import AuthentificationContext from "../../../context/AuthentificationContext";
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Octicons from 'react-native-vector-icons/Octicons';
+import styles from "./LoginStyle";
+import Button from "../../../components/Button";
 
 export default function LoginScreen({navigation}) {
     const {setAuthData} = useContext(AuthentificationContext);
@@ -57,82 +58,75 @@ export default function LoginScreen({navigation}) {
     }
 
     return (
-        <Background>
-            <ImageBackground
-                source={require('../../../assets/background_dot.png')}
-                resizeMode="repeat"
-                style={styles.imageBackground}
-            >
-                <BackButton goBack={navigation.goBack}/>
-                <Logo/>
-                <Header>Bienvenu</Header>
-                <TextInput
-                    label="Email"
-                    returnKeyType="next"
-                    value={email.value}
-                    onChangeText={(text) => setEmail({value: text, error: ''})}
-                    error={!!email.error}
-                    errorText={email.error}
-                    autoCapitalize="none"
-                    autoCompleteType="email"
-                    textContentType="emailAddress"
-                    keyboardType="email-address"
-                />
-                <TextInput
-                    label="Mot de passe"
-                    returnKeyType="done"
-                    value={password.value}
-                    onChangeText={(text) => setPassword({value: text, error: ''})}
-                    error={!!password.error}
-                    errorText={password.error}
-                    secureTextEntry
-                />
-                <View style={styles.forgotPassword}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('ResetPasswordScreen')}
-                    >
-                        <Text style={styles.forgot}>Mot de passe oublie ?</Text>
-                    </TouchableOpacity>
+        <Background navigation={navigation} back={true} background={true}>
+
+                <View style={styles.bodyContent}>
+                    <Text style={styles.largeText}>Bon retour parmis!</Text>
+                    <Text style={styles.smallText}>
+                        Entrer vos identifiants et votre mot de passe pour vous connectez
+                    </Text>
+                    <View style={styles.inputRow}>
+                        <TextInput
+                            label="Email ou numero de telephone"
+                            returnKeyType="next"
+                            value={email.value}
+                            onChangeText={(text) => setEmail({value: text, error: ''})}
+                            error={!!email.error}
+                            errorText={email.error}
+                            autoCapitalize="none"
+                            autoCompleteType="email"
+                            textContentType="emailAddress"
+                            keyboardType="email-address"
+                        />
+
+                    </View>
+                    <View style={styles.inputRow}>
+                        <TextInput
+                            label="Mot de passe"
+                            returnKeyType="done"
+                            value={password.value}
+                            onChangeText={(text) => setPassword({value: text, error: ''})}
+                            error={!!password.error}
+                            errorText={password.error}
+                            secureTextEntry
+                        />
+                    </View>
+                    <View style={{
+                        width: '100%',
+                        alignItems: 'flex-end',
+                        marginBottom: 24,
+                        marginTop: 10,
+                    }}>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('ResetPasswordScreen')}
+                        >
+                            <Text style={{
+                                fontSize: 13,
+                                color: theme.colors.secondary,
+                            }}>Mot de passe oublie ?</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <Button mode="contained" disabled={loading === true} onPress={onLoginPressed}>
+                        {loading === true ? 'Chargement...' : 'Connexion'}
+                    </Button>
+
+                    <View style={{
+                        flexDirection: 'row',
+                        marginTop: 10,
+                        width: '100%',
+                        textAlign: 'center'
+                    }}>
+                        <Text style={{textAlign: 'center'}}>Vous a avez deja en un compte ? </Text>
+                        <TouchableOpacity onPress={() => navigation.replace('LoginScreen')}>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                color: theme.colors.primary,
+                            }}>Connectez vous</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <Button mode="contained" disabled={loading === true} onPress={onLoginPressed}>
-                    {loading === true ? 'Chargement...' : 'Connexion'}
-                </Button>
-                <View style={styles.row}>
-                    <Text>Vous n'avez pas de compte? </Text>
-                    <TouchableOpacity onPress={() => navigation.replace('RegisterScreen')}>
-                        <Text style={styles.link}>Inscrivez vous</Text>
-                    </TouchableOpacity>
-                </View>
-            </ImageBackground>
         </Background>
     )
 }
 
-const styles = StyleSheet.create({
-    forgotPassword: {
-        width: '100%',
-        alignItems: 'flex-end',
-        marginBottom: 24,
-    },
-    imageBackground: {
-        flex: 1,
-        width: '100%',
-        minHeight: Dimensions.get("window").height,
-        backgroundColor: theme.colors.surface,
-        alignSelf: 'center',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    row: {
-        flexDirection: 'row',
-        marginTop: 4,
-    },
-    forgot: {
-        fontSize: 13,
-        color: theme.colors.secondary,
-    },
-    link: {
-        fontWeight: 'bold',
-        color: theme.colors.primary,
-    },
-})

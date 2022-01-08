@@ -1,11 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react'
-import Background from '../../components/Background'
-import Logo from '../../components/Logo'
-import Button from '../../components/Button'
-import Paragraph from '../../components/Paragraph'
-import {Dimensions, ImageBackground, StyleSheet} from "react-native";
+import {Dimensions, Image, ImageBackground, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import AuthentificationContext from "../../context/AuthentificationContext";
 import {theme} from "../../core/theme";
+import Background from "../../components/Background";
+import Logo from "../../components/Logo";
+import Paragraph from "../../components/Paragraph";
+import Button from "../../components/Button";
 
 export default function StartScreen({ navigation }) {
     const {authData} = useContext(AuthentificationContext)
