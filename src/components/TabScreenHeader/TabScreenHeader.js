@@ -1,15 +1,7 @@
 import React, {useState} from "react";
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    StyleSheet,
-    TextInput,
-} from 'react-native';
+import {StyleSheet, TextInput, TouchableOpacity, View,} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {theme} from "../../core/theme";
-import {Menu, MenuOption, MenuOptions, MenuProvider, MenuTrigger} from "react-native-popup-menu";
 
 export function TabScreenHeader({
                                     leftComponent,
@@ -21,7 +13,6 @@ export function TabScreenHeader({
     const toggleSearchField = () => {
         let {isSearchFieldVisible} = data;
         isSearchFieldVisible = !isSearchFieldVisible;
-        // setData(combineData(data, {isSearchFieldVisible}));
     };
 
     return (
@@ -35,37 +26,34 @@ export function TabScreenHeader({
                                 <TextInput
                                     placeholder="Search"
                                     style={styles.searchInputField}
-                                    placeholderTextColor={theme.colors.disabled}
+                                    placeholderTextColor={appTheme.INACTIVE_COLOR}
                                 />
                                 <TouchableOpacity onPress={() => toggleSearchField()}>
-                                    <MaterialIcons name="close" size={20} color={theme.colors.disabled} />
+                                    <MaterialIcons name="close" size={20} color={appTheme.INACTIVE_COLOR}/>
                                 </TouchableOpacity>
                             </View>
                         ) : (
                             <TouchableOpacity onPress={() => toggleSearchField()}>
-                                <Feather name="search" size={22} color="#000" />
+                                <Feather name="search" size={22} color="#000"/>
                             </TouchableOpacity>
                         )}
                     </View>
                 ) : null}
-                {isMoreBtnVisible ? (
-                    <MenuProvider>
-                        <Menu>
-                            <MenuTrigger>
-                                <Feather name="more-vertical" size={22} color="#000" />
-                            </MenuTrigger>
-                            <MenuOptions>
-                                <MenuOption>
-                                    <Text style={styles.menuOptionText}>Settings</Text>
-                                </MenuOption>
-                                <MenuOption>
-                                    <Text style={styles.menuOptionText}>Log out</Text>
-                                </MenuOption>
-                            </MenuOptions>
-                        </Menu>
-                    </MenuProvider>
-
-                ) : null}
+                {/*{isMoreBtnVisible ? (*/}
+                {/*    <Menu>*/}
+                {/*        <MenuTrigger>*/}
+                {/*            <Feather name="more-vertical" size={22} color="#000" />*/}
+                {/*        </MenuTrigger>*/}
+                {/*        <MenuOptions>*/}
+                {/*            <MenuOption>*/}
+                {/*                <Text style={styles.menuOptionText}>Settings</Text>*/}
+                {/*            </MenuOption>*/}
+                {/*            <MenuOption>*/}
+                {/*                <Text style={styles.menuOptionText}>Log out</Text>*/}
+                {/*            </MenuOption>*/}
+                {/*        </MenuOptions>*/}
+                {/*    </Menu>*/}
+                {/*) : null}*/}
             </View>
         </View>
     );
@@ -113,6 +101,6 @@ const styles = StyleSheet.create({
     searchInputField: {
         fontSize: 15,
         height: 40,
-        color: theme.colors.text
+
     },
 });

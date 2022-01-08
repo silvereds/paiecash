@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, Image, Platform, StyleSheet, Text, View} from "react-native";
+import {Dimensions, Image, Platform, StyleSheet, View} from "react-native";
 import Carousel from "react-native-snap-carousel";
 import CreditCardDisplay from "react-native-credit-card-display/src/index";
 import Paragraph from "../Paragraph";
@@ -8,14 +8,14 @@ import Svg from 'react-native-svg';
 
 export default function CardSlider({ dataCard = [], setData}) {
 
-    const renderDarkItem =  ({}) =>  {
-        return   <View style={{ width: '100%' }}>
+    const renderDarkItem = ({item}) => {
+        return <View style={{width: '100%'}}>
             <CreditCardDisplay
-                style={{ width: '100%' }}
-                number={123155512223551551}
-                cvc={321}
-                expiration="04/212"
-                name="John J. Doe"
+                style={{width: '100%'}}
+                number={item.credit_card_number}
+                cvc={item.cvv}
+                expiration={item.expiry_date}
+                name={item.card_holder_name}
                 since="2004"
             />
         </View>
@@ -41,7 +41,7 @@ export default function CardSlider({ dataCard = [], setData}) {
                     data={dataCard}
                     nestedScrollEnabled
                     layout={'stack'}
-                    layoutCardOffset={`18`}
+                    layoutCardOffset={18}
                     renderItem={renderDarkItem}
                     sliderWidth={sliderWidth}
                     itemWidth={itemWidth}
@@ -50,7 +50,7 @@ export default function CardSlider({ dataCard = [], setData}) {
                     contentContainerCustomStyle={styles.sliderContentContainer}
                     inactiveSlideScale={0.94}
                     inactiveSlideOpacity={0.7}
-                    onSnapToItem={(e) => console.log(e)}
+                    onSnapToItem={(e) => setData(dataCard[e - 1])}
                 />
             }
         </View>
