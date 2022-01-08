@@ -82,16 +82,17 @@ export default function HomeTabScreens({navigation}) {
                             display: 'flex',
                             flexDirection: "row",
                             justifyContent: 'space-around',
-                            alignItems: 'center'
+                            alignItems: 'space-around'
                         }}>
-                            <View style={{flex: 1}}>
-                                <Text style={styles.projectStatus}>Envoie</Text>
+                            <View style={{width: '40%'}}>
+                                <Text style={styles.projectStatus}>
+                                    Envoie
+                                </Text>
                             </View>
-                            <View style={{flex: 2}}>
-                                <Text style={styles.projectStatus}>Envoie</Text>
-                            </View>
-                            <View style={{flex: 3}}>
-                                <Text style={styles.projectStatus}>Envoie</Text>
+                            <View style={{width: '40%'}}>
+                                <Text style={styles.projectStatus}>
+                                    Retrait
+                                </Text>
                             </View>
                         </View>
                     </View>

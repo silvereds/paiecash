@@ -78,7 +78,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     projectStatus: {
-        marginLeft: 'auto',
         borderRadius: 20,
         textAlign: 'center',
         borderColor: theme.colors.disabled,
