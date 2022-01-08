@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
-import {Image, ScrollView, Text, TouchableOpacity, View} from "react-native";
+import React from 'react';
+import {ScrollView, Text, TouchableOpacity, View} from "react-native";
 import ProgressCircle from 'react-native-progress-circle';
 import SafeAreaView from "react-native/Libraries/Components/SafeAreaView/SafeAreaView";
 import {TabScreenHeader} from "../../../components/TabScreenHeader/TabScreenHeader";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import styles from "./HomeTabStyle";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {theme} from "../../../core/theme";
@@ -17,78 +16,30 @@ import TaskInfo from "./components/TaskInfo";
 export default function HomeTabScreens({navigation}) {
     const project = projectState.projects[2];
     const tasks = tasksState.tasks;
-    console.log(tasks)
 
-    const tabs = ['Task List', 'File', 'Comments'];
-
-    const [data, setData] = useState({
-        activeTab: 'Task List',
-    });
-
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
-    const [items, setItems] = useState([
-        {label: 'All Tasks', value: 'All Tasks'},
-        {label: 'Ongoing', value: 'Ongoing'},
-        {label: 'Completed', value: 'Completed'},
-    ]);
-
-    const getTasks = () => {
-        let tasksToRender = [];
-        if (!value || value === 'All Tasks') {
-            tasksToRender = tasks;
-        } else if (value === 'Ongoing') {
-            tasksToRender = tasks.filter(task => task.progress < 100) || [];
-        } else if (value === 'Completed') {
-            tasksToRender = tasks.filter(task => task.progress === 100) || [];
-        }
-
-        return tasks;
-    };
-
-    const handleBackButton = () => {
-        navigation?.goBack();
-    };
-
-    const toggleTab = tab => {
-        // setData(combineData(data, {activeTab: tab}));
-    };
-
-    const isActiveTab = tab => {
-        const value = data?.activeTab === tab;
-        return value;
-    };
-
-    const handleChangeTaskStatus = value => {
-    };
 
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={{flex: 1}}>
                 <TabScreenHeader
                     leftComponent={() => (
-                        <TouchableOpacity
-                            onPress={() => handleBackButton()}
-                            style={styles.backButton}>
-                            <Ionicons name="arrow-back-outline" size={25} color="#000"/>
+                        <TouchableOpacity style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                        }}>
+                            <Text style={{
+                                color: theme.colors.disabled,
+                                fontSize: 20
+                            }}>Paiecash</Text>
                         </TouchableOpacity>
+
                     )}
                     isSearchBtnVisible={true}
                     isMoreBtnVisible={true}
                 />
                 <View>
                     <View style={styles.projectDetailsSection}>
-                        <View style={styles.projectTitleWrapper}>
-                            <Text style={styles.projectTitle}>{project?.title}</Text>
-                            <TouchableOpacity>
-                                <MaterialCommunityIcons
-                                    name="calendar-month-outline"
-                                    size={20}
-                                    color="#000"
-                                />
-                            </TouchableOpacity>
-                        </View>
-                        <Text style={styles.projectDescription}>{project?.description}</Text>
                         <View style={styles.projectTeamAndProgress}>
                             <View style={styles.projectProgressWrapper}>
                                 <ProgressCircle
@@ -102,24 +53,35 @@ export default function HomeTabScreens({navigation}) {
                                 </ProgressCircle>
                             </View>
                             <View>
-                                <Text style={styles.projectTeamTitle}>Team</Text>
-                                <View style={styles.projectTeamWrapper}>
-                                    {project?.team?.map(member => (
-                                        <Image
-                                            key={1}
-                                            style={styles.projectMemberPhoto}
-                                            source={{uri: member?.photo}}
+                                <View style={styles.projectTitleWrapper}>
+                                    <Text style={styles.projectTitle}>{project?.title}</Text>
+                                    <TouchableOpacity>
+                                        <MaterialCommunityIcons
+                                            name="shield-check"
+                                            size={30}
+                                            color={theme.colors.primary}
                                         />
-                                    ))}
-                                    <TouchableOpacity style={styles.plusBtnContainer}>
-                                        <MaterialCommunityIcons name="plus" size={22} color="#fff"/>
                                     </TouchableOpacity>
                                 </View>
+                                <Text style={styles.projectDescription}>{project?.description}</Text>
+                                <Text style={styles.projectDescription}>{project?.description}</Text>
                             </View>
                         </View>
-                        <Text style={styles.projectStatus}>{project?.status}</Text>
+                        <View style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                        }}>
+                            <Text style={styles.projectStatus}>{project?.status}</Text>
+                            <Text style={styles.projectStatus}>{project?.status}</Text>
+                            <Text style={styles.projectStatus}>{project?.status}</Text>
+                        </View>
                     </View>
                     <View style={styles.projectBody}>
+                        <Text style={{
+                            color: theme.colors.disabled,
+                            fontWeight: 'bold', fontSize: 20, marginBottom: 10
+                        }}>Service</Text>
                         <View style={styles.bottomContainer}>
                             <View style={styles.bottomContent}>
                                 {tasks?.map(task => (

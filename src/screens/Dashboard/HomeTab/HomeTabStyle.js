@@ -43,10 +43,10 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         alignItems: 'center',
     },
-    projectTeamTitle: {fontWeight: 'bold', marginBottom: 5},
+    projectTeamTitle: {fontWeight: 'bold', marginBottom: 5, color: theme.colors.disabled},
     projectDescription: {
         color: theme.colors.disabled,
-        marginBottom: 30,
+        marginBottom: 5,
     },
     projectProgressWrapper: {marginRight: 30},
     projectProgress: {
@@ -90,9 +90,8 @@ const styles = StyleSheet.create({
         color: theme.colors.disabled,
     },
     projectBody: {
-        paddingTop: 20,
+        paddingTop: 10,
         paddingHorizontal: 16,
-        paddingBottom: 120,
     },
     projectTabs: {
         backgroundColor: '#fff',

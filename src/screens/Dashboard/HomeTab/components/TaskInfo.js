@@ -1,17 +1,16 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
-import AntDesign from "react-native-vector-icons/AntDesign";
-import {ProgressBar} from 'react-native-paper'
+import {StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import {theme} from "../../../../core/theme";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 function TaskInfo({task}) {
     return (
         <TouchableWithoutFeedback>
             <View style={styles.container}>
-                <AntDesign
-                    name="checksquareo"
-                    size={20}
+                <MaterialCommunityIcons
+                    name="shield-check"
+                    size={40}
                     color={task?.progress === 100 ? theme.colors.primary : theme.colors.secondary}
                     style={styles.taskProgressIndicator}
                 />
@@ -19,20 +18,9 @@ function TaskInfo({task}) {
                     <Text style={styles.taskTitle} numberOfLines={1} ellipsizeMode="tail">
                         {task?.title}
                     </Text>
-                    <ProgressBar
-                        progress={Number(task?.progress)}
-                        color={task?.progress === 100 ? theme.colors.primary : theme.colors.secondary}
-                        style={styles.taskProgressBar}
-                    />
-                </View>
-                <View style={styles.teamWrapper}>
-                    {task?.members?.slice(0, 2)?.map(member => (
-                        <Image
-                            key={1}
-                            style={styles.memberPhoto}
-                            source={{uri: member?.photo}}
-                        />
-                    ))}
+                    <Text style={styles.taskDesc} numberOfLines={1} ellipsizeMode="tail">
+                        {task?.title}
+                    </Text>
                 </View>
                 <MaterialIcons
                     name="keyboard-arrow-right"
@@ -65,6 +53,10 @@ const styles = StyleSheet.create({
     taskMiddleColumn: {width: '50%', marginRight: 'auto'},
     taskTitle: {
         fontWeight: 'bold',
+        color: theme.colors.text,
+        marginBottom: 3,
+    },
+    taskDesc: {
         color: theme.colors.text,
         marginBottom: 3,
     },
