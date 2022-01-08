@@ -16,8 +16,7 @@ export default function Dashboard({navigation}) {
             tabBar={props => <CustomTabBar {...props} />}
             initialRouteName="Acceuil"
             screenOptions={{
-                tabBarActiveTintColor: theme.colors.primary,
-                tabBarStyle: {position: 'absolute'}
+                headerShown: false,
             }}>
             <Tab.Screen
                 name="Acceuil"
@@ -39,13 +38,7 @@ export default function Dashboard({navigation}) {
                 }}/>
             <Tab.Screen
                 name="Profile"
-                component={ProfileTabScreens}
-                options={{
-                    tabBarLabel: 'Profile',
-                    tabBarIcon: ({color, size}) => (
-                        <Icon name="person-circle-outline" color={color} size={size}/>
-                    ),
-                }}/>
+                component={ProfileTabScreens}/>
         </Tab.Navigator>
     );
 }

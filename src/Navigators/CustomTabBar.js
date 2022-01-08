@@ -10,12 +10,20 @@ import {theme} from "../core/theme";
 
 const BottomTab = createBottomTabNavigator();
 
+export const combineData = (data, params) => {
+    const obj = {};
+    for (const property in params) {
+        obj[property] = params[property];
+    }
+    return {...data, ...obj};
+};
+
 export default  function CustomTabBar(props) {
-    const [data, setData] = useState({activeNavTab: 'Dashboard'});
+    const [data, setData] = useState({activeNavTab: 'Acceuil'});
 
     const handleNavigation = route => {
-        // setData(combineData(data, {activeNavTab: route}));
-        // props?.navigation.navigate(route);
+        setData(combineData(data, {activeNavTab: route}));
+        props?.navigation.navigate(route);
     };
 
     const getColor = title => {
@@ -32,8 +40,16 @@ export default  function CustomTabBar(props) {
     return (
         <View style={styles.menuWrapper}>
             <View style={styles.menuContainer}>
-                <TouchableOpacity onPress={() => handleNavigation('Dashboard')}>
-                    <Ionicons name="ios-menu" size={32} color={getColor('Dashboard')} />
+                <TouchableOpacity onPress={() => handleNavigation('Acceuil')}>
+                    <Ionicons name="ios-menu" size={32} color={getColor('Acceuil')} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleNavigation('Members')}>
+                    <Feather name="send" size={25} color={getColor('Members')} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.plusBtnContainer}
+                    onPress={() => handleNavigation('Scan')}>
+                    <Ionicons name="qr-code-outline" size={32} color={'#fff'} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => handleNavigation('Projects')}>
                     <Ionicons
@@ -41,14 +57,6 @@ export default  function CustomTabBar(props) {
                         size={25}
                         color={getColor('Projects')}
                     />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.plusBtnContainer}
-                    onPress={() => handleNavigation('CreateProject')}>
-                    <MaterialCommunityIcons name="plus" size={25} color="#fff" />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleNavigation('Members')}>
-                    <Feather name="send" size={25} color={getColor('Members')} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => handleNavigation('Profile')}>
                     <MaterialIcons

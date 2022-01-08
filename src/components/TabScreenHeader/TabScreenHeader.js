@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import {
     View,
     Text,
@@ -9,7 +9,7 @@ import {
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {theme} from "../../core/theme";
-import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
+import {Menu, MenuOption, MenuOptions, MenuProvider, MenuTrigger} from "react-native-popup-menu";
 
 export function TabScreenHeader({
                                     leftComponent,
@@ -49,19 +49,22 @@ export function TabScreenHeader({
                     </View>
                 ) : null}
                 {isMoreBtnVisible ? (
-                    <Menu>
-                        <MenuTrigger>
-                            <Feather name="more-vertical" size={22} color="#000" />
-                        </MenuTrigger>
-                        <MenuOptions>
-                            <MenuOption>
-                                <Text style={styles.menuOptionText}>Settings</Text>
-                            </MenuOption>
-                            <MenuOption>
-                                <Text style={styles.menuOptionText}>Log out</Text>
-                            </MenuOption>
-                        </MenuOptions>
-                    </Menu>
+                    <MenuProvider>
+                        <Menu>
+                            <MenuTrigger>
+                                <Feather name="more-vertical" size={22} color="#000" />
+                            </MenuTrigger>
+                            <MenuOptions>
+                                <MenuOption>
+                                    <Text style={styles.menuOptionText}>Settings</Text>
+                                </MenuOption>
+                                <MenuOption>
+                                    <Text style={styles.menuOptionText}>Log out</Text>
+                                </MenuOption>
+                            </MenuOptions>
+                        </Menu>
+                    </MenuProvider>
+
                 ) : null}
             </View>
         </View>
@@ -110,6 +113,6 @@ const styles = StyleSheet.create({
     searchInputField: {
         fontSize: 15,
         height: 40,
-
+        color: theme.colors.text
     },
 });
