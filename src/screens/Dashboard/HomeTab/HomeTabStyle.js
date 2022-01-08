@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
         color: theme.colors.disabled,
     },
     projectBody: {
-        paddingTop: 10,
+        paddingTop: 5,
         paddingHorizontal: 16,
     },
     projectTabs: {

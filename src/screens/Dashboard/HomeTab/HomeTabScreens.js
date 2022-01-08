@@ -8,8 +8,9 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import {theme} from "../../../core/theme";
 import projectState from "../../../helpers/projectState";
 import tasksState from "../../../helpers/taskState";
-import TaskInfo from "./components/TaskInfo";
 import AuthentificationContext from "../../../context/AuthentificationContext";
+import ListService from "./components/ListService";
+import Partenaires from "./components/Partenaires";
 
 /**
  * @author Jaures Kano <ruddyjaures@gmail.com>
@@ -68,14 +69,20 @@ export default function HomeTabScreens({navigation}) {
                                         {authData.user?.firstName} {authData.user?.lastName}
                                     </Text>
                                 </View>
-                                <Text style={styles.projectDescription}>{authData.user?.email}</Text>
-                                <Text style={styles.projectDescription}>{authData.user?.phone}</Text>
                                 <Text style={{
                                     color: theme.colors.error,
                                     width: '100%',
                                     marginBottom: 5
                                 }}>
-                                    Profile non certifier</Text>
+                                    Profile non certifier
+                                </Text>
+                                <Text style={{
+                                    color: theme.colors.error,
+                                    width: '100%',
+                                    marginBottom: 5
+                                }}>
+                                    Aucun abonnement
+                                </Text>
                             </View>
                         </View>
                         <View style={{
@@ -96,20 +103,8 @@ export default function HomeTabScreens({navigation}) {
                             </View>
                         </View>
                     </View>
-
-                    <View style={styles.projectBody}>
-                        <Text style={{
-                            color: theme.colors.disabled,
-                            fontWeight: 'bold', fontSize: 20, marginBottom: 10
-                        }}>Service</Text>
-                        <View style={styles.bottomContainer}>
-                            <View style={styles.bottomContent}>
-                                {tasks?.map(task => (
-                                    <TaskInfo task={task} key={0}/>
-                                ))}
-                            </View>
-                        </View>
-                    </View>
+                    <Partenaires/>
+                    <ListService styles={styles}/>
                 </View>
             </ScrollView>
         </SafeAreaView>
