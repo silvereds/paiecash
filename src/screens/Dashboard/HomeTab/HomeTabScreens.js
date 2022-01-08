@@ -11,6 +11,7 @@ import tasksState from "../../../helpers/taskState";
 import AuthentificationContext from "../../../context/AuthentificationContext";
 import ListService from "./components/ListService";
 import Partenaires from "./components/Partenaires";
+import Toast from "react-native-toast-message";
 
 /**
  * @author Jaures Kano <ruddyjaures@gmail.com>
@@ -91,16 +92,31 @@ export default function HomeTabScreens({navigation}) {
                             justifyContent: 'space-around',
                             alignItems: 'space-around'
                         }}>
-                            <View style={{width: '40%'}}>
-                                <Text style={styles.projectStatus}>
-                                    Envoie
-                                </Text>
+                            <View style={{width: '100%'}}>
+                                <TouchableOpacity onPress={() => Toast.show({
+                                    type: 'info',
+                                    text1: 'Vous devez remplir vos informations avant'
+                                })}>
+                                    <Text style={{
+                                        borderRadius: 20,
+                                        backgroundColor: theme.colors.primary,
+                                        textAlign: 'center',
+                                        textTransform: 'uppercase',
+                                        paddingHorizontal: 15,
+                                        paddingVertical: 10,
+                                        fontSize: 15,
+                                        fontWeight: 'bold',
+                                        color: theme.colors.textWhite,
+                                    }}>
+                                        Choisir un abonnement
+                                    </Text>
+                                </TouchableOpacity>
                             </View>
-                            <View style={{width: '40%'}}>
-                                <Text style={styles.projectStatus}>
-                                    Retrait
-                                </Text>
-                            </View>
+                            {/*<View style={{width: '40%'}}>*/}
+                            {/*    <Text style={styles.projectStatus}>*/}
+                            {/*        Retrait*/}
+                            {/*    </Text>*/}
+                            {/*</View>*/}
                         </View>
                     </View>
                     <Partenaires/>
