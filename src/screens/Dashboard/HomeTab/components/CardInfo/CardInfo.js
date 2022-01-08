@@ -1,10 +1,8 @@
 import React, {useContext} from 'react';
-import {Image, ImageBackground, StyleSheet} from "react-native";
-import {Avatar, Card, IconButton, Paragraph, Title} from 'react-native-paper';
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {theme} from "../../../../../core/theme";
 import AuthentificationContext from "../../../../../context/AuthentificationContext";
-
-const LeftContent = props => <Avatar.Icon {...props} icon="folder"/>
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 /**
  * @author Jaures Kano <ruddyjaures@gmail.com>
@@ -13,48 +11,102 @@ export default function CardInfo(props) {
     const {authData} = useContext(AuthentificationContext)
 
     return (
-        <Card style={styles.container}>
-            <ImageBackground style={styles.imageBackground} source={require('../../../../../assets/carte.png')}>
-                <Card.Title titleStyle={styles.cardTitle}
-                            title="PAIECASH"
-                            rightStyle={{height: 50, width: 50}}
-                            right={(props) => <IconButton {...props} icon={({size, color}) => (
-                                <Image
-                                    style={{height: size, width: size}}
-                                    source={require('../../../../../assets/logo-blanc.png')}
-                                />
-                            )} onPress={() => {
-                            }}/>}/>
-                <Card.Content>
-                    <Title style={styles.name}>{authData.user?.firstName} {authData.user?.lastName}</Title>
-                    <Paragraph style={styles.name}>{authData.user?.email}</Paragraph>
-                </Card.Content>
-            </ImageBackground>
-        </Card>
+        <TouchableOpacity
+            style={styles.container}
+            onPress={() => ''}>
+            <Text style={styles.projectTitle}>test</Text>
+            <View style={styles.rowJustifyBetween}>
+                <View style={styles.flexRow}>
+                    <MaterialCommunityIcons
+                        name="calendar-month-outline"
+                        size={20}
+                        color={theme.colors.disabled}
+                    />
+                    <Text style={styles.projectBottomText}>Test</Text>
+                </View>
+                <View style={styles.flexRow}>
+                    <MaterialCommunityIcons
+                        name="checkbox-marked"
+                        size={20}
+                        color={theme.colors.disabled}
+                    />
+                    <Text style={styles.projectBottomText}>12 Tasks</Text>
+                </View>
+            </View>
+        </TouchableOpacity>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'center',
-        width: '100%',
-        borderRadius: 10,
-        backgroundColor: theme.colors.primary
+        backgroundColor: '#fff',
+        padding: 10,
+        height: 180,
+        borderRadius: 7,
+        shadowColor: '#000',
+        shadowOffset: {width: 0, height: 1},
+        shadowOpacity: 0.5,
+        shadowRadius: 1,
+        elevation: 1,
+        margin: 1,
+        marginBottom: 25,
     },
-    imageBackground: {
-        borderRadius: 10,
-        overflow: 'hidden',
-        padding: 5
-    },
-    cardTitle: {
-        color: '#fff',
-        marginTop: -10
-    },
-    name: {
-        color: '#fff'
-    },
-    paragraph: {
+    projectTitle: {
         fontWeight: 'bold',
-        color: '#fff'
+        fontSize: 17,
+        marginBottom: 5,
+    },
+    projectTeamAndProgress: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 20,
+    },
+    projectDescription: {
+        color: theme.colors.disabled,
+        marginBottom: 10,
+    },
+    projectTeamTitle: {fontWeight: 'bold', marginBottom: 5},
+    projectTeamWrapper: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingLeft: 10
+    },
+    projectMemberPhoto: {
+        height: 40,
+        width: 40,
+        borderRadius: 50,
+        marginLeft: -10,
+    },
+    projectProgress: {
+        fontWeight: 'bold',
+        fontSize: 16,
+    },
+    rowJustifyBetween: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    flexRow: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    projectBottomText: {
+        marginLeft: 5,
+        fontSize: 14,
+    },
+    plusBtnContainer: {
+        backgroundColor: theme.colors.primary,
+        height: 40,
+        width: 40,
+        borderRadius: 50,
+        marginLeft: -10,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 });
