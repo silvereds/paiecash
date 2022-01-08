@@ -5,6 +5,7 @@ import QrCodeTabScreens from "./QrCodeTab/QrCodeTabScreens";
 import ProfileTabScreens from "./ProfileTab/ProfileTabScreens";
 import {theme} from "../../core/theme";
 import Icon from 'react-native-vector-icons/Ionicons';
+import CustomTabBar from "../../Navigators/CustomTabBar";
 
 const Tab = createBottomTabNavigator();
 
@@ -12,6 +13,7 @@ export default function Dashboard({navigation}) {
 
     return (
         <Tab.Navigator
+            tabBar={props => <CustomTabBar {...props} />}
             initialRouteName="Acceuil"
             screenOptions={{
                 tabBarActiveTintColor: theme.colors.primary,
