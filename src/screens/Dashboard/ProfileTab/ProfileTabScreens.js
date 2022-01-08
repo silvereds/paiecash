@@ -14,13 +14,7 @@ export default function ProfileTabScreens({navigation}) {
 
     return (
         <SafeAreaView style={{width: '100%'}}>
-            <ScrollView style={{width: '100%', padding: 10}}
-                        showsVerticalScrollIndicator={false}
-                        scrollEventThrottle={16}
-                        directionalLockEnabled={false}
-                        disableScrollViewPanResponder
-                        nestedScrollEnabled
-                        removeClippedSubviews={false}>
+            <ScrollView style={{width: '100%', padding: 10}}>
                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 50}}>
                     <Text>
                         Profile

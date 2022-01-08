@@ -35,7 +35,6 @@ export default function QrCodeTabScreens(props) {
                         <View style={{width: '100%'}}>
                             <CardSlider/>
                         </View>
-
                     </View>
                 }
             </ScrollView>

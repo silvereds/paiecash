@@ -2,17 +2,19 @@ import React from 'react';
 import {Dimensions, Image, Platform, StyleSheet, Text, View} from "react-native";
 import Carousel from "react-native-snap-carousel";
 import CreditCardDisplay from "react-native-credit-card-display/src/index";
+import Paragraph from "../Paragraph";
+import Svg from 'react-native-svg';
 
-export default function CardSlider({ dataCard = []}) {
+
+export default function CardSlider({ dataCard = [], setData}) {
 
     const renderDarkItem =  ({}) =>  {
         return   <View style={{ width: '100%' }}>
             <CreditCardDisplay
                 style={{ width: '100%' }}
-                cardTypeIcon="amex"
                 number={123155512223551551}
                 cvc={321}
-                expiration="04/21"
+                expiration="04/212"
                 name="John J. Doe"
                 since="2004"
             />
@@ -22,12 +24,21 @@ export default function CardSlider({ dataCard = []}) {
     return (
         <View style={{ flex: 1 }}>
             {dataCard.length === 0 ?
-                <View>
-                    <Text>Aucune carte</Text>
+                <View style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-around',
+                    marginTop: 20,
+                    marginBottom: 20,
+                }}>
+                    <Svg width="80" height="80">
+                        <Image href={require('../../assets/carte-empty.svg')} />
+                    </Svg>
+                    <Paragraph>Aucune carte</Paragraph>
                 </View>
             :
                 <Carousel
-                    data={[{}, {}]}
+                    data={dataCard}
                     nestedScrollEnabled
                     layout={'stack'}
                     layoutCardOffset={`18`}
@@ -39,10 +50,9 @@ export default function CardSlider({ dataCard = []}) {
                     contentContainerCustomStyle={styles.sliderContentContainer}
                     inactiveSlideScale={0.94}
                     inactiveSlideOpacity={0.7}
+                    onSnapToItem={(e) => console.log(e)}
                 />
-
             }
-
         </View>
     );
 }
