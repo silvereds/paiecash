@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {TouchableOpacity, View} from "react-native";
 import styles from "./NavigatorStyle";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
@@ -41,27 +40,22 @@ export default  function CustomTabBar(props) {
         <View style={styles.menuWrapper}>
             <View style={styles.menuContainer}>
                 <TouchableOpacity onPress={() => handleNavigation('Acceuil')}>
-                    <Ionicons name="ios-menu" size={32} color={getColor('Acceuil')} />
+                    <Ionicons name="ios-menu" size={32} color={getColor('Acceuil')}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleNavigation('Members')}>
-                    <Feather name="send" size={25} color={getColor('Members')} />
+                <TouchableOpacity onPress={() => handleNavigation('Transfert')}>
+                    <Feather name="send" size={25} color={getColor('Transfert')}/>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.plusBtnContainer}
                     onPress={() => handleNavigation('Scan')}>
-                    <Ionicons name="qr-code-outline" size={32} color={'#fff'} />
+                    <Ionicons name="qr-code-outline" size={32} color={'#fff'}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleNavigation('Projects')}>
-                    <Ionicons
-                        name="ios-document-text"
-                        size={25}
-                        color={getColor('Projects')}
-                    />
+                <TouchableOpacity onPress={() => handleNavigation('Carte')}>
+                    <Ionicons name="card" size={25} color={getColor('Carte')}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => handleNavigation('Profile')}>
                     <MaterialIcons
-                        name="account-circle"
-                        size={25}
+                        name="account-circle" size={25}
                         color={getColor('Profile')}
                     />
                 </TouchableOpacity>
