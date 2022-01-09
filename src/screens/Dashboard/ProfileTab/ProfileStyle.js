@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         color: theme.colors.disabled,
         marginTop: 20,
         marginBottom: 10,
-        fontSize: 14,
+        fontSize: 18,
     },
     exploreContent: {
         display: 'flex',

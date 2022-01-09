@@ -4,7 +4,7 @@ const fakeCard = [
         "credit_card_number": "4706373846110",
         "cvv": "391",
         "expiry_date": "3/2022",
-        "montant": 2000,
+        "montant": 2000000,
         "card_holder_name": "Brooklyn Garcia",
         "validation": "https://dnschecker.org/credit-card-validator.php?ccn=4706373846110"
     },
@@ -20,7 +20,7 @@ const fakeCard = [
     {
         "network": "Visa",
         "credit_card_number": "4256880298280",
-        "montant": 20000,
+        "montant": 320000,
         "cvv": "965",
         "expiry_date": "3/2022",
         "card_holder_name": "Daniel Harris",
@@ -29,7 +29,7 @@ const fakeCard = [
     {
         "network": "Visa",
         "credit_card_number": "4256882205416",
-        "montant": 200000,
+        "montant": 3500000,
         "cvv": "892",
         "expiry_date": "10/2024",
         "card_holder_name": "Abigail Anderson",
@@ -37,7 +37,7 @@ const fakeCard = [
     },
     {
         "network": "Visa",
-        "montant": 200000,
+        "montant": 2004400,
         "credit_card_number": "4706374137194674",
         "cvv": "469",
         "expiry_date": "4/2021",

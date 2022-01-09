@@ -50,7 +50,7 @@ export default function CardSlider({ dataCard = [], setData}) {
                     contentContainerCustomStyle={styles.sliderContentContainer}
                     inactiveSlideScale={0.94}
                     inactiveSlideOpacity={0.7}
-                    onSnapToItem={(e) => setData(dataCard[e - 1])}
+                    onSnapToItem={(e) => setData(dataCard[e])}
                 />
             }
         </View>

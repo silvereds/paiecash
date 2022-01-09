@@ -1,6 +1,6 @@
 // config de l'applcation
 export const APPENV = {
-    domain: 'http://paiecashapi.eden-itsystems.cm',
+    domain: 'https://paiecashapi.eden-itsystems.cm',
     apiKey: 'AIzaSyBDsdN3XWM5D2-c_ti5j44GrhMnBHNmSF0',
     authDomain: 'react-native-market-2861b.firebaseapp.com',
     databaseURL: 'https://react-native-market-2861b.firebaseio.com',
