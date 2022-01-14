@@ -1,12 +1,14 @@
 import React, {useState} from "react";
-import {StyleSheet, TextInput, TouchableOpacity, View,} from 'react-native';
+import {Pressable, StyleSheet, TextInput, TouchableOpacity, View,} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export function TabScreenHeader({
                                     leftComponent,
                                     isSearchBtnVisible,
-                                    isMoreBtnVisible,
+                                    isAddBtnVisible,
+                                    onAddBtnPress,
                                 }) {
     const [data, setData] = useState({isSearchFieldVisible: false});
 
@@ -34,10 +36,15 @@ export function TabScreenHeader({
                             </View>
                         ) : (
                             <TouchableOpacity onPress={() => toggleSearchField()}>
-                                <Feather name="search" size={22} color="#000"/>
+                                <Feather name="search" size={22} color="#393939"/>
                             </TouchableOpacity>
                         )}
                     </View>
+                ) : null}
+                {isAddBtnVisible ? (
+                    <Pressable style={styles.searchContainer} onPress={() => onAddBtnPress()}>
+                        <Ionicons name="add-circle" size={22} color='#393939' />
+                    </Pressable>
                 ) : null}
                 {/*{isMoreBtnVisible ? (*/}
                 {/*    <Menu>*/}

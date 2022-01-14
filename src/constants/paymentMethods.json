@@ -1,0 +1,75 @@
+[
+    {
+        "id" : 1,
+        "name" : "Orange Money",
+        "value" : "ORANGE_MONEY",
+        "inputs" : [
+            {
+                "name" : "phone Number",
+                "type" : "numeric",
+                "value" : "+237695643360",
+                "format" : "phoneNumber"
+            },
+            {
+                "name" : "amount",
+                "type" : "numeric",
+                "value" : "0",
+                "format" : "numeric"
+            }
+        ]
+
+    },
+    {
+        "id" : 2,
+        "name" : "Mtn MoMo",
+        "value" : "MTN_MOBILE_MONEY",
+        "inputs" : [
+            {
+                "name" : "phone Number",
+                "type" : "numeric",
+                "value" : "+237695643360",
+                "format" : "phoneNumber"
+            },
+            {
+                "name" : "amount",
+                "type" : "numeric",
+                "value" : "0",
+                "format" : "numeric"
+            }
+        ]
+
+    },
+    {
+        "id" : 3,
+        "name" : "Bank Transfer",
+        "value" : "BANK_TRANSFER",
+        "inputs" : [
+            {
+                "name" : "Bank Name",
+                "type" : "select",
+                "value" : "UBA",
+                "options" : [
+                    {
+                        "name" : "UBA",
+                        "value" : "UBA"
+                    },
+                    {
+                        "name" : "AfriLand",
+                        "value" : "AFRILAND"
+                    },
+                    {
+                        "name" : "CCA Bank",
+                        "value" : "CCA_BANK"
+                    }
+                ]
+            },
+            {
+                "name" : "amount",
+                "type" : "numeric",
+                "value" : "0",
+                "format" : "numeric"
+            }
+        ]
+
+    }
+]

@@ -56,11 +56,11 @@ function VirtualCard(props) {
                         <View style={styles.exploreSection}>
                             <Text style={styles.exploreHeader}>Sevices</Text>
                             <View style={styles.exploreContent}>
-                                <TouchableOpacity style={styles.singleExplore}>
+                                <TouchableOpacity style={styles.singleExplore} onPress={() => props?.navigation.navigate('Recharge',{card: cardSelect})}>
                                     <Ionicons name="cash-outline" size={22} color={theme.colors.primary}/>
                                     <Text style={styles.exploreText}>Recharge</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.singleExplore}>
+                                <TouchableOpacity style={styles.singleExplore} onPress={() => props?.navigation.navigate('Transfer',{card: cardSelect})}>
                                     <SimpleLineIcons
                                         name="wallet" size={22}
                                         color={theme.colors.primary}
@@ -71,7 +71,7 @@ function VirtualCard(props) {
                                     <Ionicons name="share" size={22} color={theme.colors.primary}/>
                                     <Text style={styles.exploreText}>Retrait</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.singleExplore}>
+                                <TouchableOpacity style={styles.singleExplore} onPress={() => props?.navigation.navigate('Historique',{card: cardSelect})}>
                                     <MaterialCommunityIcons
                                         name="history"
                                         size={22}
@@ -86,7 +86,7 @@ function VirtualCard(props) {
                                     />
                                     <Text style={styles.exploreText}>Paramettre</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.singleExplore}>
+                                <TouchableOpacity style={styles.singleExplore}  onPress={() => props?.navigation.navigate('QrCode',{card: cardSelect})}>
                                     <Ionicons name="qr-code-outline" size={22} color={theme.colors.primary}/>
                                     <Text style={styles.exploreText}>Qr code</Text>
                                 </TouchableOpacity>
