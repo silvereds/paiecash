@@ -21,9 +21,9 @@ export default function Button({mode, style, ...props}) {
 const styles = StyleSheet.create({
     button: {
         width: '100%',
-        marginVertical: 10,
+        marginVertical: 5,
         paddingVertical: 2,
-        borderRadius: 10
+        borderRadius: 5
     },
     text: {
         fontWeight: 'bold',

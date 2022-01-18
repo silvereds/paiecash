@@ -12,7 +12,6 @@ import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 function VirtualCard(props) {
     const [cardSelect, setCardSelect] = useState(fakeCard[0])
 
-    console.log(cardSelect)
     return (
         <SafeAreaView style={{
             flex: 1,

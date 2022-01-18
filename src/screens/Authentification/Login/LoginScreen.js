@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react'
-import {Dimensions, ImageBackground, StyleSheet, Switch, TouchableOpacity, View} from 'react-native'
+import {TouchableOpacity, View} from 'react-native'
 import {Text} from 'react-native-paper'
 import Background from '../../../components/Background'
 import TextInput from '../../../components/TextInput'
@@ -17,7 +17,13 @@ import Button from "../../../components/Button";
 export default function LoginScreen({navigation}) {
     const {setAuthData} = useContext(AuthentificationContext);
     const {updateStorage} = useAsyncData('data')
-    const {data: dataLogin, loading, postData, status, error} = useFetchApi(APPENV.domain + '/api/auth/login')
+    const {
+        data: dataLogin,
+        loading,
+        postData,
+        status,
+        error
+    } = useFetchApi(APPENV.domain + '/api/authentification/login')
     const [email, setEmail] = useState({value: '', error: ''})
     const [password, setPassword] = useState({value: '', error: ''})
 
@@ -112,12 +118,12 @@ export default function LoginScreen({navigation}) {
                         width: '100%',
                         textAlign: 'center'
                     }}>
-                        <Text style={{textAlign: 'center'}}>Vous a avez deja en un compte ? </Text>
-                        <TouchableOpacity onPress={() => navigation.replace('LoginScreen')}>
+                        <Text style={{textAlign: 'center'}}>Vous n'avez pas encore de compte ? </Text>
+                        <TouchableOpacity onPress={() => navigation.replace('RegisterScreen')}>
                             <Text style={{
                                 fontWeight: 'bold',
                                 color: theme.colors.primary,
-                            }}>Connectez vous</Text>
+                            }}>Inscrivez vous</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

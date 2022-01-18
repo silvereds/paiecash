@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {SafeAreaView, ScrollView, Text, View} from "react-native";
+import {SafeAreaView, ScrollView, View} from "react-native";
 import QrCodeScan from "../../../components/QrCode/QrCodeScan";
 import PaiementScanInfo from "./PaiementScanInfo";
 import useFetchApi from "../../../helpers/fetchApi/useFetchApi";
@@ -11,13 +11,13 @@ import CardSlider from "../../../components/CardSlider/CardSlider";
  * @author Jaures Kano <ruddyjaures@gmail.com>
  */
 export default function QrCodeTabScreens(props) {
-    const {data: dataFetch, loading, getItem} = useFetchApi(APPENV.domain+'/api/qr_codes')
+    const {data: dataFetch, loading, searchData} = useFetchApi(APPENV.domain + '/api/qr_code/check')
     const [reactivate, setActivate] = useState(true)
     const [data, setData] = useState('')
 
     return (
         <SafeAreaView style={{width: '100%'}}>
-            <ScrollView style={{width: '100%', padding: 10}}
+            <ScrollView style={{width: '100%'}}
                         showsVerticalScrollIndicator={false}
                         scrollEventThrottle={16}
                         directionalLockEnabled={false}
@@ -31,14 +31,13 @@ export default function QrCodeTabScreens(props) {
                     :
                     <View>
                         <PaiementScanInfo setData={setData} data={data}
-                                          getItem={getItem} dataFetch={dataFetch} loading={loading}/>
+                                          searchData={searchData} dataFetch={dataFetch} loading={loading}/>
                         <View style={{width: '100%'}}>
                             <CardSlider/>
                         </View>
                     </View>
                 }
             </ScrollView>
-
         </SafeAreaView>
     );
 }

@@ -12,7 +12,7 @@ import Toast from "react-native-toast-message";
 /**
  * @author Jaures Kano <ruddyjaures@gmail.com>
  */
-export default function CompleteRegistration({emailRegister, navigation}) {
+export default function ValidationRegistration({emailRegister, navigation}) {
     const {loading, data, error, status, postData} = useFetchApi(APPENV.domain + '/registration/complete/info')
     const [firstName, setFirstName] = useState({value: '', error: ''})
     const [lastName, setLastName] = useState({value: '', error: ''})
