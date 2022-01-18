@@ -15,7 +15,7 @@ export default function RegisterScreen({navigation}) {
 
     return (
         <Background navigation={navigation} background={true} back={true}>
-            {step === true ?
+            {step === false ?
                 <FirstRegistrations/>
                 :
                 <ValidationRegistration/>
