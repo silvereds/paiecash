@@ -43,7 +43,7 @@ export default function LoginScreen({navigation}) {
             Toast.show({
                 type: 'error',
                 text1: 'Erreur de connexion',
-                text2: error.error
+                text2: error.message
             });
         }
     }, [error])
@@ -86,6 +86,7 @@ export default function LoginScreen({navigation}) {
                             label="Mot de passe"
                             returnKeyType="done"
                             value={password.value}
+                            ifEye={true}
                             onChangeText={(text) => setPassword({value: text, error: ''})}
                             error={!!password.error}
                             errorText={password.error}
