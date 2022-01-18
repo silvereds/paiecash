@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {TouchableOpacity, View} from "react-native";
 import TextInput from "../../../components/TextInput";
 import {Checkbox, Text} from "react-native-paper";
@@ -8,13 +8,18 @@ import useFetchApi from "../../../helpers/fetchApi/useFetchApi";
 import {APPENV} from "../../../core/config";
 import styles from "../Login/LoginStyle";
 import FilterCountry from "./FilterCountry";
+import {emailValidator} from "../../../helpers/validators/emailValidator";
+import {passwordValidator} from "../../../helpers/validators/passwordValidator";
+import {nameValidator} from "../../../helpers/validators/nameValidator";
+import Toast from "react-native-toast-message";
 
 /**
  * @author Jaures Kano <ruddyjaures@gmail.com>
  */
-export default function FirstRegistrations({setView, setEmailRegister, navigation}) {
+export default function FirstRegistrations({setStep, navigation, setUserData}) {
     const {data: dataRegister, postData, status, loading, error} =
         useFetchApi(APPENV.domain + '/api/authentification/registration')
+    const [select, setSelect] = useState()
     const [email, setEmail] = useState({value: '', error: ''})
     const [phone, setPhone] = useState({value: '', error: ''})
     const [firstName, setFirstName] = useState({value: '', error: ''})
@@ -23,11 +28,58 @@ export default function FirstRegistrations({setView, setEmailRegister, navigatio
     const [passwordConfirm, setPasswordConfirm] = useState({value: '', error: ''})
     const [checked, setChecked] = React.useState(false);
 
+    useEffect(() => {
+        if (dataRegister.message) {
+            setUserData({
+                "phone": phone.value,
+                "email": email.value,
+                "country": select.selectedList[0]['_id']
+            })
+            dataRegister.message && Toast.show({
+                type: 'success',
+                text2: dataRegister.message
+            })
+            setStep(true)
+        }
+
+        return () => null
+    }, [dataRegister]);
+
+
+    useEffect(() => {
+        error.message && Toast.show({
+            type: 'error',
+            text1: 'Erreur',
+            text2: error.message
+        })
+        return () => null
+    }, [dataRegister]);
+
 
     const onHandleSubmit = () => {
+        const emailError = emailValidator(email.value)
+        const passwordError = passwordValidator(password.value)
+        const confirmpasswordError = passwordValidator(passwordConfirm.value)
+        const firstNameError = nameValidator(firstName.value)
+        const lastNameError = nameValidator(lastName.value)
+        if (emailError || passwordError || firstNameError || lastNameError || confirmpasswordError) {
+            setEmail({...email, error: emailError})
+            setPassword({...password, error: passwordError})
+            setPasswordConfirm({...passwordConfirm, error: confirmpasswordError})
+            setFirstName({...firstName, error: firstNameError})
+            setLastName({...lastName, error: lastNameError})
+            return console.log('buf')
+        }
 
+        postData({
+            "first_name": firstName.value, "last_name": firstName.value, "phone": phone.value,
+            "email": email.value, "country": select.selectedList[0]['_id'],
+            "password": password.value, "confirm_password": password.value,
+            "confirmation_mode": !checked, "api_key": APPENV.apiKey
+        })
     }
 
+    console.log(dataRegister, error, status)
     return (
         <View style={styles.bodyContent}>
             <Text style={styles.largeText}>Bienvenu !</Text>
@@ -35,7 +87,7 @@ export default function FirstRegistrations({setView, setEmailRegister, navigatio
                 Inscrivez vous et entrer dans la grands communaute paiecash
             </Text>
             <View style={styles.inputRow}>
-                <FilterCountry/>
+                <FilterCountry select={select} setSelect={setSelect}/>
             </View>
             <View style={styles.inputRow}>
                 <TextInput
@@ -137,7 +189,7 @@ export default function FirstRegistrations({setView, setEmailRegister, navigatio
                 />
             </View>
 
-            <Button mode="contained" disabled={loading === true}>
+            <Button mode="contained" disabled={loading === true} onPress={() => onHandleSubmit()}>
                 {loading === true ? 'Chargement...' : 'INSCIPTION'}
             </Button>
 
