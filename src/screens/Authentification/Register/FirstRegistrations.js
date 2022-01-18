@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {TouchableOpacity, View} from "react-native";
 import TextInput from "../../../components/TextInput";
-import {Text} from "react-native-paper";
+import {Checkbox, Text} from "react-native-paper";
 import {theme} from "../../../core/theme";
 import Button from "../../../components/Button";
 import useFetchApi from "../../../helpers/fetchApi/useFetchApi";
@@ -15,18 +15,14 @@ import FilterCountry from "./FilterCountry";
 export default function FirstRegistrations({setView, setEmailRegister, navigation}) {
     const {data: dataRegister, postData, status, loading, error} =
         useFetchApi(APPENV.domain + '/api/authentification/registration')
-    const {data, searchData} = useFetchApi(APPENV.domain + '/api/enabled_countries')
     const [email, setEmail] = useState({value: '', error: ''})
     const [phone, setPhone] = useState({value: '', error: ''})
     const [firstName, setFirstName] = useState({value: '', error: ''})
     const [lastName, setLastName] = useState({value: '', error: ''})
     const [password, setPassword] = useState({value: '', error: ''})
     const [passwordConfirm, setPasswordConfirm] = useState({value: '', error: ''})
-    const [confirmMode, setCofirmMode] = useState({value: '', error: ''})
+    const [checked, setChecked] = React.useState(false);
 
-    useEffect(() => {
-        searchData(`?`)
-    }, []);
 
     const onHandleSubmit = () => {
 
@@ -111,25 +107,34 @@ export default function FirstRegistrations({setView, setEmailRegister, navigatio
                     label="Confirmez votre mot de passe"
                     returnKeyType="done"
                     ifEye={true}
-                    value={confirmMode.value}
-                    onChangeText={(text) => setCofirmMode({value: text, error: ''})}
-                    error={!!confirmMode.error}
-                    errorText={confirmMode.error}
+                    value={passwordConfirm.value}
+                    onChangeText={(text) => setPasswordConfirm({value: text, error: ''})}
+                    error={!!passwordConfirm.error}
+                    errorText={passwordConfirm.error}
                     secureTextEntry
                 />
             </View>
             <View style={{
                 width: '100%',
-                alignItems: 'flex-end',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
                 marginBottom: 24,
                 marginTop: 10,
             }}>
-                <TouchableOpacity onPress={() => navigation.navigate('ResetPasswordScreen')}>
-                    <Text style={{
-                        fontSize: 13,
-                        color: theme.colors.secondary,
-                    }}>Mot de passe oublie ?</Text>
-                </TouchableOpacity>
+                <Text style={{
+                    fontSize: 13,
+                    color: theme.colors.secondary,
+                }}>Envoyer votre code de confirmation par sms ?</Text>
+
+                <Checkbox
+                    status={checked ? 'checked' : 'unchecked'}
+                    color={theme.colors.primary}
+                    onPress={() => {
+                        setChecked(!checked);
+                    }}
+                />
             </View>
 
             <Button mode="contained" disabled={loading === true}>

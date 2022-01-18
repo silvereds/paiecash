@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {SafeAreaView, ScrollView, Text, View, TouchableOpacity, Image} from "react-native";
+import {Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import useAsyncData from "../../../services/DataStorage/UseAsyncData";
 import AuthentificationContext from "../../../context/AuthentificationContext";
 import {TabScreenHeader} from "../../../components/TabScreenHeader/TabScreenHeader";
@@ -7,7 +7,6 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import styles from "./ProfileStyle";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {theme} from "../../../core/theme";
-import Fontisto from "react-native-vector-icons/Fontisto";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import Toast from "react-native-toast-message";
 
@@ -88,8 +87,8 @@ export default function ProfileTabScreens({navigation}) {
                             <TouchableOpacity
                                 style={styles.singleExplore}
                                 onPress={() => {
-                                    navigation.navigate('StartScreen')
                                     setAuthData({})
+                                    navigation.navigate('StartScreen')
                                 }}>
                                 <MaterialCommunityIcons
                                     name="logout"
