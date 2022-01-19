@@ -68,7 +68,7 @@ export default function FirstRegistrations({setStep, navigation, setUserData}) {
             setPasswordConfirm({...passwordConfirm, error: confirmpasswordError})
             setFirstName({...firstName, error: firstNameError})
             setLastName({...lastName, error: lastNameError})
-            return console.log('buf')
+            return
         }
 
         postData({
