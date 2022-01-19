@@ -72,10 +72,15 @@ export default function FirstRegistrations({setStep, navigation, setUserData}) {
         }
 
         postData({
-            "first_name": firstName.value, "last_name": firstName.value, "phone": phone.value,
-            "email": email.value, "country": select.selectedList[0]['_id'],
-            "password": password.value, "confirm_password": password.value,
-            "confirmation_mode": !checked, "api_key": APPENV.apiKey
+            "first_name": firstName.value,
+            "last_name": lastName.value,
+            "phone": phone.value,
+            "email": email.value,
+            "country": select.selectedList[0]['_id'],
+            "password": password.value,
+            "confirm_password": password.value,
+            "confirmation_mode": !checked,
+            "api_key": APPENV.apiKey
         })
     }
 
