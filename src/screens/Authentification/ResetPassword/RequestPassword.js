@@ -1,32 +1,31 @@
 import React, {useEffect, useState} from 'react';
-import TextInput from "../../../components/TextInput";
+import styles from "../Login/LoginStyle";
+import {Text} from "react-native-paper";
 import {View} from "react-native";
+import TextInput from "../../../components/TextInput";
 import Button from "../../../components/Button";
 import useFetchApi from "../../../helpers/fetchApi/useFetchApi";
 import {APPENV} from "../../../core/config";
+import {emailValidator} from "../../../helpers/validators/emailValidator";
 import Toast from "react-native-toast-message";
-import styles from "../Login/LoginStyle";
-import {Text} from "react-native-paper";
 
 /**
- * @author Jaures Kano <ruddyjaures@gmail.com>
+ * Jaures Kano <ruddyjaures@gmail.com>
  */
-export default function ValidationRegistration({userData, navigation}) {
+export default function RequestPassword({setEmail: setUserMail, setStep}) {
     const {loading, data, error, status, postData} = useFetchApi(APPENV.domain
-        + '/api/authentification/registration/activation')
-    const [code, setCode] = useState({value: '', error: ''})
+        + '/api/profile/account/recover')
+    const [email, setEmail] = useState({value: '', error: ''})
 
     useEffect(() => {
         if (status < 300 && status >= 100) {
-            navigation.reset({
-                index: 0,
-                routes: [{name: 'LoginScreen'}],
-            })
+            setUserMail(email)
             Toast.show({
                 type: 'success',
                 text1: 'Success',
                 text2: data.message
             });
+            setStep(true)
         }
 
         if (status >= 400 && status < 500) {
@@ -46,32 +45,43 @@ export default function ValidationRegistration({userData, navigation}) {
         }
     }, [data, error]);
 
-    const onSignUpPressed = () => {
+
+    const sendResetPasswordEmail = () => {
+        const emailError = emailValidator(email.value)
+        if (emailError) {
+            setEmail({...email, error: emailError})
+            return
+        }
+
+        console.log({
+            "email": email,
+            "api_key": APPENV.apiKey,
+            "confirmation_mode": true
+        })
         postData({
-            "email": userData.email,
-            "code": code.value,
-            "api_key": APPENV.apiKey
+            "email": email.value,
+            "api_key": APPENV.apiKey,
+            "confirmation_mode": true
         })
     }
 
     return (
         <View style={styles.bodyContent}>
-            <Text style={styles.largeText}>Entrez votre code confirmation</Text>
+            <Text style={styles.largeText}>Recuperer votre compte</Text>
             <View style={styles.inputRow}>
                 <TextInput
-                    label="Code de confirmation"
+                    label="Email de votre compte"
                     returnKeyType="next"
-                    value={code.value}
-                    onChangeText={(text) => setCode({value: text, error: ''})}
-                    error={!!code.error}
-                    errorText={code.error}
+                    value={email.value}
+                    onChangeText={(text) => setEmail({value: text, error: ''})}
+                    error={!!email.error}
+                    errorText={email.error}
                     keyboardType="email-address"
                 />
             </View>
-            <Button mode="contained" disabled={loading === true} onPress={() => onSignUpPressed()}>
+            <Button mode="contained" disabled={loading === true} onPress={() => sendResetPasswordEmail()}>
                 {loading === true ? 'Chargement...' : 'VALIDER'}
             </Button>
         </View>
     );
 }
-
