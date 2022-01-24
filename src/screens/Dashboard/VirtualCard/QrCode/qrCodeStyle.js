@@ -116,11 +116,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   amount: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: theme.colors.text,
+    fontSize: 24,
+    fontWeight: '800',
     marginTop: 10,
-    marginBottom: 20
+    marginBottom: 20,
+    color: theme.colors.primary
   },
   spinnerTextStyle: {
     color: theme.colors.primary

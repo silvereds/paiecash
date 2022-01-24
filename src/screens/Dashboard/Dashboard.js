@@ -5,12 +5,12 @@ import HomeTabScreens from "./HomeTab/HomeTabScreens";
 import QrCodeTabScreens from "./QrCodeTab/QrCodeTabScreens";
 import ProfileTabScreens from "./ProfileTab/ProfileTabScreens";
 import CustomTabBar from "../../Navigators/CustomTabBar";
-import VirtualCard from "./VirtualCard/VirtualCard";
+import VirtualCard from "./VirtualCard";
 import Recharge from './VirtualCard/Recharge';
 import Transfer from './VirtualCard/Transfer';
 import Historique from './VirtualCard/Historique';
 import QrCode from './VirtualCard/QrCode';
-import TransfertCard from "./TransfertCard/TransfertCard";
+import TransfertCard from "./TransfertCard";
 
 const Tab = createBottomTabNavigator();
 
@@ -31,10 +31,9 @@ function Dashboard({navigation}) {
             <Tab.Screen name="Transfert" component={TransfertCard}/>
             <Stack.Screen name="Carte" component={VirtualCard} />
 
-        </Tab.Navigator>
+        </Tab.Navigator> 
     );
 }
-
 
 export default function DashboardStack({navigation}) {
     return (
