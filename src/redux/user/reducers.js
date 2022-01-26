@@ -3,6 +3,7 @@ import {
   VERIFY_EMAIL,
   CHANGE_PHONE_NUMBER,
   CHANGE_PASSWORD,
+  ADD_RECENT_CONTACT,
 } from './constants';
 
 const INIT_STATE = {
@@ -30,18 +31,21 @@ const INIT_STATE = {
   expired_at: null,
   recentContacts: [
     {
-      cardId: '01FSYD9BMC80XNW7HT7GTM7FHY',
-      cardOwner: 'Jaurès Jaurès',
+      email: 'ruddyjaures@gmail.com',
+      cardId: '01FSYD9BMC80XMW7HT7GTM7FHY',
+      cardOwner: 'Jean Jacques',
       lastAmount: 2500,
     },
     {
-      cardId: '01FSYD9BMC80XNW7HT7GTM7FHY',
+      email: 'ruddyjaures@gmail.com',
+      cardId: '01FSYD9BMC80XXW7HT7GTM7FHY',
       cardOwner: 'Maurice Junior',
       isFavorite: true,
       lastAmount: 7500,
     },
     {
-      cardId: '01FSYD9BMC80XNW7HT7GTM7FHY',
+      email: 'ruddyjaures@gmail.com',
+      cardId: '01FSYD9BMC80XWW7HT7GTM7FHY',
       cardOwner: 'Atouh Charles',
       lastAmount: 12500,
     },
@@ -64,6 +68,11 @@ const reducer = (state = INIT_STATE, action) => {
       return {...state};
     case CHANGE_PASSWORD:
       return {...state};
+    case ADD_RECENT_CONTACT:
+      if(state.recentContacts.findIndex(card => card.cardId===action.payload.cardId)>=0)
+        return {...state, recentContacts: [action.payload,...state.recentContacts.filter(card => card.cardId!==action.payload.cardId).slice(0,4)]}
+      else
+        return {...state, recentContacts: [action.payload,...state.recentContacts.slice(0,4)]}
     default:
       return state;
   }

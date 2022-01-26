@@ -157,6 +157,9 @@ const styles = StyleSheet.create({
     marginBottom: 3,
     marginTop: 20
   },
+  submitButton: {
+      backgroundColor: theme.colors.primary
+  },
 
 
 

@@ -11,6 +11,7 @@ import Transfer from './VirtualCard/Transfer';
 import Historique from './VirtualCard/Historique';
 import QrCode from './VirtualCard/QrCode';
 import TransfertCard from "./TransfertCard";
+// import Contacts from "./ContactsScreen/index";
 
 const Tab = createBottomTabNavigator();
 
@@ -47,6 +48,7 @@ export default function DashboardStack({navigation}) {
         <Stack.Screen name="Transfer" component={Transfer} />
         <Stack.Screen name="Historique" component={Historique} />
         <Stack.Screen name="QrCode" component={QrCode} />
+        {/* <Stack.Screen name="Contacts" component={Contacts} /> */}
       </Stack.Navigator>
     );
   }

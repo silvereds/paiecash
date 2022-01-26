@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext, useRef} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -8,35 +8,34 @@ import {
   TouchableWithoutFeedback,
   Pressable,
   TouchableHighlight,
+  PermissionsAndroid,
+  ActivityIndicator,
 } from 'react-native';
 import Toast from 'react-native-toast-message';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import ProgressCircle from 'react-native-progress-circle';
+import DialogInput from 'react-native-dialog-input';
 import {connect} from 'react-redux';
+import {selectContactPhone} from 'react-native-select-contact';
 
 import {TabScreenHeader} from '../../../components/TabScreenHeader/TabScreenHeader';
 import {theme} from '../../../core/theme';
 import Button from '../../../components/Button';
 
 import {APPENV} from '../../../core/config';
-import {
-  addRecentContact,
-  updateRecentContact,
-  deleteRecentContact,
-} from '../../../redux/actions';
 import useFetchApi from '../../../helpers/fetchApi/useFetchApi';
 import AuthentificationContext from '../../../context/AuthentificationContext';
 import styles from './TransfertCardStyle';
-import { REFRESH_CARDS_LIST } from '../../../redux/card/constants';
+import {REFRESH_CARDS_LIST} from '../../../redux/card/constants';
+import {ADD_RECENT_CONTACT} from '../../../redux/user/constants';
 
-const RecentContact = ({data}) => {
+const RecentContact = ({data, onSelect}) => {
   function random() {
     return Math.floor(Math.random() * 255);
   }
 
   return (
-    <TouchableWithoutFeedback>
+    <TouchableWithoutFeedback onPress={() => onSelect(data)}>
       <View style={styles.container2}>
         <View
           style={{
@@ -78,10 +77,14 @@ const RecentContact = ({data}) => {
 
 function TransfertCard(props) {
   const {authData} = useContext(AuthentificationContext);
-  const [amount, setAmount] = useState('0');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('password');
+  const [password, setPassword] = useState('');
   const [favorite, setFavorite] = useState(false);
+  const [isDialogVisible, toggleDialog] = useState(false);
+  const [hasPermission, setHasPermission] = useState(false);
+  const [email, setEmail] = useState('');
+  const [amount, setAmount] = useState('0');
+  const emailInput = useRef(null);
+  const amountInput = useRef(null);
 
   const {
     data: dataCards,
@@ -132,28 +135,71 @@ function TransfertCard(props) {
   });
 
   useEffect(() => {
-    if (paymentResponse && paymentResponse.message)
+    if (paymentResponse && paymentResponse.message && password !== '') {
       alert(paymentResponse.message);
+      setEmail('');
+      setAmount('0');
+      amountInput.current?.clear();
+      emailInput.current?.clear();
+      setPassword('');
+    }
   });
 
   function onSearchCard(emailValue = email) {
-  console.log('emailValue',emailValue);
-  searchCard(
+    console.log('emailValue', emailValue);
+    searchCard(
       `?access_token=${authData.token}&api_key=${APPENV.apiKey}&email=${emailValue}`,
     );
   }
 
-  console.log('card',card);
-
-  function onMakePayment() {
-    postData({
-      card_sender_id: props.cards[0].cardId,
+  function onMakePayment(userPassword=password) {
+    let paymentData = {
+      card_sender_id: props.cards[0]?.cardId,
       card_receiver_id: card.cardId,
-      amount,
-      card_user_password: password,
+      amount: amount,
+      card_user_password: userPassword,
       access_token: authData.token,
       api_key: APPENV.apiKey,
-    });
+    }
+    console.log('paymentData',paymentData);
+    postData(paymentData);
+    props.addRecentContact(email, card, amount, favorite);
+  }
+
+  function onSelect(card) {
+    setEmail(card.email);
+    setAmount(card.lastAmount);
+    emailInput.current?.setNativeProps({text: card.email});
+    amountInput.current?.setNativeProps({text: card.lastAmount.toString()});
+    onSearchCard(card.email);
+  }
+
+  function getPhoneNumber() {
+    if(hasPermission)
+      return selectContactPhone().then(selection => {
+        if (!selection) {
+          return null;
+        }
+
+        let {contact, selectedPhone} = selection;
+        setEmail(selectedPhone.number)
+        emailInput.current?.setNativeProps({text: selectedPhone.number});
+        onSearchCard(selectedPhone.number);
+        // console.log(
+        //   `Selected ${selectedPhone.type} phone number ${selectedPhone.number} from ${contact.name}`,
+        // );
+        return selectedPhone.number;
+      });
+    else
+      PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
+        title: 'Contacts',
+        message: "Paie Cash a besoin d'acceder à votre liste de contact.",
+        buttonPositive: 'Accepter',
+      }).then(() =>
+        {
+          setHasPermission(true)
+        }
+      );
   }
 
   return (
@@ -197,28 +243,25 @@ function TransfertCard(props) {
             <View style={styles.row}>
               <View style={styles.inputContainer}>
                 <TextInput
+                  ref={emailInput}
                   placeholder="Numéro ou E-mail du bénéficiaire"
                   returnKeyType="next"
                   autoCapitalize="none"
                   autoCompleteType="email"
                   textContentType="emailAddress"
                   keyboardType="email-address"
-                  onSubmitEditing={(event) => setEmail(event.nativeEvent.text)}
-                  onEndEditing={(event) => onSearchCard(event.nativeEvent.text)}
+                  disabled={loading2}
+                  onSubmitEditing={event => setEmail(event.nativeEvent.text)}
+                  onEndEditing={event => onSearchCard(event.nativeEvent.text)}
                 />
                 {loading2 ? (
-                  <ProgressCircle
-                    radius={30}
-                    PercentageCircle={30}
-                    borderWidth={7}
-                    color="#6AC67E"
-                    shadowColor="#f4f4f4"
-                    bgColor="#fff"
-                  />
+                  <View style={styles.floatingDeleteButton}>
+                    <ActivityIndicator size="small" color={theme.colors.primary} />
+                  </View>
                 ) : (
                   <Pressable
                     onPress={() => {
-                      setEmail('');
+                      emailInput.current.clear();
                       onSearchCard('');
                     }}
                     style={styles.floatingDeleteButton}>
@@ -230,7 +273,9 @@ function TransfertCard(props) {
                   </Pressable>
                 )}
               </View>
-              <TouchableHighlight style={styles.rounderIco} onPress={() => {}}>
+              <TouchableHighlight
+                style={styles.rounderIco}
+                onPress={() => getPhoneNumber()}>
                 <AntDesign
                   name="contacts"
                   color={theme.colors.textWhite}
@@ -244,7 +289,11 @@ function TransfertCard(props) {
               showsHorizontalScrollIndicator={false}>
               <View style={{flexDirection: 'row'}}>
                 {props.recentContacts.map(contact => (
-                  <RecentContact data={contact} />
+                  <RecentContact
+                    data={contact}
+                    key={contact.cardId}
+                    onSelect={onSelect}
+                  />
                 ))}
               </View>
             </ScrollView>
@@ -253,14 +302,16 @@ function TransfertCard(props) {
             <View style={styles.row}>
               <View style={styles.inputContainer}>
                 <TextInput
-                  onSubmitEditing={(event) => setAmount(event.nativeEvent.text)}
+                  ref={amountInput}
                   placeholder="Montant à tranférer"
                   returnKeyType="done"
                   autoCapitalize="none"
                   keyboardType="numeric"
+                  defaultValue="0"
+                  onSubmitEditing={event => setAmount(event.nativeEvent.text)}
                 />
                 <Pressable
-                  onPress={() => setAmount('')}
+                  onPress={() => amountInput.current.clear()}
                   style={styles.floatingDeleteButton}>
                   <MaterialIcons
                     name="highlight-remove"
@@ -290,8 +341,11 @@ function TransfertCard(props) {
                     style={styles.taskDesc}
                     numberOfLines={1}
                     ellipsizeMode="tail">
-                    {card ? parseInt(amount).toFixed(2)
-                        .replace(/\d(?=(\d{3})+\.)/g, '$&,') : 'Montant à Transférer'}
+                    {card
+                      ? parseInt(amount)
+                          .toFixed(2)
+                          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+                      : 'Montant à Transférer'}
                   </Text>
                 </View>
                 <Pressable onPress={() => setFavorite(!favorite)}>
@@ -310,14 +364,36 @@ function TransfertCard(props) {
       </ScrollView>
       <View style={styles.buttonContainer}>
         <Button
-          disabled={
-            card === null || email === null || amount === '' || loading3
+          style={
+            card === null || email === '' || amount === '0' || loading3
+              ? {}
+              : styles.submitButton
           }
-          onPress={() => onMakePayment()}
+          disabled={card === null || email === '' || amount === '0' || loading3}
+          onPress={() => toggleDialog(!isDialogVisible)}
           mode="contained">
           Transférer
         </Button>
       </View>
+      <DialogInput
+        isDialogVisible={isDialogVisible}
+        title={'Confirmation'}
+        message={`Entrez votre code pour confimer le transfert de ${parseInt(
+          amount,
+        )
+          .toFixed(2)
+          .replace(/\d(?=(\d{3})+\.)/g, '$&,')} vers ${card?.cardOwner}`}
+        hintInput={'Votre code'}
+        cancelText="Annuler"
+        submitText="Transférer"
+        submitInput={inputText => {
+          setPassword(inputText);
+          toggleDialog(!isDialogVisible);
+          onMakePayment(inputText);
+        }}
+        closeDialog={() => {
+          toggleDialog(!isDialogVisible);
+        }}></DialogInput>
     </SafeAreaView>
   );
 }
@@ -330,9 +406,21 @@ const mapStateToProps = ({Card, User}) => {
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        refreshCardsList: (dataCards) => dispatch({type: REFRESH_CARDS_LIST, payload: dataCards })
-    }
-}
+  return {
+    refreshCardsList: dataCards =>
+      dispatch({type: REFRESH_CARDS_LIST, payload: dataCards}),
+    addRecentContact: (email, card, amount, isFavorite) =>
+      dispatch({
+        type: ADD_RECENT_CONTACT,
+        payload: {
+          email,
+          cardId: card.cardId,
+          cardOwner: card.cardOwner,
+          lastAmount: amount,
+          isFavorite,
+        },
+      }),
+  };
+};
 
-export default connect(mapStateToProps,mapDispatchToProps)(TransfertCard);
+export default connect(mapStateToProps, mapDispatchToProps)(TransfertCard);
