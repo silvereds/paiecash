@@ -25,6 +25,7 @@
     "react-native-camera": "^4.2.1",
     "react-native-credit-card-display": "^0.3.6",
     "react-native-datepicker": "^1.7.2",
+    "react-native-fbsdk-next": "^7.0.1",
     "react-native-gesture-handler": "^2.1.0",
     "react-native-loading-spinner-overlay": "^2.0.0",
     "react-native-paper": "^4.11.1",
