@@ -13,6 +13,7 @@ import Toast from "react-native-toast-message";
 import AuthentificationContext from "../../../context/AuthentificationContext";
 import styles from "./LoginStyle";
 import Button from "../../../components/Button";
+import {GraphRequest, GraphRequestManager, LoginManager} from "react-native-fbsdk-next";
 
 export default function LoginScreen({navigation}) {
     const {setAuthData} = useContext(AuthentificationContext);
@@ -59,15 +60,57 @@ export default function LoginScreen({navigation}) {
         postData({"username": email.value, "password": password.value})
     }
 
+    const fbLogin = (resCallBack) => {
+        LoginManager.logOut()
+        return LoginManager.logInWithPermissions(['email', 'public_profile']).then(
+            result => {
+                console.log('fb ====> ', result)
+                if (result.declinedPermissions && result.declinedPermissions.includes('email')) {
+                    resCallBack({message: 'email is required'})
+                }
+
+                if (result.isCancelled) {
+                    console.log('error')
+                } else {
+                    const infoRequest = new GraphRequest(
+                        '/me?fileds=email,name',
+                        null,
+                        resCallBack
+                    )
+                    new GraphRequestManager().addRequest(infoRequest).start()
+                }
+            },
+            function (error) {
+                console.log("login fail : " + error)
+            }
+        )
+    }
+
+    const onFbLogin = async () => {
+        try {
+            await fbLogin(_responseInfoCallBack)
+        } catch (error) {
+            console.log('error: ' + error)
+        }
+    }
+
+    const _responseInfoCallBack = async (error, result) => {
+        if (error) {
+            console.log(error)
+        } else {
+            console.log(result)
+        }
+    }
+
     return (
         <Background navigation={navigation} back={true} background={true}>
-                <View style={styles.bodyContent}>
-                    <Text style={styles.largeText}>Bon retour parmis!</Text>
-                    <Text style={styles.smallText}>
-                        Entrer vos identifiants et votre mot de passe pour vous connectez
-                    </Text>
-                    <View style={styles.inputRow}>
-                        <TextInput
+            <View style={styles.bodyContent}>
+                <Text style={styles.largeText}>Bon retour parmis!</Text>
+                <Text style={styles.smallText}>
+                    Entrer vos identifiants et votre mot de passe pour vous connectez
+                </Text>
+                <View style={styles.inputRow}>
+                    <TextInput
                             label="Email ou numero de telephone"
                             returnKeyType="next"
                             value={email.value}
@@ -109,19 +152,23 @@ export default function LoginScreen({navigation}) {
                         </TouchableOpacity>
                     </View>
 
-                    <Button mode="contained" disabled={loading === true} onPress={onLoginPressed}>
-                        {loading === true ? 'Chargement...' : 'Connexion'}
-                    </Button>
+                <Button mode="contained" disabled={loading === true} onPress={onLoginPressed}>
+                    {loading === true ? 'Chargement...' : 'Connexion'}
+                </Button>
 
-                    <View style={{
-                        flexDirection: 'row',
-                        marginTop: 10,
-                        width: '100%',
-                        textAlign: 'center'
-                    }}>
-                        <Text style={{textAlign: 'center'}}>Vous n'avez pas encore de compte ? </Text>
-                        <TouchableOpacity onPress={() => navigation.replace('RegisterScreen')}>
-                            <Text style={{
+                <Button mode="contained" disabled={loading === true} onPress={onFbLogin}>
+                    Connection avec facebook
+                </Button>
+
+                <View style={{
+                    flexDirection: 'row',
+                    marginTop: 10,
+                    width: '100%',
+                    textAlign: 'center'
+                }}>
+                    <Text style={{textAlign: 'center'}}>Vous n'avez pas encore de compte ? </Text>
+                    <TouchableOpacity onPress={() => navigation.replace('RegisterScreen')}>
+                        <Text style={{
                                 fontWeight: 'bold',
                                 color: theme.colors.primary,
                             }}>Inscrivez vous</Text>
@@ -131,4 +178,3 @@ export default function LoginScreen({navigation}) {
         </Background>
     )
 }
-
