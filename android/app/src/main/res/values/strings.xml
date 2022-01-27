@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PaiecashMobile</string>
+    <string name="facebook_app_id">289567753064259</string>
+    <string name="fb_login_protocol_scheme">fb289567753064259</string>
 </resources>

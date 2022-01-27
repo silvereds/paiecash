@@ -13,6 +13,8 @@ import Toast from "react-native-toast-message";
 import AuthentificationContext from "../../../context/AuthentificationContext";
 import styles from "./LoginStyle";
 import Button from "../../../components/Button";
+import {GraphRequest, GraphRequestManager, LoginManager} from "react-native-fbsdk-next";
+import {GoogleSignin, statusCodes} from '@react-native-google-signin/google-signin';
 
 export default function LoginScreen({navigation}) {
     const {setAuthData} = useContext(AuthentificationContext);
@@ -39,7 +41,7 @@ export default function LoginScreen({navigation}) {
     }, [dataLogin])
 
     useEffect(() => {
-        if(status >= 400 && status <= 600) {
+        if (status >= 400 && status <= 600) {
             Toast.show({
                 type: 'error',
                 text1: 'Erreur de connexion',
@@ -47,6 +49,10 @@ export default function LoginScreen({navigation}) {
             });
         }
     }, [error])
+
+    useEffect(() => {
+        GoogleSignin.configure();
+    }, [navigation])
 
     const onLoginPressed = () => {
         const emailError = emailValidator(email.value)
@@ -59,15 +65,80 @@ export default function LoginScreen({navigation}) {
         postData({"username": email.value, "password": password.value})
     }
 
+    const fbLogin = (resCallBack) => {
+        LoginManager.logOut()
+        return LoginManager.logInWithPermissions(['email', 'public_profile']).then(
+            result => {
+                console.log('fb ====> ', result)
+                if (result.declinedPermissions && result.declinedPermissions.includes('email')) {
+                    resCallBack({message: 'email is required'})
+                }
+
+                if (result.isCancelled) {
+                    console.log('error')
+                } else {
+                    const infoRequest = new GraphRequest(
+                        '/me?fileds=email,name',
+                        null,
+                        resCallBack
+                    )
+                    new GraphRequestManager().addRequest(infoRequest).start()
+                }
+            },
+            function (error) {
+                console.log("login fail : " + error)
+            }
+        )
+    }
+
+    const onFbLogin = async () => {
+        try {
+            await fbLogin(_responseInfoCallBack)
+        } catch (error) {
+            console.log('error: ' + error)
+        }
+    }
+
+    const _responseInfoCallBack = async (error, result) => {
+        if (error) {
+            console.log(error)
+        } else {
+            console.log(result)
+        }
+    }
+
+    const googleSignIn = async () => {
+        GoogleSignin.signOut()
+        try {
+            await GoogleSignin.hasPlayServices();
+            const userInfo = await GoogleSignin.signIn();
+            console.log(userInfo)
+        } catch (error) {
+            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+                // user cancelled the login flow
+                console.log(error)
+            } else if (error.code === statusCodes.IN_PROGRESS) {
+                // operation (e.g. sign in) is in progress already
+                console.log(error)
+            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+                // play services not available or outdated
+                console.log(error)
+            } else {
+                // some other error happened
+                console.log(error)
+            }
+        }
+    };
+
     return (
         <Background navigation={navigation} back={true} background={true}>
-                <View style={styles.bodyContent}>
-                    <Text style={styles.largeText}>Bon retour parmis!</Text>
-                    <Text style={styles.smallText}>
-                        Entrer vos identifiants et votre mot de passe pour vous connectez
-                    </Text>
-                    <View style={styles.inputRow}>
-                        <TextInput
+            <View style={styles.bodyContent}>
+                <Text style={styles.largeText}>Bon retour parmis!</Text>
+                <Text style={styles.smallText}>
+                    Entrer vos identifiants et votre mot de passe pour vous connectez
+                </Text>
+                <View style={styles.inputRow}>
+                    <TextInput
                             label="Email ou numero de telephone"
                             returnKeyType="next"
                             value={email.value}
@@ -109,19 +180,27 @@ export default function LoginScreen({navigation}) {
                         </TouchableOpacity>
                     </View>
 
-                    <Button mode="contained" disabled={loading === true} onPress={onLoginPressed}>
-                        {loading === true ? 'Chargement...' : 'Connexion'}
-                    </Button>
+                <Button mode="contained" disabled={loading === true} onPress={onLoginPressed}>
+                    {loading === true ? 'Chargement...' : 'Connexion'}
+                </Button>
 
-                    <View style={{
-                        flexDirection: 'row',
-                        marginTop: 10,
-                        width: '100%',
-                        textAlign: 'center'
-                    }}>
-                        <Text style={{textAlign: 'center'}}>Vous n'avez pas encore de compte ? </Text>
-                        <TouchableOpacity onPress={() => navigation.replace('RegisterScreen')}>
-                            <Text style={{
+                <Button mode="contained" disabled={loading === true} onPress={onFbLogin}>
+                    Connexion avec facebook
+                </Button>
+
+                <Button mode="contained" disabled={loading === true} onPress={googleSignIn}>
+                    Connexion avec google
+                </Button>
+
+                <View style={{
+                    flexDirection: 'row',
+                    marginTop: 10,
+                    width: '100%',
+                    textAlign: 'center'
+                }}>
+                    <Text style={{textAlign: 'center'}}>Vous n'avez pas encore de compte ? </Text>
+                    <TouchableOpacity onPress={() => navigation.replace('RegisterScreen')}>
+                        <Text style={{
                                 fontWeight: 'bold',
                                 color: theme.colors.primary,
                             }}>Inscrivez vous</Text>
@@ -131,4 +210,3 @@ export default function LoginScreen({navigation}) {
         </Background>
     )
 }
-

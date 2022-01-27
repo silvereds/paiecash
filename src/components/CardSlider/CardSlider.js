@@ -12,10 +12,10 @@ export default function CardSlider({ dataCard = [], setData}) {
         return <View style={{width: '100%'}}>
             <CreditCardDisplay
                 style={{width: '100%'}}
-                number={item.cardNumber}
-                cvc={item.cardCvv}
-                expiration={item.expiredAt}
-                name={item.cardOwner}
+                number={item.credit_card_number}
+                cvc={item.cvv}
+                expiration={item.expiry_date}
+                name={item.card_holder_name}
                 since="2004"
             />
         </View>

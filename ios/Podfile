@@ -12,8 +12,6 @@ target 'PaiecashMobile' do
     :hermes_enabled => false
   )
 
-  pod 'react-native-select-contact', :path => '../node_modules/react-native-select-contact'
-
   target 'PaiecashMobileTests' do
     inherit! :complete
     # Pods for testing

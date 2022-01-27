@@ -5,13 +5,12 @@ import HomeTabScreens from "./HomeTab/HomeTabScreens";
 import QrCodeTabScreens from "./QrCodeTab/QrCodeTabScreens";
 import ProfileTabScreens from "./ProfileTab/ProfileTabScreens";
 import CustomTabBar from "../../Navigators/CustomTabBar";
-import VirtualCard from "./VirtualCard";
+import VirtualCard from "./VirtualCard/VirtualCard";
 import Recharge from './VirtualCard/Recharge';
 import Transfer from './VirtualCard/Transfer';
 import Historique from './VirtualCard/Historique';
 import QrCode from './VirtualCard/QrCode';
-import TransfertCard from "./TransfertCard";
-// import Contacts from "./ContactsScreen/index";
+import TransfertCard from "./TransfertCard/TransfertCard";
 
 const Tab = createBottomTabNavigator();
 
@@ -30,11 +29,12 @@ function Dashboard({navigation}) {
             <Tab.Screen name="Scan" component={QrCodeTabScreens}/>
             <Tab.Screen name="Profile" component={ProfileTabScreens}/>
             <Tab.Screen name="Transfert" component={TransfertCard}/>
-            <Stack.Screen name="Carte" component={VirtualCard} />
+            <Stack.Screen name="Carte" component={VirtualCard}/>
 
-        </Tab.Navigator> 
+        </Tab.Navigator>
     );
 }
+
 
 export default function DashboardStack({navigation}) {
     return (
@@ -48,7 +48,6 @@ export default function DashboardStack({navigation}) {
         <Stack.Screen name="Transfer" component={Transfer} />
         <Stack.Screen name="Historique" component={Historique} />
         <Stack.Screen name="QrCode" component={QrCode} />
-        {/* <Stack.Screen name="Contacts" component={Contacts} /> */}
       </Stack.Navigator>
     );
   }
