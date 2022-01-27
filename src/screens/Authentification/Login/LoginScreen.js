@@ -14,6 +14,7 @@ import AuthentificationContext from "../../../context/AuthentificationContext";
 import styles from "./LoginStyle";
 import Button from "../../../components/Button";
 import {GraphRequest, GraphRequestManager, LoginManager} from "react-native-fbsdk-next";
+import {GoogleSignin, statusCodes} from '@react-native-google-signin/google-signin';
 
 export default function LoginScreen({navigation}) {
     const {setAuthData} = useContext(AuthentificationContext);
@@ -40,7 +41,7 @@ export default function LoginScreen({navigation}) {
     }, [dataLogin])
 
     useEffect(() => {
-        if(status >= 400 && status <= 600) {
+        if (status >= 400 && status <= 600) {
             Toast.show({
                 type: 'error',
                 text1: 'Erreur de connexion',
@@ -48,6 +49,10 @@ export default function LoginScreen({navigation}) {
             });
         }
     }, [error])
+
+    useEffect(() => {
+        GoogleSignin.configure();
+    }, [navigation])
 
     const onLoginPressed = () => {
         const emailError = emailValidator(email.value)
@@ -101,6 +106,29 @@ export default function LoginScreen({navigation}) {
             console.log(result)
         }
     }
+
+    const googleSignIn = async () => {
+        GoogleSignin.signOut()
+        try {
+            await GoogleSignin.hasPlayServices();
+            const userInfo = await GoogleSignin.signIn();
+            console.log(userInfo)
+        } catch (error) {
+            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+                // user cancelled the login flow
+                console.log(error)
+            } else if (error.code === statusCodes.IN_PROGRESS) {
+                // operation (e.g. sign in) is in progress already
+                console.log(error)
+            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+                // play services not available or outdated
+                console.log(error)
+            } else {
+                // some other error happened
+                console.log(error)
+            }
+        }
+    };
 
     return (
         <Background navigation={navigation} back={true} background={true}>
@@ -157,7 +185,11 @@ export default function LoginScreen({navigation}) {
                 </Button>
 
                 <Button mode="contained" disabled={loading === true} onPress={onFbLogin}>
-                    Connection avec facebook
+                    Connexion avec facebook
+                </Button>
+
+                <Button mode="contained" disabled={loading === true} onPress={googleSignIn}>
+                    Connexion avec google
                 </Button>
 
                 <View style={{
