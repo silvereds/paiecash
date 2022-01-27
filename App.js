@@ -10,13 +10,9 @@ import ResetPasswordScreen from "./src/screens/Authentification/ResetPassword/Re
 import UseAsyncData from "./src/services/DataStorage/UseAsyncData";
 import {theme} from "./src/core/theme";
 import AuthentificationContext from "./src/context/AuthentificationContext";
-// import {Provider} from "react-native-paper";
+import {Provider} from "react-native-paper";
 import Toast from 'react-native-toast-message';
 import toastConfig from "./src/core/toastConfig";
-
-
-import { Provider } from 'react-redux';
-import { configureStore } from './src/redux/store';
 
 const Stack = createStackNavigator()
 
@@ -30,17 +26,17 @@ const App: () => Node = () => {
 
   return (
       <AuthentificationContext.Provider value={{authData, setAuthData}}>
-        <Provider theme={theme}  store={configureStore()}>
-          <NavigationContainer>
-            <Stack.Navigator
-                initialRouteName="StartScreen"
-                screenOptions={{
-                  headerShown: false,
-                }}
-            >
-              <Stack.Screen name="StartScreen" component={StartScreen}/>
-              <Stack.Screen name="LoginScreen" component={LoginScreen}/>
-              <Stack.Screen name="RegisterScreen" component={RegisterScreen}/>
+          <Provider theme={theme}>
+              <NavigationContainer>
+                  <Stack.Navigator
+                      initialRouteName="StartScreen"
+                      screenOptions={{
+                          headerShown: false,
+                      }}
+                  >
+                      <Stack.Screen name="StartScreen" component={StartScreen}/>
+                      <Stack.Screen name="LoginScreen" component={LoginScreen}/>
+                      <Stack.Screen name="RegisterScreen" component={RegisterScreen}/>
               <Stack.Screen name="Dashboard" component={Dashboard}/>
               <Stack.Screen
                   name="ResetPasswordScreen"
