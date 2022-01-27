@@ -154,7 +154,7 @@ function TransfertCard(props) {
 
   function onMakePayment(userPassword=password) {
     let paymentData = {
-      card_sender_id: props.cards[0]?.cardId,
+      card_sender_id: props.cards[0]?.cardId, 
       card_receiver_id: card.cardId,
       amount: amount,
       card_user_password: userPassword,
