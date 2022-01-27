@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -16,14 +16,41 @@ import {TabScreenHeader} from '../../../../components/TabScreenHeader/TabScreenH
 import {EmptyListComponent} from '../../../../components/EmptyListComponent';
 import qrCodes from '../../../../constants/qrcode.json';
 import CreditCardDisplay from 'react-native-credit-card-display';
+import {APPENV} from '../../../../core/config';
+import useFetchApi from '../../../../helpers/fetchApi/useFetchApi';
+import AuthentificationContext from '../../../../context/AuthentificationContext';
+import Toast from "react-native-toast-message";
 
 function History({route, navigation}) {
   const {card} = route.params;
   const [selectedItem, setSelectedItem] = useState({index: 0, showMore: false});
+  const {authData} = useContext(AuthentificationContext);
+  const {
+    data: qrCodesList,
+    loading,
+    postData,
+    status,
+    error,
+  } = useFetchApi(APPENV.domain + '/api/qr_code/list/transaction');
 
   const handleNavigation = (screen, params) => {
     navigateToNestedRoute(getScreenParent(screen), screen, params);
   };
+
+  useEffect(() => {
+    if (status >= 400 && status <= 600) {
+      Toast.show({
+        type: 'error',
+        text1: 'Erreur de connexion',
+        text2: error.message,
+      });
+    }
+  }, [error]);
+
+  useEffect(() => {
+    postData({"refresh_token": authData.refresh_token});
+  }, []);
+  console.log('qrCodesList', qrCodesList);
 
   function showLeftComponent() {
     return (
@@ -51,22 +78,19 @@ function History({route, navigation}) {
             }}
           />
           <View style={styles.singleMemberInfoMore}>
-          <View>
-          <Text
-              style={styles.selectedMemberName}
-              numberOfLines={1}
-              ellipsizeMode="tail">
-              {qrCode?.designation}
-            </Text>
-            <Text style={styles.selectedMemberLastSeen}>{qrCode?.date}</Text>
-          </View>
-            
-            <Pressable onPress={() => setSelectedItem({index, showMore: false})}>
-              <Ionicons
-                name="trash"
-                size={18}
-                color={theme.colors.error}
-              />
+            <View>
+              <Text
+                style={styles.selectedMemberName}
+                numberOfLines={1}
+                ellipsizeMode="tail">
+                {qrCode?.designation}
+              </Text>
+              <Text style={styles.selectedMemberLastSeen}>{qrCode?.date}</Text>
+            </View>
+
+            <Pressable
+              onPress={() => setSelectedItem({index, showMore: false})}>
+              <Ionicons name="trash" size={18} color={theme.colors.error} />
             </Pressable>
           </View>
           <Pressable onPress={() => setSelectedItem({index, showMore: false})}>
@@ -121,14 +145,14 @@ function History({route, navigation}) {
             <View style={styles.fullWidthCenter}>
               <CreditCardDisplay
                 style={styles.fullWidth}
-                number={card.credit_card_number}
-                cvc={card.cvv}
-                expiration={card.expiry_date}
-                name={card.card_holder_name}
+                number={card.cardNumber}
+                cvc={card.cardCvv}
+                expiration={card.expiredAt}
+                name={card.cardOwner}
                 since="2004"
               />
               <Text style={styles.amount}>
-                Solde Actuel : {card.montant} XAF
+                {card.amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} Xaf
               </Text>
             </View>
             {qrCodes.map((qrCode, index) => showQrCode(qrCode, index))}

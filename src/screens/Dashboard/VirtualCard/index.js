@@ -1,16 +1,48 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import styles from "../ProfileTab/ProfileStyle";
 import {TabScreenHeader} from "../../../components/TabScreenHeader/TabScreenHeader";
 import CardSlider from "../../../components/CardSlider/CardSlider";
-import fakeCard from "../../../helpers/FakeCard";
 import {theme} from "../../../core/theme";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
+import {APPENV} from "../../../core/config";
+import useFetchApi from "../../../helpers/fetchApi/useFetchApi";
+import AuthentificationContext from "../../../context/AuthentificationContext";
+import Toast from "react-native-toast-message";
 
 function VirtualCard(props) {
-    const [cardSelect, setCardSelect] = useState(fakeCard[0])
+    const {authData} = useContext(AuthentificationContext)
+    const {
+        data : {cards},
+        loading,
+        searchData,
+        status,
+        error
+    } = useFetchApi(APPENV.domain + '/api/card/list')
+    const [cardSelect, setCardSelect] = useState(cards?cards[0]:null)
+
+    useEffect(() => {
+        if(status >= 400 && status <= 600) {
+            Toast.show({
+                type: 'error',
+                text1: 'Erreur de connexion',
+                text2: error.message
+            });
+        }
+    }, [error])
+
+    useEffect(() => {
+        searchData(`?access_token=${authData.token}&api_key=${APPENV.apiKey}`)
+    }, []);
+
+    useEffect(() => {
+        if(cards!==undefined && cardSelect===null)
+            setCardSelect(cards[0])
+    })
+    console.log('cards',cards);
+    console.log('cardSelect',cardSelect);
 
     return (
         <SafeAreaView style={{
@@ -42,11 +74,11 @@ function VirtualCard(props) {
                             alignItems: 'center',
                             justifyContent: 'space-around',
                         }}>
-                            <CardSlider dataCard={fakeCard} setData={setCardSelect}/>
+                            <CardSlider dataCard={cards} setData={setCardSelect}/>
 
                             <View>
                                 <Text style={{color: theme.colors.primary, fontSize: 35, fontWeight: 'bold'}}>
-                                    {cardSelect?.montant.toLocaleString() ?? 0} XAF
+                                    {cardSelect?.amount.toLocaleString() ?? 0} XAF
                                 </Text>
                             </View>
                         </View>
