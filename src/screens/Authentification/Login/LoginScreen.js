@@ -137,16 +137,28 @@ export default function LoginScreen({navigation}) {
                 <Text style={styles.smallText}>
                     Entrer vos identifiants et votre mot de passe pour vous connectez
                 </Text>
+                <View style={{diplay: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <View style={{width: '48%'}}>
+                        <Button mode="outlined" color="#DE4032" disabled={loading === true} onPress={googleSignIn}>
+                            Google
+                        </Button>
+                    </View>
+                    <View style={{width: '48%'}}>
+                        <Button mode="outlined" color="#3b5998" disabled={loading === true} onPress={onFbLogin}>
+                            Facebook
+                        </Button>
+                    </View>
+                </View>
                 <View style={styles.inputRow}>
                     <TextInput
-                            label="Email ou numero de telephone"
-                            returnKeyType="next"
-                            value={email.value}
-                            onChangeText={(text) => setEmail({value: text, error: ''})}
-                            error={!!email.error}
-                            errorText={email.error}
-                            autoCapitalize="none"
-                            autoCompleteType="email"
+                        label="Email ou numero de telephone"
+                        returnKeyType="next"
+                        value={email.value}
+                        onChangeText={(text) => setEmail({value: text, error: ''})}
+                        error={!!email.error}
+                        errorText={email.error}
+                        autoCapitalize="none"
+                        autoCompleteType="email"
                             textContentType="emailAddress"
                             keyboardType="email-address"
                         />
@@ -182,14 +194,6 @@ export default function LoginScreen({navigation}) {
 
                 <Button mode="contained" disabled={loading === true} onPress={onLoginPressed}>
                     {loading === true ? 'Chargement...' : 'Connexion'}
-                </Button>
-
-                <Button mode="contained" disabled={loading === true} onPress={onFbLogin}>
-                    Connexion avec facebook
-                </Button>
-
-                <Button mode="contained" disabled={loading === true} onPress={googleSignIn}>
-                    Connexion avec google
                 </Button>
 
                 <View style={{
