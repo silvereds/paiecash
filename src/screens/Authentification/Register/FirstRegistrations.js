@@ -7,11 +7,11 @@ import Button from "../../../components/Button";
 import useFetchApi from "../../../helpers/fetchApi/useFetchApi";
 import {APPENV} from "../../../core/config";
 import styles from "../Login/LoginStyle";
-import FilterCountry from "./FilterCountry";
 import {emailValidator} from "../../../helpers/validators/emailValidator";
 import {passwordValidator} from "../../../helpers/validators/passwordValidator";
 import {nameValidator} from "../../../helpers/validators/nameValidator";
 import Toast from "react-native-toast-message";
+import SocialRegister from "./SocialRegister";
 
 /**
  * @author Jaures Kano <ruddyjaures@gmail.com>
@@ -91,9 +91,9 @@ export default function FirstRegistrations({setStep, navigation, setUserData}) {
             <Text style={styles.smallText}>
                 Inscrivez vous et entrer dans la grands communaute paiecash
             </Text>
-            <View style={styles.inputRow}>
-                <FilterCountry select={select} setSelect={setSelect}/>
-            </View>
+
+            <SocialRegister/>
+
             <View style={styles.inputRow}>
                 <TextInput
                     label="Email"
@@ -106,23 +106,6 @@ export default function FirstRegistrations({setStep, navigation, setUserData}) {
                     autoCompleteType="email"
                     textContentType="emailAddress"
                     keyboardType="email-address"
-                />
-            </View>
-
-            <View style={styles.inputRow}>
-                <TextInput
-                    label="Numero de telephone"
-                    returnKeyType="next"
-                    value={phone.value}
-                    onChangeText={(text) => setPhone({value: text, error: ''})}
-                    error={!!phone.error}
-                    errorText={phone.error}
-                    // render={props =>
-                    //     <TextInputMask
-                    //         {...props}
-                    //         mask="+[00] [000] [000] [000]"
-                    //     />
-                    // }
                 />
             </View>
 
