@@ -13,8 +13,7 @@ import Toast from "react-native-toast-message";
 import AuthentificationContext from "../../../context/AuthentificationContext";
 import styles from "./LoginStyle";
 import Button from "../../../components/Button";
-
-import SocialAuth from "./SocialAuth";
+import SocialAuth from "./Social/SocialAuth";
 
 export default function LoginScreen({navigation}) {
     const {setAuthData} = useContext(AuthentificationContext);
@@ -68,7 +67,7 @@ export default function LoginScreen({navigation}) {
                 <Text style={styles.smallText}>
                     Entrer vos identifiants et votre mot de passe pour vous connectez
                 </Text>
-                <SocialAuth/>
+                <SocialAuth setAuthData={setAuthData} loading={loading} navigation={navigation}/>
                 <View style={styles.inputRow}>
                     <TextInput
                         label="Email ou numero de telephone"
