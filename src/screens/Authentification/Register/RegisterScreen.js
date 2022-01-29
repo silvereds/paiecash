@@ -11,7 +11,7 @@ export default function RegisterScreen({navigation}) {
     return (
         <Background navigation={navigation} background={true} back={true}>
             {step === false ?
-                <FirstRegistrations setStep={setStep} setUserData={setUserData}/>
+                <FirstRegistrations navigation={navigation} setStep={setStep} setUserData={setUserData}/>
                 :
                 <ValidationRegistration navigation={navigation} userData={userData}/>
             }

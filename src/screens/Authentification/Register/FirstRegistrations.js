@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {TouchableOpacity, View} from "react-native";
 import TextInput from "../../../components/TextInput";
-import {Checkbox, Text} from "react-native-paper";
+import {Text} from "react-native-paper";
 import {theme} from "../../../core/theme";
 import Button from "../../../components/Button";
 import useFetchApi from "../../../helpers/fetchApi/useFetchApi";
@@ -11,7 +11,7 @@ import {emailValidator} from "../../../helpers/validators/emailValidator";
 import {passwordValidator} from "../../../helpers/validators/passwordValidator";
 import {nameValidator} from "../../../helpers/validators/nameValidator";
 import Toast from "react-native-toast-message";
-import SocialRegister from "./SocialRegister";
+import SocialRegistration from "./Social/SocialRegistration";
 
 /**
  * @author Jaures Kano <ruddyjaures@gmail.com>
@@ -19,21 +19,16 @@ import SocialRegister from "./SocialRegister";
 export default function FirstRegistrations({setStep, navigation, setUserData}) {
     const {data: dataRegister, postData, status, loading, error} =
         useFetchApi(APPENV.domain + '/api/authentification/registration')
-    const [select, setSelect] = useState()
     const [email, setEmail] = useState({value: '', error: ''})
-    const [phone, setPhone] = useState({value: '', error: ''})
     const [firstName, setFirstName] = useState({value: '', error: ''})
     const [lastName, setLastName] = useState({value: '', error: ''})
     const [password, setPassword] = useState({value: '', error: ''})
     const [passwordConfirm, setPasswordConfirm] = useState({value: '', error: ''})
-    const [checked, setChecked] = React.useState(false);
 
     useEffect(() => {
         if (dataRegister.message) {
             setUserData({
-                "phone": phone.value,
-                "email": email.value,
-                "country": select.selectedList[0]['_id']
+                "email": email.value
             })
             dataRegister.message && Toast.show({
                 type: 'success',
@@ -74,12 +69,9 @@ export default function FirstRegistrations({setStep, navigation, setUserData}) {
         postData({
             "first_name": firstName.value,
             "last_name": lastName.value,
-            "phone": phone.value,
             "email": email.value,
-            "country": select.selectedList[0]['_id'],
             "password": password.value,
             "confirm_password": password.value,
-            "confirmation_mode": !checked,
             "api_key": APPENV.apiKey
         })
     }
@@ -92,7 +84,7 @@ export default function FirstRegistrations({setStep, navigation, setUserData}) {
                 Inscrivez vous et entrer dans la grands communaute paiecash
             </Text>
 
-            <SocialRegister/>
+            <SocialRegistration navigation={navigation} loading={loading}/>
 
             <View style={styles.inputRow}>
                 <TextInput
@@ -152,28 +144,6 @@ export default function FirstRegistrations({setStep, navigation, setUserData}) {
                     error={!!passwordConfirm.error}
                     errorText={passwordConfirm.error}
                     secureTextEntry
-                />
-            </View>
-            <View style={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginBottom: 24,
-                marginTop: 10,
-            }}>
-                <Text style={{
-                    fontSize: 13,
-                    color: theme.colors.secondary,
-                }}>Envoyer votre code de confirmation par sms ?</Text>
-
-                <Checkbox
-                    status={checked ? 'checked' : 'unchecked'}
-                    color={theme.colors.primary}
-                    onPress={() => {
-                        setChecked(!checked);
-                    }}
                 />
             </View>
 
