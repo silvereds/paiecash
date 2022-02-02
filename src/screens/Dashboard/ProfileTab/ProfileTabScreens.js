@@ -82,7 +82,7 @@ export default function ProfileTabScreens({navigation}) {
                                     name="settings" size={22}
                                     color={theme.colors.primary}
                                 />
-                                <Text style={styles.exploreText}>Paramettre</Text>
+                                <Text style={styles.exploreText}>Paramètre</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={styles.singleExplore}
