@@ -1,8 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import theme from '../../core/theme';
-
+import {theme} from '../../core/theme';
+import styles from './EmptyListComponentStyle'
 
 export function EmptyListComponent() {
   return (
@@ -12,19 +12,3 @@ export function EmptyListComponent() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  emptyListContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    height: '100%',
-    alignItems: 'center',
-    paddingBottom: 100,
-  },
-  emptyListText: {
-    textAlign: 'center',
-    fontSize: 19,
-    opacity: 0.6,
-    marginTop: 20,
-  },
-});

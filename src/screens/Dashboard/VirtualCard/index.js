@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import styles from "../ProfileTab/ProfileStyle";
-import {TabScreenHeader} from "../../../components/TabScreenHeader/TabScreenHeader";
-import CardSlider from "../../../components/CardSlider/CardSlider";
+import {TabScreenHeader} from "../../../components/TabScreenHeader";
+import CardSlider from "../../../components/CardSlider";
 import {theme} from "../../../core/theme";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";

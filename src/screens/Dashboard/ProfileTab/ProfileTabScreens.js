@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import useAsyncData from "../../../services/DataStorage/UseAsyncData";
 import AuthentificationContext from "../../../context/AuthentificationContext";
-import {TabScreenHeader} from "../../../components/TabScreenHeader/TabScreenHeader";
+import {TabScreenHeader} from "../../../components/TabScreenHeader";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import styles from "./ProfileStyle";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -97,7 +97,6 @@ export default function ProfileTabScreens({navigation}) {
                                 />
                                 <Text style={styles.exploreText}>Deconnexion</Text>
                             </TouchableOpacity>
-
                         </View>
                     </View>
                 </View>

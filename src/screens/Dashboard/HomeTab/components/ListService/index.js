@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, TouchableWithoutFeedback, View} from "react-native";
-import {theme} from "../../../../core/theme";
-import {DATA} from "./DataService";
+import {theme} from "../../../../../core/theme";
+import {DATA} from "../DataService";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import stylesComponent from './ListServiceStyle';

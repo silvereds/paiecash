@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {theme} from '../../../../core/theme';
 
-const styles = StyleSheet.create({
+export default styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fafafa',
@@ -87,7 +87,8 @@ const styles = StyleSheet.create({
     color: theme.colors.text,
     marginTop: 10,
     marginBottom: 20
-  } 
-});
-
-export default styles;
+  },
+  input: {
+    marginTop: 10
+  }
+})

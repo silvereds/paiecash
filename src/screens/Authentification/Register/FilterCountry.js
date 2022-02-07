@@ -29,7 +29,7 @@ export default function FilterCountry({select, setSelect}) {
         <PaperSelect
             label="Choisir votre pays"
             value={select}
-            onSelection={(value: any) => {
+            onSelection={(value) => {
                 setSelect(value)
             }}
             arrayList={[...dataSelect]}

@@ -1,4 +1,5 @@
 import {StyleSheet} from "react-native";
+import {theme} from "../../../core/theme";
 
 const styles = StyleSheet.create({
     profileDetailsSection: {
@@ -96,6 +97,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: theme.colors.primary,
     },
+    fullWidth: {width: '100%'},
 });
 
 export default styles

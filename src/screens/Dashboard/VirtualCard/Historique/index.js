@@ -13,7 +13,7 @@ import shortid from 'shortid';
 import styles from './historiqueStyle';
 import {theme} from '../../../../core/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {TabScreenHeader} from '../../../../components/TabScreenHeader/TabScreenHeader';
+import {TabScreenHeader} from '../../../../components/TabScreenHeader';
 import {EmptyListComponent} from '../../../../components/EmptyListComponent';
 import transactions from '../../../../constants/history.json';
 import CreditCardDisplay from 'react-native-credit-card-display';
@@ -53,14 +53,14 @@ function History({route, navigation}) {
             <View style={styles.fullWidthCenter}>
               <CreditCardDisplay
                 style={styles.fullWidth}
-                number={card.credit_card_number}
-                cvc={card.cvv}
-                expiration={card.expiry_date}
-                name={card.card_holder_name}
+                number={card?.credit_card_number}
+                cvc={card?.cvv}
+                expiration={card?.expiry_date}
+                name={card?.card_holder_name}
                 since="2004"
               />
               <Text style={styles.amount}>
-                Solde Actuel : {card.montant} XAF
+                Solde Actuel : {card?.montant} XAF
               </Text>
             </View>
             {transactions.map(transaction => (

@@ -18,7 +18,7 @@ import DialogInput from 'react-native-dialog-input';
 import {connect} from 'react-redux';
 import {selectContactPhone} from 'react-native-select-contact';
 
-import {TabScreenHeader} from '../../../components/TabScreenHeader/TabScreenHeader';
+import {TabScreenHeader} from '../../../components/TabScreenHeader';
 import {theme} from '../../../core/theme';
 import Button from '../../../components/Button';
 
@@ -52,7 +52,7 @@ const RecentContact = ({data, onSelect}) => {
           </Text>
         </View>
         <View
-          style={{flexDirection: 'column', justifyContent: 'space-between'}}>
+          style={styles.starBox}>
           <Pressable onPress={() => {}}>
             <AntDesign
               name={data.isFavorite ? 'star' : 'staro'}
@@ -136,7 +136,10 @@ function TransfertCard(props) {
 
   useEffect(() => {
     if (paymentResponse && paymentResponse.message && password !== '') {
-      alert(paymentResponse.message);
+      Toast.show({
+        type: 'success',
+        text1: paymentResponse.message,
+      });
       setEmail('');
       setAmount('0');
       amountInput.current?.clear();
@@ -204,10 +207,7 @@ function TransfertCard(props) {
 
   return (
     <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: '#fafafa',
-      }}>
+      style={styles.mainContainer}>
       <TabScreenHeader
         leftComponent={() => <Text style={styles.headerTitle}>Transfert</Text>}
         isSearchBtnVisible={true}
@@ -287,7 +287,7 @@ function TransfertCard(props) {
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}>
-              <View style={{flexDirection: 'row'}}>
+              <View style={styles.row}>
                 {props.recentContacts.map(contact => (
                   <RecentContact
                     data={contact}

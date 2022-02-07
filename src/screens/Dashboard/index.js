@@ -39,11 +39,11 @@ function Dashboard({navigation}) {
 export default function DashboardStack({navigation}) {
     return (
       <Stack.Navigator
-        initialRouteName="Dashboard"
+        initialRouteName="Homeboard"
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Screen name="Homeboard" component={Dashboard} />
         <Stack.Screen name="Recharge" component={Recharge} />
         <Stack.Screen name="Transfer" component={Transfer} />
         <Stack.Screen name="Historique" component={Historique} />

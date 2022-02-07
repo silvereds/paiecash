@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
-import {StyleSheet, Text, View} from 'react-native'
+import {Text, View} from 'react-native'
 import {TextInput as Input} from 'react-native-paper'
-import {theme} from '../core/theme'
+import styles from './TextInputStyle'
+import {theme} from '../../core/theme'
 
 export default function TextInput({errorText, description, secureTextEntry, ifEye = false, ...props}) {
   const [secure, setSecure] = useState(secureTextEntry)
@@ -21,23 +22,3 @@ export default function TextInput({errorText, description, secureTextEntry, ifEy
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-  },
-  input: {
-    backgroundColor: theme.colors.surface,
-    borderRadius: 10
-  },
-  description: {
-    fontSize: 13,
-    color: theme.colors.secondary,
-    paddingTop: 8,
-  },
-  error: {
-    fontSize: 13,
-    color: theme.colors.error,
-    paddingTop: 8,
-  },
-})

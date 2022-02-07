@@ -2,15 +2,15 @@ import React, {useContext} from 'react';
 import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import ProgressCircle from 'react-native-progress-circle';
 import SafeAreaView from 'react-native/Libraries/Components/SafeAreaView/SafeAreaView';
-import {TabScreenHeader} from '../../../components/TabScreenHeader/TabScreenHeader';
+import {TabScreenHeader} from '../../../../components/TabScreenHeader';
 import styles from './HomeTabStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {theme} from '../../../core/theme';
-import projectState from '../../../helpers/projectState';
-import tasksState from '../../../helpers/taskState';
-import AuthentificationContext from '../../../context/AuthentificationContext';
-import ListService from './components/ListService';
-import Partenaires from './components/Partenaires';
+import {theme} from '../../../../core/theme';
+import projectState from '../../../../helpers/projectState';
+import tasksState from '../../../../helpers/taskState';
+import AuthentificationContext from '../../../../context/AuthentificationContext';
+import ListService from '../components/ListService';
+import Partenaires from '../components/Partenaires';
 import Toast from 'react-native-toast-message';
 
 /**
@@ -26,19 +26,8 @@ export default function HomeTabScreens({navigation}) {
       <ScrollView style={{flex: 1}}>
         <TabScreenHeader
           leftComponent={() => (
-            <TouchableOpacity
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  color: theme.colors.disabled,
-                  fontSize: 20,
-                }}>
-                Paiecash
-              </Text>
+            <TouchableOpacity style={styles.headerText}>
+              <Text style={styles.headerTextDisabled}>Paiecash</Text>
             </TouchableOpacity>
           )}
           isSearchBtnVisible={true}
@@ -71,32 +60,14 @@ export default function HomeTabScreens({navigation}) {
                     {authData.user?.firstName} {authData.user?.lastName}
                   </Text>
                 </View>
-                <Text
-                  style={{
-                    color: theme.colors.error,
-                    width: '100%',
-                    marginBottom: 5,
-                  }}>
+                <Text style={styles.statusProfileError}>
                   Profile non certifier
                 </Text>
-                <Text
-                  style={{
-                    color: theme.colors.error,
-                    width: '100%',
-                    marginBottom: 5,
-                  }}>
-                  Aucun abonnement
-                </Text>
+                <Text style={styles.statusSubscription}>Aucun abonnement</Text>
               </View>
             </View>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-                alignItems: 'space-around',
-              }}>
-              <View style={{width: '100%'}}>
+            <View style={styles.part2}>
+              <View style={styles.fullWidth}>
                 <TouchableOpacity
                   onPress={() =>
                     Toast.show({
@@ -104,18 +75,7 @@ export default function HomeTabScreens({navigation}) {
                       text1: 'Vous devez remplir vos informations avant',
                     })
                   }>
-                  <Text
-                    style={{
-                      borderRadius: 20,
-                      backgroundColor: theme.colors.primary,
-                      textAlign: 'center',
-                      textTransform: 'uppercase',
-                      paddingHorizontal: 15,
-                      paddingVertical: 10,
-                      fontSize: 15,
-                      fontWeight: 'bold',
-                      color: theme.colors.textWhite,
-                    }}>
+                  <Text style={styles.chooseAnOption}>
                     Choisir un abonnement
                   </Text>
                 </TouchableOpacity>

@@ -1,9 +1,9 @@
 import React from 'react';
 import Carousel from "react-native-snap-carousel";
-import {Dimensions, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {theme} from "../../../../core/theme";
-import ItemCardPartenaires from "./ItemCardPartenaires";
-import styles from './PartenairesStyle';
+import {Text, TouchableOpacity, View} from "react-native";
+import {theme} from "../../../../../core/theme";
+import ItemCardPartenaires from "../ItemCardPartenaires";
+import styles, { itemWidth, sliderWidth } from './PartenairesStyle';
 
 function Partenaires(props) {
 

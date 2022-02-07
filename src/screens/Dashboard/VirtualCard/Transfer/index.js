@@ -6,7 +6,7 @@ import {
   Pressable,
   ScrollView,
 } from 'react-native';
-import {TabScreenHeader} from '../../../../components/TabScreenHeader/TabScreenHeader';
+import {TabScreenHeader} from '../../../../components/TabScreenHeader';
 import {theme} from '../../../../core/theme';
 import styles from './transferStyle';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -44,14 +44,14 @@ function Transfer({route, navigation}) {
           <View style={styles.fullWidthCenter}>
               <CreditCardDisplay
                 style={styles.fullWidth}
-                number={card.credit_card_number}
-                cvc={card.cvv}
-                expiration={card.expiry_date}
-                name={card.card_holder_name}
+                number={card?.cardCvv}
+                cvc={card?.cardCvv}
+                expiration={card?.expiredAt}
+                name={card?.cardOwner}
                 since="2004"
               />
               <Text style={styles.amount}>
-                Solde Actuel : {card.montant} XAF
+                Solde Actuel : {card?.amount} XAF
               </Text>
             </View>
 

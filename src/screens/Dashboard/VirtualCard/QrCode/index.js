@@ -12,7 +12,7 @@ import shortid from 'shortid';
 import styles from './qrCodeStyle';
 import {theme} from '../../../../core/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {TabScreenHeader} from '../../../../components/TabScreenHeader/TabScreenHeader';
+import {TabScreenHeader} from '../../../../components/TabScreenHeader';
 import {EmptyListComponent} from '../../../../components/EmptyListComponent';
 import qrCodes from '../../../../constants/qrcode.json';
 import CreditCardDisplay from 'react-native-credit-card-display';
@@ -145,14 +145,14 @@ function History({route, navigation}) {
             <View style={styles.fullWidthCenter}>
               <CreditCardDisplay
                 style={styles.fullWidth}
-                number={card.cardNumber}
-                cvc={card.cardCvv}
-                expiration={card.expiredAt}
-                name={card.cardOwner}
+                number={card?.cardNumber}
+                cvc={card?.cardCvv}
+                expiration={card?.expiredAt}
+                name={card?.cardOwner}
                 since="2004"
               />
               <Text style={styles.amount}>
-                {card.amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} Xaf
+                {card?.amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} Xaf
               </Text>
             </View>
             {qrCodes.map((qrCode, index) => showQrCode(qrCode, index))}

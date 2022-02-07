@@ -1,11 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react'
-import {Dimensions, Image, ImageBackground, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {ImageBackground} from "react-native";
 import AuthentificationContext from "../../context/AuthentificationContext";
-import {theme} from "../../core/theme";
 import Background from "../../components/Background";
 import Logo from "../../components/Logo";
 import Paragraph from "../../components/Paragraph";
 import Button from "../../components/Button";
+import styles from './StartStyle';
 
 export default function StartScreen({ navigation }) {
     const {authData} = useContext(AuthentificationContext)
@@ -27,7 +27,7 @@ export default function StartScreen({ navigation }) {
             authData.user === undefined && setState(true)
         }, 3000)
 
-        return () => null
+        return () => {setState(false)}
     }, [navigation])
 
     return (
@@ -61,15 +61,3 @@ export default function StartScreen({ navigation }) {
         </Background>
     )
 }
-
-const styles = StyleSheet.create({
-    imageBackground: {
-        flex: 1,
-        width: '100%',
-        minHeight: Dimensions.get("window").height,
-        backgroundColor: theme.colors.surface,
-        alignSelf: 'center',
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-})

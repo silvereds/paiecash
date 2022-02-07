@@ -2,7 +2,7 @@ import React from 'react';
 import {ActivityIndicator} from "react-native-paper";
 import {View, StyleSheet} from "react-native";
 import {theme} from "../../core/theme";
-
+import styles from './LoaderStyle';
 /**
  * @author Jaures Kano <ruddyjaures@gmail.com>
  */

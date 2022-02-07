@@ -5,7 +5,7 @@ import {NavigationContainer} from "@react-navigation/native";
 import StartScreen from "./src/screens/Start/StartScreen";
 import LoginScreen from "./src/screens/Authentification/Login/LoginScreen";
 import RegisterScreen from "./src/screens/Authentification/Register/RegisterScreen";
-import Dashboard from "./src/screens/Dashboard/Dashboard";
+import Dashboard from "./src/screens/Dashboard";
 import ResetPasswordScreen from "./src/screens/Authentification/ResetPassword/ResetPasswordScreen";
 import UseAsyncData from "./src/services/DataStorage/UseAsyncData";
 import {theme} from "./src/core/theme";

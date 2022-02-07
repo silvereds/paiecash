@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import {TabScreenHeader} from '../../../../components/TabScreenHeader/TabScreenHeader';
+import {TabScreenHeader} from '../../../../components/TabScreenHeader';
 import {theme} from '../../../../core/theme';
 import shortid from 'shortid';
 import styles from './rechargeStyle';
@@ -124,14 +124,14 @@ function Recharge({route, navigation}) {
         <View style={styles.fullWidthCenter}>
               <CreditCardDisplay
                 style={styles.fullWidth}
-                number={card.credit_card_number}
-                cvc={card.cvv}
-                expiration={card.expiry_date}
-                name={card.card_holder_name}
+                number={card?.credit_card_number}
+                cvc={card?.cvv}
+                expiration={card?.expiry_date}
+                name={card?.card_holder_name}
                 since="2004"
               />
               <Text style={styles.amount}>
-                Solde Actuel : {card.montant} XAF
+                Solde Actuel : {card?.montant} XAF
               </Text>
             </View>
           <View>
