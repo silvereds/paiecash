@@ -6,7 +6,6 @@ export const refreshCardsList = (dataCards) => {
         type: REFRESH_CARDS_LIST,
         payload: dataCards
     }
-    console.log('data', data);
     return data
 };
 

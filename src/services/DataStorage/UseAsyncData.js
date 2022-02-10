@@ -13,7 +13,6 @@ export default function UseAsyncData(key) {
         try {
             value = (await AsyncStorage.getItem(key));
         } catch (e) {
-            console.log(e)
         } finally {
             setData(value);
         }

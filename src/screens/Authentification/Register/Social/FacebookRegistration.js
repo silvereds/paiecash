@@ -53,7 +53,6 @@ export default function FacebookRegistration({
     LoginManager.logOut();
     return LoginManager.logInWithPermissions(['email', 'public_profile']).then(
       result => {
-        console.log('fb ====> ', result);
         if (
           result.declinedPermissions &&
           result.declinedPermissions.includes('email')
@@ -62,7 +61,6 @@ export default function FacebookRegistration({
         }
 
         if (result.isCancelled) {
-          console.log('error');
         } else {
           const infoRequest = new GraphRequest(
             '/me?fields=email,name',
@@ -73,7 +71,6 @@ export default function FacebookRegistration({
         }
       },
       function (error) {
-        console.log('login fail : ' + error);
       },
     );
   };
@@ -82,13 +79,11 @@ export default function FacebookRegistration({
     try {
       await fbLogin(_responseInfoCallBack);
     } catch (error) {
-      console.log('error: ' + error);
     }
   };
 
   const _responseInfoCallBack = async (error, result) => {
     if (error) {
-      console.log(error);
     } else {
       await postData({
         first_name: result.name,

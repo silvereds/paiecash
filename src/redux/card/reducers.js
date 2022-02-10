@@ -6,7 +6,6 @@ const INIT_STATE = {
 };
 
 const reducer = (state = INIT_STATE, action) => {
-  // console.log('action',action);
   switch (action.type) {
     case REFRESH_CARDS_LIST:
       return {

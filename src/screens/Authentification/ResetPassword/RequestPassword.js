@@ -52,12 +52,6 @@ export default function RequestPassword({setEmail: setUserMail, setStep}) {
             setEmail({...email, error: emailError})
             return
         }
-
-        console.log({
-            "email": email,
-            "api_key": APPENV.apiKey,
-            "confirmation_mode": true
-        })
         postData({
             "email": email.value,
             "api_key": APPENV.apiKey,

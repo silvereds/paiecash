@@ -9,6 +9,9 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import {theme} from "../../../core/theme";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import Toast from "react-native-toast-message";
+import actions from './actions';
+import Action from './Components/Action';
+import shortid from 'shortid';
 
 /**
  * @author Jaures Kano <ruddyjaures@gmail.com>
@@ -23,8 +26,12 @@ export default function ProfileTabScreens({navigation}) {
             type: 'info',
             text1: 'Module bientot disponible'
         })
-        // navigateToNestedRoute(getScreenParent(screen), screen, params);
     };
+
+    function logoutAction() {
+        setAuthData({})
+        navigation.navigate('StartScreen')
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -52,51 +59,7 @@ export default function ProfileTabScreens({navigation}) {
                     <View style={styles.exploreSection}>
                         <Text style={styles.exploreHeader}>Module</Text>
                         <View style={styles.exploreContent}>
-                            <TouchableOpacity style={styles.singleExplore}
-                                              onPress={() => handleNavigation('Onboarding')}>
-                                <Ionicons name="cash-outline" size={22} color={theme.colors.primary} />
-                                <Text style={styles.exploreText}>Cartes</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.singleExplore}
-                                              onPress={() => handleNavigation('Onboarding')}>
-                                <MaterialCommunityIcons
-                                    name="crown"
-                                    size={22}
-                                    color={theme.colors.primary}
-                                />
-                                <Text style={styles.exploreText}>Abonnement</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.singleExplore}
-                                              onPress={() => handleNavigation('Onboarding')}>
-                                <Ionicons name="qr-code-outline" size={22} color={theme.colors.primary} />
-                                <Text style={styles.exploreText}>QR code</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.singleExplore}
-                                              onPress={() => handleNavigation('Onboarding')}>
-                                <Ionicons name="link" size={22} color={theme.colors.primary} />
-                                <Text style={styles.exploreText}>Parainage</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.singleExplore}
-                                              onPress={() => handleNavigation('Onboarding')}>
-                                <SimpleLineIcons
-                                    name="settings" size={22}
-                                    color={theme.colors.primary}
-                                />
-                                <Text style={styles.exploreText}>Paramètre</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.singleExplore}
-                                onPress={() => {
-                                    setAuthData({})
-                                    navigation.navigate('StartScreen')
-                                }}>
-                                <MaterialCommunityIcons
-                                    name="logout"
-                                    size={22}
-                                    color={theme.colors.primary}
-                                />
-                                <Text style={styles.exploreText}>Deconnexion</Text>
-                            </TouchableOpacity>
+                            {actions.map(action => <Action title={action.title} route={action.route} Icon={action.icon} onPress={action.route==='StartScreen'?logoutAction:handleNavigation} key={shortid()} />)}
                         </View>
                     </View>
                 </View>

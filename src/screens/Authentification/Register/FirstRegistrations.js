@@ -76,7 +76,6 @@ export default function FirstRegistrations({setStep, navigation, setUserData}) {
         })
     }
 
-    console.log(dataRegister, error, status)
     return (
         <View style={styles.bodyContent}>
             <Text style={styles.largeText}>Bienvenu !</Text>

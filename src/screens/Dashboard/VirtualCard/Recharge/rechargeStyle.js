@@ -8,6 +8,7 @@ export default styles = StyleSheet.create({
   },
   hearderContainer: {
     flexDirection: 'row',
+    marginTop: 10
   },
   headerIcon: {
     marginEnd: 10,

@@ -116,6 +116,29 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: theme.colors.primary,
     },
+    scrollbarTop: {
+        paddingTop: 10,
+        backgroundColor: '#fff',
+        paddingHorizontal: 16,
+        borderBottomStartRadius: 30,
+        borderBottomEndRadius: 30,
+        paddingBottom: 20,
+        shadowColor: '#000',
+        shadowOffset: {width: 0.8, height: 2},
+        shadowOpacity: 0.5,
+        shadowRadius: 1,
+        elevation: 1,
+    },
+    innerScrollbar: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+    },
+    textAmount: {
+        color: theme.colors.primary,
+        fontSize: 35,
+        fontWeight: 'bold'
+    }
 });
 
 export default styles;

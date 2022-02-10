@@ -149,7 +149,6 @@ function TransfertCard(props) {
   });
 
   function onSearchCard(emailValue = email) {
-    console.log('emailValue', emailValue);
     searchCard(
       `?access_token=${authData.token}&api_key=${APPENV.apiKey}&email=${emailValue}`,
     );
@@ -164,7 +163,6 @@ function TransfertCard(props) {
       access_token: authData.token,
       api_key: APPENV.apiKey,
     }
-    console.log('paymentData',paymentData);
     postData(paymentData);
     props.addRecentContact(email, card, amount, favorite);
   }
@@ -188,9 +186,6 @@ function TransfertCard(props) {
         setEmail(selectedPhone.number)
         emailInput.current?.setNativeProps({text: selectedPhone.number});
         onSearchCard(selectedPhone.number);
-        // console.log(
-        //   `Selected ${selectedPhone.type} phone number ${selectedPhone.number} from ${contact.name}`,
-        // );
         return selectedPhone.number;
       });
     else

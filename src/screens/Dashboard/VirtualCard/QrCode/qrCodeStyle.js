@@ -125,6 +125,9 @@ const styles = StyleSheet.create({
   spinnerTextStyle: {
     color: theme.colors.primary
   },
+  selectedMemberLastSeen: {
+    
+  }
 });
 
 export default styles;

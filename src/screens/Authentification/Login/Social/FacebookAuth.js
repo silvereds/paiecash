@@ -32,20 +32,17 @@ export default function FacebookAuth({loading, setAuthData, navigation}) {
                 text2: error.message
             });
         }
-        console.log(error, data)
     }, [data, error])
 
     const fbLogin = (resCallBack) => {
         LoginManager.logOut()
         return LoginManager.logInWithPermissions(['email', 'public_profile']).then(
             result => {
-                console.log('fb ====> ', result)
                 if (result.declinedPermissions && result.declinedPermissions.includes('email')) {
                     resCallBack({message: 'email is required'})
                 }
 
                 if (result.isCancelled) {
-                    console.log('error')
                 } else {
                     const infoRequest = new GraphRequest(
                         '/me?fields=email,name',
@@ -56,7 +53,6 @@ export default function FacebookAuth({loading, setAuthData, navigation}) {
                 }
             },
             function (error) {
-                console.log("login fail : " + error)
             }
         )
     }
@@ -65,13 +61,11 @@ export default function FacebookAuth({loading, setAuthData, navigation}) {
         try {
             await fbLogin(_responseInfoCallBack)
         } catch (error) {
-            console.log('error: ' + error)
         }
     }
 
     const _responseInfoCallBack = async (error, result) => {
         if (error) {
-            console.log(error)
         } else {
             await postData({
                 "username": result.email,
