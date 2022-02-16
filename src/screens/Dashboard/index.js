@@ -10,7 +10,9 @@ import Recharge from './VirtualCard/Recharge';
 import Transfer from './VirtualCard/Transfer';
 import Historique from './VirtualCard/Historique';
 import QrCode from './VirtualCard/QrCode';
+import printQrCode from './VirtualCard/QrCode/print';
 import TransfertCard from "./TransfertCard";
+import PrintQrCode from './VirtualCard/QrCode/print';
 
 const Tab = createBottomTabNavigator();
 
@@ -48,6 +50,7 @@ export default function DashboardStack({navigation}) {
         <Stack.Screen name="Transfer" component={Transfer} />
         <Stack.Screen name="Historique" component={Historique} />
         <Stack.Screen name="QrCode" component={QrCode} />
+        <Stack.Screen name="printQrCode" component={PrintQrCode} />
       </Stack.Navigator>
     );
   }

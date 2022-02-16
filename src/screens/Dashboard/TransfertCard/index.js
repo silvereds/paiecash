@@ -1,15 +1,5 @@
 import React, {useState, useEffect, useContext, useRef} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  Text,
-  View,
-  TextInput,
-  TouchableWithoutFeedback,
-  Pressable,
-  TouchableHighlight,
-  PermissionsAndroid,
-  ActivityIndicator,
+import { SafeAreaView, ScrollView, Text, View, TextInput, TouchableWithoutFeedback, Pressable, TouchableHighlight, PermissionsAndroid, ActivityIndicator,
 } from 'react-native';
 import Toast from 'react-native-toast-message';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -17,11 +7,9 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import DialogInput from 'react-native-dialog-input';
 import {connect} from 'react-redux';
 import {selectContactPhone} from 'react-native-select-contact';
-
 import {TabScreenHeader} from '../../../components/TabScreenHeader';
 import {theme} from '../../../core/theme';
 import Button from '../../../components/Button';
-
 import {APPENV} from '../../../core/config';
 import useFetchApi from '../../../helpers/fetchApi/useFetchApi';
 import AuthentificationContext from '../../../context/AuthentificationContext';
@@ -86,29 +74,11 @@ function TransfertCard(props) {
   const emailInput = useRef(null);
   const amountInput = useRef(null);
 
-  const {
-    data: dataCards,
-    loading,
-    searchData,
-    status,
-    error,
-  } = useFetchApi(APPENV.domain + '/api/card/list');
+  const { data: dataCards, loading, searchData, status, error} = useFetchApi(APPENV.domain + '/api/card/list');
 
-  const {
-    data: {card},
-    loading: loading2,
-    searchData: searchCard,
-    status: status2,
-    error: error2,
-  } = useFetchApi(APPENV.domain + '/api/card/check');
+  const { data: {card}, loading: loading2, searchData: searchCard, status: status2, error: error2} = useFetchApi(APPENV.domain + '/api/card/check');
 
-  const {
-    data: paymentResponse,
-    loading: loading3,
-    postData,
-    status: status3,
-    error: error3,
-  } = useFetchApi(APPENV.domain + '/api/card/transfert');
+  const { data: paymentResponse, loading: loading3, postData, status: status3, error: error3} = useFetchApi(APPENV.domain + '/api/card/transfert');
 
   useEffect(() => {
     if (

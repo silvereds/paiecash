@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import {theme} from "../../../../core/theme";
 
 const styles = StyleSheet.create({
@@ -127,6 +127,22 @@ const styles = StyleSheet.create({
   },
   selectedMemberLastSeen: {
     
+  },
+  marginVert15: {
+    marginVertical : 15,
+    backgroundColor: '#fff'
+  },
+  pdf: {
+    flex:1,
+    width:Dimensions.get('window').width,
+    height:Dimensions.get('window').height,
+  },
+  floatingLoader: {
+    position: 'absolute',
+    top:  0,
+    left: 0,
+    bottom: 0,
+    right: 0
   }
 });
 

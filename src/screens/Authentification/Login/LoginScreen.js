@@ -78,9 +78,9 @@ export default function LoginScreen({navigation}) {
                         errorText={email.error}
                         autoCapitalize="none"
                         autoCompleteType="email"
-                            textContentType="emailAddress"
-                            keyboardType="email-address"
-                        />
+                        textContentType="emailAddress"
+                        keyboardType="email-address"
+                    />
 
                     </View>
                     <View style={styles.inputRow}>

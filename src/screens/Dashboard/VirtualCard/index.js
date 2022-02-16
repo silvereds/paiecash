@@ -1,5 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {SafeAreaView, ScrollView, Text, View} from "react-native";
+import {connect} from 'react-redux';
 import styles from "../ProfileTab/ProfileStyle";
 import {TabScreenHeader} from "../../../components/TabScreenHeader";
 import CardSlider from "../../../components/CardSlider";
@@ -10,31 +11,33 @@ import Toast from "react-native-toast-message";
 import actions from './actions';
 import Action from './Components/Action';
 import shortid from 'shortid';
+import {REFRESH_CARDS_LIST} from '../../../redux/card/constants';
 
 
 function VirtualCard(props) {
     const {authData} = useContext(AuthentificationContext)
-    const { data: {cards}, loading, searchData, status, error } = useFetchApi(APPENV.domain + '/api/card/list')
-    const [cardSelect, setCardSelect] = useState(cards ? cards[0] : null)
+    const { data: dataCards, loading, searchData, status, error} = useFetchApi(APPENV.domain + '/api/card/list');
+
+    const [cardSelect, setCardSelect] = useState(props.cards ? props.cards[0] : null)
 
     useEffect(() => {
         if (status >= 400 && status <= 600) {
             Toast.show({
                 type: 'error',
-                text1: 'Erreur de connexion',
                 text2: error.message
             });
         }
-    }, [error])
+        else {
+            if (props.cards !== dataCards.cards)
+                props.refreshCardsList(dataCards);
+            if (dataCards.cards && cardSelect === undefined)
+                setCardSelect(dataCards.cards[0])
+        }
+    }, [error, dataCards])
 
     useEffect(() => {
         searchData(`?access_token=${authData.token}&api_key=${APPENV.apiKey}`)
-    }, []);
-
-    useEffect(() => {
-        if (cards !== undefined && cardSelect === null)
-            setCardSelect(cards[0])
-    })
+    }, [])
 
     return (
         <SafeAreaView style={styles.container}>
@@ -47,7 +50,7 @@ function VirtualCard(props) {
                 <View>
                     <View style={styles.scrollbarTop}>
                         <View style={styles.innerScrollbar}>
-                            <CardSlider dataCard={cards} setData={setCardSelect}/>
+                            <CardSlider dataCard={props.cards} setData={setCardSelect}/>
 
                             <View>
                                 <Text style={styles.textAmount}>
@@ -70,4 +73,15 @@ function VirtualCard(props) {
     );
 }
 
-export default VirtualCard;
+const mapStateToProps = ({Card}) => {
+  const {cards} = Card;
+  return {cards};
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    refreshCardsList: dataCards => dispatch({type: REFRESH_CARDS_LIST, payload: dataCards}),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(VirtualCard)
