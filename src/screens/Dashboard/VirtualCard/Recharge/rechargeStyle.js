@@ -45,7 +45,7 @@ export default styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 3,
     borderRadius: 7,
-    marginBottom: 30,
+    marginBottom: 10,
   },
 
   amount : {
@@ -91,5 +91,5 @@ export default styles = StyleSheet.create({
   },
   input: {
     marginTop: 10
-  }
+  },
 })

@@ -12,6 +12,7 @@ import actions from './actions';
 import Action from './Components/Action';
 import shortid from 'shortid';
 import {REFRESH_CARDS_LIST} from '../../../redux/card/constants';
+import Button from '../../../components/Button';
 
 
 function VirtualCard(props) {
@@ -39,12 +40,17 @@ function VirtualCard(props) {
         searchData(`?access_token=${authData.token}&api_key=${APPENV.apiKey}`)
     }, [])
 
+    function goToAddScreen() {
+        props.navigation.navigate('BuyCard')
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <TabScreenHeader
                 leftComponent={() => <Text style={styles.headerTitle}>Vos cartes virtuelle</Text>}
-                isSearchBtnVisible={true}
-                isMoreBtnVisible={true}
+                isSearchBtnVisible={false}
+                isAddBtnVisible={true}
+                onAddBtnPress={() => goToAddScreen()}
             />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View>
@@ -63,7 +69,16 @@ function VirtualCard(props) {
                         <View style={styles.exploreSection}>
                             <Text style={styles.exploreHeader}>Sevices</Text>
                             <View style={styles.exploreContent}>
-                                {actions.map(action => <Action title={action.title} route={action.route} Icon={action.icon} navigation={props.navigation} cardSelect={cardSelect} key={shortid()} />)}
+                                {   cardSelect ?
+                                    actions.map(action => <Action title={action.title} route={action.route} Icon={action.icon} navigation={props.navigation} cardSelect={cardSelect} key={shortid()} />)
+                                    : (error) ?
+                                    <Text>Vous n'êtes pas connecté à internet</Text>
+                                    :
+                                    <View style={styles.centeredView}>
+                                        <Text>Vous n'avez aucune carte</Text>
+                                        <Button onPress={() => goToAddScreen()} mode="contained">Acheter une carte</Button>
+                                    </View>
+                                    }
                             </View>
                         </View>
                     </ScrollView>

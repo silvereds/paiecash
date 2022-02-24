@@ -68,7 +68,7 @@ function History({route, navigation}) {
   };
 
   const printQrCode = (index) => {
-    navigation.navigate('printQrCode', {title: 'QR Code '+qrCodeList.qrcode_transaction[index]?.designation, url: APPENV.domain + '/qr_code/print/transaction/'+qrCodeList.qrcode_transaction[index]?.code})
+    navigation.navigate('printQrCode', {title: 'QR Code '+qrCodeList?.qrcode_transaction[index]?.designation, url: APPENV.domain + '/qr_code/print/transaction/'+qrCodeList?.qrcode_transaction[index]?.code})
   }
 
   return (
@@ -103,7 +103,7 @@ function History({route, navigation}) {
               deignationError={error2.message}
             />
           ) : qrCodeList?.total_qr_code ? (
-            qrCodeList.qrcode_transaction.map((qrCode, index) => (
+            qrCodeList?.qrcode_transaction.map((qrCode, index) => (
               <QrCodeItem qrCode={qrCode} index={index} printQrCode={printQrCode} key={shortid()} />
             ))
           ) : (

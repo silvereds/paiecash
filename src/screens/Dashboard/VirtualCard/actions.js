@@ -12,7 +12,7 @@ export default actions = [
     },
     {
         title : 'Transfert',
-        route : 'Transfer',
+        route : 'Transfert',
         icon : <SimpleLineIcons name="wallet" size={22} color={theme.colors.primary} />
     },
     {

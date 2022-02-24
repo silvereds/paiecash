@@ -138,6 +138,27 @@ const styles = StyleSheet.create({
         color: theme.colors.primary,
         fontSize: 35,
         fontWeight: 'bold'
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: 'center'
+    },
+    buttonVerifyAccount: {
+        color: theme.colors.error,
+        paddingHorizontal: 20,
+        paddingVertical: 4,
+        borderColor: theme.colors.error,
+        borderWidth: 1,
+        borderRadius: 20,
+        maxWidth: 220,
+        marginTop: 10,
+        flexDirection: 'row',
+    },
+    textVerifyAccount: {
+        color: theme.colors.error,
+        textAlign: 'center',
+        marginHorizontal: 5
     }
 });
 
