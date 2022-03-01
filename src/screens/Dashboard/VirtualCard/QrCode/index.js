@@ -12,13 +12,21 @@ import QrCodeItem from './Components/QrCodeItem/index.js';
 import LeftHeaderComponent from '../../../../components/LeftHeaderComponent';
 import shortid from 'shortid';
 import QrCodeForm from './Components/QrCodeForm';
+import SkeletonWidgets from './SkeletonWidgets';
+import SkeletonContent from 'react-native-skeleton-content-nonexpo';
 
 function History({route, navigation}) {
-  const {card} = route.params;
+  const card = route?.params?.card;
   const [formVisibility, setFormVisibility] = useState(false);
   const [selectedItem, setSelectedItem] = useState({index: 0, showMore: false});
   const {authData} = useContext(AuthentificationContext);
-  const { data: qrCodeList, loading, searchData, status, error} = useFetchApi(APPENV.domain + '/api/qr_code/list/transaction');
+  const {
+    data: qrCodeList,
+    loading,
+    searchData,
+    status,
+    error,
+  } = useFetchApi(APPENV.domain + '/api/qr_code/list/transaction');
 
   const {
     data: qrCode,
@@ -41,7 +49,7 @@ function History({route, navigation}) {
         text2: error2.message,
       });
       setFormVisibility(!formVisibility);
-    } else if(qrCode?.designation!==undefined){
+    } else if (qrCode?.designation !== undefined) {
       Toast.show({
         type: 'success',
         text2: `${qrCode.designation} créé`,
@@ -52,14 +60,14 @@ function History({route, navigation}) {
 
   useEffect(() => {
     searchData(
-      `?card_id=${card.cardId}&access_token=${authData.token}&api_key=${APPENV.apiKey}`,
+      `?card_id=${card?.cardId}&access_token=${authData.token}&api_key=${APPENV.apiKey}`,
     );
   }, [qrCode]);
 
   const createQrCode = (designation, enterpriseId) => {
     let qr_code_data = {
       designation: designation,
-      card_id: card.cardId,
+      card_id: card?.cardId,
       entreprise_id: enterpriseId,
       api_key: APPENV.apiKey,
       access_token: authData.token,
@@ -67,9 +75,15 @@ function History({route, navigation}) {
     postData(qr_code_data);
   };
 
-  const printQrCode = (index) => {
-    navigation.navigate('printQrCode', {title: 'QR Code '+qrCodeList?.qrcode_transaction[index]?.designation, url: APPENV.domain + '/qr_code/print/transaction/'+qrCodeList?.qrcode_transaction[index]?.code})
-  }
+  const printQrCode = index => {
+    navigation.navigate('printQrCode', {
+      title: 'QR Code ' + qrCodeList?.qrcode_transaction[index]?.designation,
+      url:
+        APPENV.domain +
+        '/qr_code/print/transaction/' +
+        qrCodeList?.qrcode_transaction[index]?.code,
+    });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -81,36 +95,47 @@ function History({route, navigation}) {
         isAddBtnVisible={true}
         onAddBtnPress={() => setFormVisibility(!formVisibility)}
       />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.membersWrapper}>
-          <View style={styles.fullWidthCenter}>
-            <CreditCardDisplay
-              style={styles.fullWidth}
-              number={card?.cardNumber}
-              cvc={card?.cardCvv}
-              expiration={card?.expiredAt}
-              name={card?.cardOwner}
-              since="2004"
-            />
-            <Text style={styles.amount}>
-              {card?.amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} Xaf
-            </Text>
+      <SkeletonContent
+        containerStyle={{flex: 1, width: '100%', alignItems: 'center'}}
+        isLoading={loading}
+        layout={SkeletonWidgets}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.membersWrapper}>
+            <View style={styles.fullWidthCenter}>
+              <CreditCardDisplay
+                style={styles.fullWidth}
+                number={card?.cardNumber}
+                cvc={card?.cardCvv}
+                expiration={card?.expiredAt}
+                name={card?.cardOwner}
+                since="2004"
+              />
+              <Text style={styles.amount}>
+                {card?.amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}{' '}
+                Xaf
+              </Text>
+            </View>
+            {formVisibility ? (
+              <QrCodeForm
+                onSubmitForm={createQrCode}
+                loading={loading2}
+                deignationError={error2.message}
+              />
+            ) : qrCodeList?.total_qr_code ? (
+              qrCodeList?.qrcode_transaction.map((qrCode, index) => (
+                <QrCodeItem
+                  qrCode={qrCode}
+                  index={index}
+                  printQrCode={printQrCode}
+                  key={shortid()}
+                />
+              ))
+            ) : (
+              <EmptyListComponent />
+            )}
           </View>
-          {formVisibility ? (
-            <QrCodeForm
-              onSubmitForm={createQrCode}
-              loading={loading2}
-              deignationError={error2.message}
-            />
-          ) : qrCodeList?.total_qr_code ? (
-            qrCodeList?.qrcode_transaction.map((qrCode, index) => (
-              <QrCodeItem qrCode={qrCode} index={index} printQrCode={printQrCode} key={shortid()} />
-            ))
-          ) : (
-            <EmptyListComponent />
-          )}
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </SkeletonContent>
     </SafeAreaView>
   );
 }
