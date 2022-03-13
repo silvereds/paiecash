@@ -8,7 +8,7 @@ import {APPENV} from "../../../core/config";
  * Jaures Kano <ruddyjaures@gmail.com>
  */
 export default function FilterCountry({select, setSelect}) {
-    const {data, searchData} = useFetchApi(APPENV.domain + '/api/enable-country')
+    const {data, searchData} = useFetchApi(APPENV.domain + '/api/enable-country/list')
     const [dataSelect, setDataSelect] = useState([])
 
     useEffect(() => {

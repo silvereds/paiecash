@@ -1,97 +1,77 @@
-import React, {useContext} from 'react';
-import {
-  Image,
-  Pressable,
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TouchableHighlight,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import useAsyncData from '../../../services/DataStorage/UseAsyncData';
-import AuthentificationContext from '../../../context/AuthentificationContext';
-import {TabScreenHeader} from '../../../components/TabScreenHeader';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import styles from './ProfileStyle';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {theme} from '../../../core/theme';
-import Feather from 'react-native-vector-icons/Feather';
-import Toast from 'react-native-toast-message';
-import actions from './actions';
-import Action from './Components/Action';
-import shortid from 'shortid';
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { 
+  CertifyOptionListScreen, 
+  CertifyProfileInfoScreen, 
+  CertifyProfilePhoneScreen, 
+  CertifyProfilePwdScreen 
+} from './CertifyProfileScreen/screen';
+import ProfileHomeScreen from './HomeProfileTabScreen';
+import { COLORS } from '../../../constants';
 
-/**
- * @author Jaures Kano <ruddyjaures@gmail.com>
- */
-export default function ProfileTabScreens({navigation}) {
-  const {authData, setAuthData} = useContext(AuthentificationContext);
-  const {data, removeStorage} = useAsyncData('data');
+const stack = createStackNavigator()
 
-  const handleNavigation = (screen, params) => {
-    Toast.show({
-      type: 'info',
-      text1: 'Module bientot disponible',
-    });
-  };
-
-  function logoutAction() {
-    setAuthData({});
-    navigation.navigate('StartScreen');
-  }
-
+const  ProfileTabScreens =({navigation})=>{
   return (
-    <SafeAreaView style={styles.container}>
-      <TabScreenHeader
-        leftComponent={() => (
-          <View style={styles.leftHeaderWrapper}>
-            <Text style={styles.headerTitle}>Profile</Text>
-          </View>
-        )}
+    <stack.Navigator initialRouteName="Manage Profile">
+
+      {/* les routes et screens pour la certification de profile*/}
+
+      <stack.Screen 
+        name="Tnformations Personnelles" 
+        component={CertifyProfileInfoScreen}
+        options={{
+          title: '',
+          headerStyle: {
+            backgroundColor: COLORS.primary,
+          },
+          headerShown:false
+        }}
       />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View>
-          <View style={styles.profileDetailsSection}>
-            <View style={styles.profileInfoSection}>
-              <Image
-                style={styles.profilePhoto}
-                source={require('../../../assets/icon.png')}
-              />
-              <View style={styles.statisticsContainer}>
-                <Text style={styles.statisticsText}>EDGAR JAURES KANO</Text>
-                <Text style={styles.statisticsTitle}>Compte personnel</Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.centeredView}>
-            <TouchableOpacity
-              style={styles.buttonVerifyAccount}
-              onPress={() => {navigation.navigate('AccountValidation')}}>
-              <Feather name="alert-circle" style={styles.textVerifyAccount} size={18} color="black" />
-              <Text style={styles.textVerifyAccount}>Vérifier mon compte</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.exploreSection}>
-            <Text style={styles.exploreHeader}>Module</Text>
-            <View style={styles.exploreContent}>
-              {actions.map(action => (
-                <Action
-                  title={action.title}
-                  route={action.route}
-                  Icon={action.icon}
-                  onPress={
-                    action.route === 'StartScreen'
-                      ? logoutAction
-                      : handleNavigation
-                  }
-                  key={shortid()}
-                />
-              ))}
-            </View>
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      <stack.Screen 
+        name="Telephone" 
+        component={CertifyProfilePhoneScreen}
+        options={{
+          title: '',
+          headerStyle: {
+            backgroundColor: COLORS.primary,
+          },
+          headerShown:false
+        }}
+
+      />
+      <stack.Screen 
+        name="Modifier Le  Mot de Passe" 
+        component={CertifyProfilePwdScreen}
+        options={{
+          title: '',
+          headerStyle: {
+            backgroundColor: COLORS.primary,
+          },
+          headerShown:false
+        }}
+      />
+      <stack.Screen 
+        name="Certifiez Votre Profile" 
+        component={CertifyOptionListScreen}
+        options={{
+          title: '',
+          headerStyle: {
+            backgroundColor: COLORS.primary,
+          },
+          headerTintColor: '#fff',
+          headerShown:false
+        }} 
+      />
+      <stack.Screen 
+        name="Manage Profile" 
+        component={ProfileHomeScreen} 
+        options={{
+          title: 'Profile',
+          headerShown:false
+        }}
+      />
+    </stack.Navigator>
   );
 }
+export default ProfileTabScreens

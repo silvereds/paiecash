@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
+import { SIZES } from '../../../constants';
 import {theme} from "../../../core/theme";
 
 const styles = StyleSheet.create({
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
     },
     profileDetailsSection: {
         paddingTop: 10,
-        backgroundColor: '#fff',
+        //backgroundColor: '#fff',
         paddingHorizontal: 16,
         borderBottomStartRadius: 30,
         borderBottomEndRadius: 30,
@@ -32,6 +33,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.5,
         shadowRadius: 1,
         elevation: 1,
+        height:200
     },
     profileInfoSection: {
         display: 'flex',
@@ -49,13 +51,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     statisticsText: {
-        color: theme.colors.primary,
+        color: theme.colors.textWhite,
         fontSize: 20,
         fontWeight: 'bold',
     },
     statisticsTitle: {
         fontSize: 18,
-        color: theme.colors.disabled,
+        color: theme.colors.textWhite,
     },
     profileCenterSection: {
         display: 'flex',
@@ -89,14 +91,14 @@ const styles = StyleSheet.create({
     },
     exploreContent: {
         display: 'flex',
-        flexDirection: 'row',
+        //flexDirection: 'row',
         alignItems: 'center',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
     },
     singleExplore: {
-        height: 80,
-        width: '30%',
+        height: 50,
+        width: SIZES.width*0.9,
         shadowColor: '#000',
         shadowOffset: {width: 0, height: 1},
         shadowOpacity: 0.5,
@@ -108,13 +110,17 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
-        alignSelf: 'flex-start',
+        flexDirection:'row',
+        justifyContent: 'flex-start',
+        paddingHorizontal:SIZES.padding
+        //alignSelf: 'flex-start',
     },
     exploreText: {
         fontWeight: 'bold',
         fontSize: 14,
         color: theme.colors.primary,
+        textAlign:'center',
+        marginLeft:SIZES.padding
     },
     scrollbarTop: {
         paddingTop: 10,
@@ -142,7 +148,9 @@ const styles = StyleSheet.create({
     centeredView: {
         flex: 1,
         justifyContent: "center",
-        alignItems: 'center'
+        alignItems: 'center',
+        borderTopEndRadius:15,
+        marginTop:50,
     },
     buttonVerifyAccount: {
         color: theme.colors.error,
@@ -159,6 +167,10 @@ const styles = StyleSheet.create({
         color: theme.colors.error,
         textAlign: 'center',
         marginHorizontal: 5
+    },
+    center:{
+        alignItems:'center',
+        justifyContent:'center'
     }
 });
 
