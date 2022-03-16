@@ -56,7 +56,9 @@ const  ProfileHomeScreen = ({navigation})=>{
                 source={require('../../../assets/icon.png')}
               />
               <View style={styles.statisticsContainer}>
-                <Text style={styles.statisticsText}>EDGAR JAURES KANO</Text>
+                <Text style={styles.statisticsText}>
+                  {authData.user?.firstName} {authData.user?.lastName}
+                </Text>
                 <Text style={styles.statisticsTitle}>Compte personnel</Text>
               </View>
             </View>
@@ -79,7 +81,11 @@ const  ProfileHomeScreen = ({navigation})=>{
                   title={action.title}
                   route={action.route}
                   Icon={action.icon}
-                  onPress={()=>action.route === 'Certifiez Votre Profile'? navigation.navigate(action.route) : logoutAction()
+                  onPress={()=>action.route === 'Certifiez Votre Profile'? 
+                  navigation.navigate(action.route) 
+                  : 
+                  (
+                    action.route == "StartScreen"? logoutAction():Toast.show({title:"",text1:"module en cours ..."}))
                   }
                   key={shortid()}
                 />

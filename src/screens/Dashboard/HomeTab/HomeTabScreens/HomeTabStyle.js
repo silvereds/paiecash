@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   },
   projectDetailsSection: {
     paddingTop: 40,
-    backgroundColor: '#fff',
+    //backgroundColor: '#fff',
     paddingHorizontal: 16,
     borderBottomStartRadius: 30,
     borderBottomEndRadius: 30,
@@ -33,9 +33,9 @@ const styles = StyleSheet.create({
   },
   projectTitle: {
     fontWeight: 'bold',
-    color: theme.colors.text,
+    color: theme.colors.textWhite,
     fontSize: 18,
-    marginRight: 10,
+    marginLeft: 10,
   },
   projectTeamAndProgress: {
     display: 'flex',
@@ -167,12 +167,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   statusProfileError: {
-    color: theme.colors.error,
+    color: theme.colors.textWhite,
     width: '100%',
     marginBottom: 5,
   },
   statusSubscription: {
-    color: theme.colors.error,
+    color: theme.colors.textWhite,
     width: '100%',
     marginBottom: 5,
   },

@@ -13,7 +13,7 @@ import Toast from 'react-native-toast-message';
 
 const  CertifyProfilePhoneScreen = ({navigation})=>{  
   const {authData,setAuthData} = React.useContext(AuthentificationContext);
-  const {data, searchData} = useFetchApi(APPENV.domain + '/api/enable-country')
+  //const {data, searchData} = useFetchApi(APPENV.domain + '/api/enable-country')
 
   const {
     data:firstPhone ,
@@ -72,7 +72,7 @@ const  CertifyProfilePhoneScreen = ({navigation})=>{
     <SafeAreaView style={styles.container}>
     <ScrollView style={{backgroundColor:"#fff"}}>
       <CertifyLayout
-        title={"Changer De Numéro"}
+        title={authData.user?.phone == null ? "définir votre numéro de téléphone":"Changer De Numéro"}
         navigation={navigation}
       >
         <FilterCountry 
@@ -103,7 +103,7 @@ const  CertifyProfilePhoneScreen = ({navigation})=>{
                     width:SIZES.width*0.8,
                     height:50,
                     backgroundColor:phoneResetEnable()? COLORS.primary2 : COLORS.lightGreen,
-                    borderRadius:20
+                    //borderRadius:20
                   }}
                   disabled={phoneResetEnable() ? false:true}
                   onPress={()=>phoneResetEnable()?updatePhone():""}

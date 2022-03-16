@@ -2,11 +2,13 @@ import React from 'react';
 import {Image, Text, View} from "react-native";
 import styles from './ItemCardPartenairesStyle';
 
-function ItemCardPartenaires(props) {
+function ItemCardPartenaires(item,key) {
+    console.log(item.image)
     return (
         <View style={styles.container}>
             <View style={styles.imageBox}>
-                <Image source={require('../../../../../assets/adaptive-icon.png')} style={styles.image}/>
+                
+                <Image source={item.image} style={styles.image}/>
             </View>
             <View style={styles.textBox}>
                 <Text style={styles.title}>
@@ -22,7 +24,5 @@ function ItemCardPartenaires(props) {
         </View>
     );
 }
-
-
 
 export default ItemCardPartenaires;

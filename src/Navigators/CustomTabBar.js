@@ -39,10 +39,10 @@ export default function CustomTabBar(props) {
     <View style={styles.menuWrapper}>
       <View style={styles.menuContainer}>
         <TouchableOpacity onPress={() => handleNavigation('Acceuil')}>
-          <Ionicons name="ios-menu" size={32} color={getColor('Acceuil')} />
+          <Ionicons name="grid" size={30} color={getColor('Acceuil')} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleNavigation('Transfert')}>
-          <Feather name="send" size={25} color={getColor('Transfert')} />
+          <Feather name="send" size={30} color={getColor('Transfert')} />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.plusBtnContainer}
@@ -50,12 +50,12 @@ export default function CustomTabBar(props) {
           <Ionicons name="qr-code-outline" size={32} color={'#fff'} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleNavigation('Carte')}>
-          <Ionicons name="card" size={25} color={getColor('Carte')} />
+          <Ionicons name="card" size={32} color={getColor('Carte')} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleNavigation('Profile')}>
           <MaterialIcons
             name="account-circle"
-            size={25}
+            size={32}
             color={getColor('Profile')}
           />
         </TouchableOpacity>

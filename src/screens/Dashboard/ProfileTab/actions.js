@@ -21,7 +21,7 @@ export default actions = [
         icon : <Ionicons name="link" size={22} color={theme.colors.primary} />
     },
     {
-        title : 'Certifiez Votre Profile',
+        title : 'mise à jour des informations du profile',
         route : 'Certifiez Votre Profile',
         icon : <Icon name="user-check" size={22} color={theme.colors.primary} />
     },

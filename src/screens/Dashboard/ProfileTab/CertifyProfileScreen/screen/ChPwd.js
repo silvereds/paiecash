@@ -7,7 +7,6 @@ import CertifyLayout from '../../Components/CertifyLayout';
 import {passwordValidator} from '../../../../../helpers/validators/passwordValidator'
 import {APPENV} from "../../../../../core/config";
 import BlockInput from '../../../../../components/TextInput/BlockInput';
-import TextInput from '../../../../../components/TextInput';
 import Icon from "react-native-vector-icons/Feather"
 import { SafeAreaView } from 'react-native-safe-area-context';
 import TextButton from '../../../../../components/Button/TextButton';
@@ -87,7 +86,7 @@ const  CertifyProfilePwdScreen = ({navigation})=>{
       <ScrollView style={{backgroundColor:"#fff"}} >
         <CertifyLayout
           title={""}
-          subtitle="Changer Votre Mot de Passe"
+          subtitle={authData.user?.passwordDefined?"Changer Votre Mot de Passe":"définir votre mot de passe"}
           navigation={navigation}
         >
           {authData.user.passwordDefined &&
@@ -99,7 +98,7 @@ const  CertifyProfilePwdScreen = ({navigation})=>{
                   secureTextEntry={!old_password.show}
                   appendComponent={
                       <TouchableOpacity 
-                          style={styles.center}
+                          style={[styles.center,{width:50}]}
                           onPress={()=>setOlPassword({...old_password,show:!old_password.show})}
                       >
                           <Icon name={old_password.show ? "eye-off":"eye"} size={20} color={COLORS.lightGreen}/>
@@ -117,7 +116,7 @@ const  CertifyProfilePwdScreen = ({navigation})=>{
               secureTextEntry={!new_password.show}
               appendComponent={
                   <TouchableOpacity 
-                      style={styles.center}
+                  style={[styles.center,{width:50}]}
                       onPress={()=>{setNewPassword({...new_password,show:!new_password.show})}}
                   >
                       <Icon name={new_password.show ? "eye-off":"eye"} size={20} color={COLORS.lightGreen}/>
@@ -134,7 +133,7 @@ const  CertifyProfilePwdScreen = ({navigation})=>{
               secureTextEntry={!new_confirm_password.show}
               appendComponent={
                   <TouchableOpacity 
-                      style={styles.center}
+                      style={[styles.center,{width:50}]}
                       onPress={()=>setNewConfirmPassword({...new_confirm_password,show:!new_confirm_password.show})}
                   >
                       <Icon name={new_confirm_password.show ? "eye-off":"eye"} size={20} color={COLORS.lightGreen}/>
@@ -151,7 +150,7 @@ const  CertifyProfilePwdScreen = ({navigation})=>{
                 width:SIZES.width*0.8,
                 height:50,
                 backgroundColor:changePwdIsEnable()?COLORS.primary2:COLORS.lightGreen,
-                borderRadius:20
+                
               }}
               disabled={changePwdIsEnable()?false:true}
               onPress={()=>changePwdIsEnable()?changePwd():""}

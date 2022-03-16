@@ -27,16 +27,16 @@ const  CertifyProfileInfoScreen = ({navigation})=>{
   const [firstNameError,setFirstNameError] = React.useState("")
   const [lastName,setLastName] = React.useState(authData.user?.lastName)
   const [lastNameError,setLastNameError] = React.useState("")
-  const [cni,setCni] = React.useState({value:'123400000', error:''})
+  const [cni,setCni] = React.useState({value:authData.user?.cni, error:''})
   const [birthday,setBirthay] = React.useState({
-    day:(new Date(authData.user?.birthDay).getUTCDate() +1).toString(),
+    day:(new Date(authData.user?.birthDay).getUTCDate()).toString(),
     month:(new Date(authData.user?.birthDay). getUTCMonth() + 1).toString(),
     year:new Date(authData.user?.birthDay).getFullYear().toString(),
     error:''
   })
   
   React.useEffect(() => {
-
+    console.log(authData.user)
     if (status >= 400 && status <= 600) {
         Toast.show({
             type: 'error',
@@ -50,7 +50,8 @@ const  CertifyProfileInfoScreen = ({navigation})=>{
           type: 'info',
           text1: personnalData.message,
           }),
-          authData.user.birthDay = birthday.year+"-"+birthday.month+"-"+birthday.day+"T00:00:00+01:00",
+          authData.user.birthDay = birthday.year+"-"+birthday.month+"-"+birthday.day,
+          authData.user.cni = cni.value,
           setAuthData(authData)
         )
       :''
@@ -62,7 +63,7 @@ const  CertifyProfileInfoScreen = ({navigation})=>{
     return(
             (firstName !="" && lastName!="" && firstNameError =='' && lastNameError =='') 
             &&
-            (birthday.day.length != 0 && birthday.month.length !=0 && birthday.error == '')
+            (birthday.day.length != 0 && birthday.month.length ==2 && birthday.error == '')
             &&
             (cni.value != '' && cni.error == '')
             &&
@@ -74,9 +75,9 @@ const  CertifyProfileInfoScreen = ({navigation})=>{
   function updatePersonnalInfo(){
 
     return postData({
-      firstName: firstName,
-      lastName: lastName,
-      birthday:birthday.day+"-"+birthday.month+"-"+birthday.year,
+      first_name: firstName,
+      last_name: lastName,
+      birthday:birthday.year+"-"+birthday.month+"-"+birthday.day,
       cni:cni.value,
       api_key:APPENV.apiKey,
       access_token:authData.token
@@ -150,14 +151,18 @@ const  CertifyProfileInfoScreen = ({navigation})=>{
                   containerStyle={{width:SIZES.width*0.25}}
                   keyboardType="numeric"
                   placeholder="Month"
-                  onChange={(value)=>setBirthay({...birthday,month:value})}
+                  onChange={(value)=>{
+                    (value.length == 2 && parseInt(value)<=12 && parseInt(value)>=1)?
+                    setBirthay({...birthday,month:value,error:''}):setBirthay({...birthday,error:"le mois n'est pas correcte ,un  exemple 1-07-1998"})
+                  }
+                  }
                   defaultValue={birthday.month}
               />
               <BlockInput 
                   containerStyle={{width:SIZES.width*0.3}}
                   keyboardType="numeric"
                   placeholder="Year"
-                  onChange={(value)=>value.length==4?setBirthay({...birthday,year:value,error:''}):setBirthay({...birthday,error:"invalid birthday"})}
+                  onChange={(value)=>value.length==4?setBirthay({...birthday,year:value,error:''}):setBirthay({...birthday,error:"invalid year"})}
                   defaultValue={birthday.year}
               />
             </View>

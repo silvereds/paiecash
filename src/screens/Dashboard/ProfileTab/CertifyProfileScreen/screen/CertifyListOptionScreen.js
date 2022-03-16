@@ -6,9 +6,10 @@ import CertifyLayout from '../../Components/CertifyLayout';
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import styles from "../../ProfileStyle";
 import Action from "../../Components/Action";
-//import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import Toast from 'react-native-toast-message';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import DATA from "../../../../../constants/ListServices";
+
 
 const CustomItem = ({label,onPress,customStyle,icon_name}) =>{
     return (
@@ -72,7 +73,11 @@ const CertifyOptionListScreen = ({navigation})=>{
                             <Action
                                 index={index}
                                 title={item.title} 
-                                onPress={""}
+                                onPress={()=>Toast.show({
+                                    type: 'info',
+                                    text1: 'module en cours de traitement',
+                                    })
+                                }
                                 Icon={<MaterialCommunityIcons name={item.icon} color={COLORS.primary2} size={20} />}
                             />
 
