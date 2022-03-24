@@ -6,12 +6,9 @@ const TextIconButton = ({label, Icon, onPress,buttonStyle}) => {
   return (
     <TouchableOpacity
       style={{
-        
-        
         justifyContent:'space-between',
         alignItems:'center',
-        padding:SIZES.padding,
-        
+        padding:SIZES.padding +10,
         
       }}
       onPress={onPress}

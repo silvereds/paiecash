@@ -2,7 +2,7 @@ const mainServices = [
     {
         id:2,
         title:"transfert",
-        image:"location-arrow"
+        image:"paper-plane"
     },
     {
         id:3,
@@ -12,7 +12,7 @@ const mainServices = [
     {
         id:4,
         title:"epargne",
-        image:'hand-holding-water'
+        image:'money-bill-wave-alt'
     }
 ]
 export default mainServices

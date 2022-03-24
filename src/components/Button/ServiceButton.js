@@ -6,9 +6,9 @@ const ServicesButton = ({item,key,icon,width,height,onPress})=>{
     return(
         <TouchableOpacity 
             style={{
-            width:width,
-            height:height,
-            paddingVertical:SIZES.padding,
+            //width:width,
+            //height:height,
+            padding:SIZES.base,
             justifyContent:'center',
             alignItems:'center',
             backgroundColor:COLORS.white2,
@@ -17,7 +17,7 @@ const ServicesButton = ({item,key,icon,width,height,onPress})=>{
             shadowOffset: {width: 0.8, height: 2},
             shadowOpacity: 0.5,
             shadowRadius: 1,
-            //elevation: 6,
+            elevation: 6,
             borderRadius:10,
 
             }}

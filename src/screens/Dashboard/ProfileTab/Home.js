@@ -32,30 +32,6 @@ const ProfileHomeScreen = ({navigation})=>{
                 }}
             >
                 <View style={{justifyContent:'flex-end',flexDirection:'row',marginBottom:SIZES.padding}}>
-                    <TouchableOpacity 
-                        style={{
-                            backgroundColor:COLORS.primary2 ,
-                            flexDirection:'row',
-                            alignItems:'center',
-                            height:50,
-                            paddingHorizontal:SIZES.base,
-                            borderRadius:25
-                            }}
-                        onPress={()=>logoutAction() }
-                    >
-                        
-                        <Text style={{color:COLORS.white}}> Deconnexion </Text>
-                        <Icon name="sign-out-alt" size={30} color={COLORS.white}/>
-                    </TouchableOpacity>
-                </View>
-                
-                <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center',paddingHorizontal:SIZES.padding}}>
-                    <Image source={require('../../../assets/ballon.jpg')} style={{height:90,width:90,borderRadius:45}}/>
-                    <View style={{paddingHorizontal:SIZES.base}}>
-                        <Text style={{color:COLORS.white,...FONTS.h2}}> {authData.user?.firstName} </Text>
-                        <Text style={{color:COLORS.lightGreen,...FONTS.body3}}> {authData.user?.lastName} </Text>
-                        <Text style={{color:COLORS.lightGreen,...FONTS.body3}}> {authData.user?.email} </Text>
-                    </View>
                     <ProgressCircle
                         percent={authData.user?.percentCertification}
                         radius={30}
@@ -65,6 +41,16 @@ const ProfileHomeScreen = ({navigation})=>{
                         bgColor={COLORS.darkBlue}>
                         <Text style={{color:COLORS.white,...FONTS.h3}}>{authData.user?.percentCertification}%</Text>
                     </ProgressCircle>
+                </View>
+                
+                <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center',paddingHorizontal:SIZES.padding}}>
+                    <Image source={require('../../../assets/ballon.jpg')} style={{height:90,width:90,borderRadius:45}}/>
+                    <View style={{paddingHorizontal:SIZES.base}}>
+                        <Text style={{color:COLORS.white,...FONTS.h2}}> {authData.user?.firstName} </Text>
+                        <Text style={{color:COLORS.lightGreen,...FONTS.body3}}> {authData.user?.lastName} </Text>
+                        <Text style={{color:COLORS.lightGreen,...FONTS.body3}}> {authData.user?.email} </Text>
+                    </View>
+                    
                 </View>
                 
             </View>
@@ -87,7 +73,7 @@ const ProfileHomeScreen = ({navigation})=>{
                         <Icon name='exclamation-circle' size={20} color={COLORS.lightOrange}/>
                         <Text style={{color:COLORS.lightOrange,...FONTS.body5}}>Vérifier mon compte</Text>
                     </TouchableOpacity>
-                    <View style={{flexDirection:'row',paddingHorizontal:SIZES.padding}}>
+                    <View style={{flexDirection:'row',paddingHorizontal:SIZES.padding,justifyContent:'space-evenly'}}>
                         <TextIconButton label={"Abonnements"} Icon={<Icon name="id-card" size={30} color={COLORS.lightGreen} />} onPress={()=>{}}/>
                         <TextIconButton label={"QR code"} Icon={<Icon name="qrcode" size={30} color={COLORS.lightGreen}/>} onPress={()=>{}}/>
                         <TextIconButton label={"Cartes virtuelles"} Icon={<Icon name="money-check" size={30} color={COLORS.lightGreen}/>} onPress={()=>{}}/>
@@ -135,6 +121,12 @@ const ProfileHomeScreen = ({navigation})=>{
                             text1: 'module en cours de traitement',
                         })}
                         Icon={<Icon name="child" size={30} color={COLORS.lightGreen} />}
+                    />
+                    <ProfileActionButton 
+                        title="Déconnexion" 
+                        subtitle="deconnectez vous"
+                        onPress={()=>logoutAction()}
+                        Icon={<Icon name="sign-out-alt" size={30} color={COLORS.lightGreen} />}
                     />
                 </View>
             </View>

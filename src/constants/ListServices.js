@@ -15,19 +15,19 @@ const DATA = [
         id: '1',
         title: 'Recharge',
         desc: 'Faite des achats chez nos partenaires',
-        icon: 'link'
+        icon: 'hand-holding-water'
     },
     {
         id: '2',
         title: 'Parainnage',
         desc: 'Parainez des utilisateurs et gagner de l\'argent',
-        icon: 'cash-multiple'
+        icon: 'child'
     },
     {
-        id: '',
-        title: 'Cartes vituelle',
+        id: '3',
+        title: 'Mes cartes',
         desc: 'Parainez des utilisateurs et gagner de l\'argent',
-        icon: 'cash-multiple'
+        icon: 'money-check'
     }
 ];
 export default DATA
