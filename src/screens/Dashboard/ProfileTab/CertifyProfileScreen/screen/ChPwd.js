@@ -3,7 +3,7 @@ import { View, Text, ScrollView,TouchableOpacity ,StyleSheet} from 'react-native
 import useFetchApi from '../../../../../helpers/fetchApi/useFetchApi';
 import styles from '../../ProfileStyle';
 import {COLORS,FONTS , SIZES} from './../../../../../constants'
-import CertifyLayout from '../../Components/CertifyLayout';
+import Starter from '../../../../../components/Layout/Starter';
 import {passwordValidator} from '../../../../../helpers/validators/passwordValidator'
 import {APPENV} from "../../../../../core/config";
 import BlockInput from '../../../../../components/TextInput/BlockInput';
@@ -12,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import TextButton from '../../../../../components/Button/TextButton';
 import Toast from 'react-native-toast-message';
 import AuthentificationContext from '../../../../../context/AuthentificationContext';
+import FontAweSome5 from 'react-native-vector-icons/FontAwesome5'
 
 const  CertifyProfilePwdScreen = ({navigation})=>{
   const {authData,setAuthData} = React.useContext(AuthentificationContext);
@@ -73,21 +74,23 @@ const  CertifyProfilePwdScreen = ({navigation})=>{
   function changePwd(){
     new_confirm_password.value == new_password.value ?
     postData({
-      old_password:old_password.value.length != 0 ? old_password.value:null,
+      old_password:old_password.value.length != 0 ? old_password.value:'',
       new_password:new_password.value,
       new_password_confirm: new_confirm_password.value,
       api_key:APPENV.apiKey,
       access_token:authData.token
-    }):Toast.show({type:'error',text1:"password doesn' t match"})
+    }):Toast.show({type:'error',text1:"les mot de passe saisie ne sont pas identiques "})
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={{backgroundColor:"#fff"}} >
-        <CertifyLayout
-          title={""}
-          subtitle={authData.user?.passwordDefined?"Changer Votre Mot de Passe":"définir votre mot de passe"}
+        <Starter
+          subtitle={""}
+          title={authData.user?.passwordDefined?"Changer Votre Mot de Passe":"définir votre mot de passe"}
           navigation={navigation}
+          headerHeight={50}
+          //headerIcon={<FontAweSome5  name='user-circle' size={70} color={COLORS.white}/>}
         >
           {authData.user.passwordDefined &&
               <BlockInput
@@ -144,7 +147,7 @@ const  CertifyProfilePwdScreen = ({navigation})=>{
             />
           <View style={{marginTop:SIZES.padding,...styles.center}}>
             <TextButton
-              label={loading === true ? 'Réinitialisation en cours...' : 'Réinitialiser'}
+              label={loading === true ? 'requete en cour...' : 'envoyé'}
               labelStyle={{color:COLORS.white}}
               buttonStyle={{
                 width:SIZES.width*0.8,
@@ -156,7 +159,7 @@ const  CertifyProfilePwdScreen = ({navigation})=>{
               onPress={()=>changePwdIsEnable()?changePwd():""}
             />
           </View>
-      </CertifyLayout>
+      </Starter>
       </ScrollView>
     </SafeAreaView>
   );

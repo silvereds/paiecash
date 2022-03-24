@@ -1,5 +1,6 @@
 import React, {StyleSheet} from 'react-native';
 import {theme} from '../../../../core/theme';
+import { SIZES,COLORS,FONTS } from '../../../../constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -170,6 +171,13 @@ const styles = StyleSheet.create({
     color: theme.colors.textWhite,
     width: '100%',
     marginBottom: 5,
+  },
+  boutton_abonnement:{ 
+    width:SIZES.width*0.9,
+    justifyContent:'center',
+    alignItems:'center',
+    height:50,
+    backgroundColor:COLORS.primary2
   },
   statusSubscription: {
     color: theme.colors.textWhite,

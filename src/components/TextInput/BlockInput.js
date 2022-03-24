@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         paddingHorizontal:SIZES.base,
         marginTop:SIZES.base,
        // borderRadius:SIZES.radius,
-       // backgroundColor:COLORS.lightGray1,
+        //backgroundColor:COLORS.lightGray1,
         borderBottomWidth:1,
         borderBottomColor:COLORS.lightGray1
         

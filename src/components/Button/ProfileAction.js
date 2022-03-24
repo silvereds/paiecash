@@ -1,13 +1,9 @@
 import React from 'react';
-import styles from '../../ProfileStyle';
 import {Text, TouchableOpacity , View} from 'react-native';
-import { COLORS, FONTS, SIZES } from '../../../../../constants';
+import { COLORS, FONTS, SIZES } from '../../constants';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
-
-
-
-export default Action = ({title,subtitle, Icon, route, onPress}) => {
+const ProfileActionButton = ({title,subtitle, Icon, route, onPress}) => {
   return (
     <TouchableOpacity
       style={{
@@ -34,4 +30,5 @@ export default Action = ({title,subtitle, Icon, route, onPress}) => {
     </TouchableOpacity>
   );
 };
+export default ProfileActionButton
 

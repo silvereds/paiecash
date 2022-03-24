@@ -41,6 +41,7 @@ function Partenaires(props) {
                             >
                                 <Image 
                                     source={item.image} 
+                                    resizeMode='contain'
                                     style={{
                                         height:200,
                                         width:SIZES.width*0.85,

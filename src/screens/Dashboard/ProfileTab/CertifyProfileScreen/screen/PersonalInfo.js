@@ -3,17 +3,18 @@ import { View, Text, ScrollView,TouchableOpacity,SafeAreaView ,StyleSheet} from 
 import useFetchApi from '../../../../../helpers/fetchApi/useFetchApi';
 import styles from '../../ProfileStyle';
 import {COLORS,FONTS , SIZES} from './../../../../../constants'
-import CertifyLayout from '../../Components/CertifyLayout';
+import Starter from '../../../../../components/Layout/Starter';
 import {APPENV} from "../../../../../core/config";
 import BlockInput from '../../../../../components/TextInput/BlockInput';
 import Icon from "react-native-vector-icons/Feather"
 import TextButton from '../../../../../components/Button/TextButton';
 import Toast from 'react-native-toast-message';
 import AuthentificationContext from '../../../../../context/AuthentificationContext';
+import FontAweSome5 from 'react-native-vector-icons/FontAwesome5'
 
 
 const  CertifyProfileInfoScreen = ({navigation})=>{
-  const {authData,setAuthData} = React.useContext(AuthentificationContext);
+  const {setAuthData,authData} = React.useContext(AuthentificationContext);
 
   const {
     data :personnalData,
@@ -23,20 +24,28 @@ const  CertifyProfileInfoScreen = ({navigation})=>{
     error,
   } = useFetchApi(APPENV.domain + '/api/profile/certification/personnal-information')
 
-  const [firstName,setFirstName] = React.useState(authData.user?.firstName)
+  const [user,setUser]= React.useState(authData.user)
+  const [firstName,setFirstName] = React.useState(user?.firstName)
   const [firstNameError,setFirstNameError] = React.useState("")
-  const [lastName,setLastName] = React.useState(authData.user?.lastName)
+  const [lastName,setLastName] = React.useState(user?.lastName)
   const [lastNameError,setLastNameError] = React.useState("")
-  const [cni,setCni] = React.useState({value:authData.user?.cni, error:''})
+  const [user_cni,setCni] = React.useState({value:user?.cni, error:''})
   const [birthday,setBirthay] = React.useState({
-    day:(new Date(authData.user?.birthDay).getUTCDate()).toString(),
-    month:(new Date(authData.user?.birthDay). getUTCMonth() + 1).toString(),
-    year:new Date(authData.user?.birthDay).getFullYear().toString(),
+    day:'',
+    month:'',
+    year:'',
     error:''
   })
-  
+
+  React.useEffect(()=>{
+    if(authData.user?.birthDay != null ){
+      let birth = authData.user?.birthDay.split("T")[0].split("-")
+      setBirthay({...birthday,day:birth[2],month:birth[1],year:birth[0]})
+    } 
+  },[authData.user?.birthDay])
+
   React.useEffect(() => {
-    console.log(authData.user)
+    
     if (status >= 400 && status <= 600) {
         Toast.show({
             type: 'error',
@@ -50,14 +59,17 @@ const  CertifyProfileInfoScreen = ({navigation})=>{
           type: 'info',
           text1: personnalData.message,
           }),
-          authData.user.birthDay = birthday.year+"-"+birthday.month+"-"+birthday.day,
-          authData.user.cni = cni.value,
-          setAuthData(authData)
+          authData.user.cni = user_cni.value,
+          authData.user.firstName=firstName,
+          authData.user.lastName=lastName,
+          authData.user.birthDay = birthday.year+"-"+birthday.month+"-"+birthday.day
         )
       :''
      }
-     console.log(authData.user)
+    
   }, [error,personnalData,status])
+
+
 
   function RegisterIsEnable(){
     return(
@@ -65,7 +77,7 @@ const  CertifyProfileInfoScreen = ({navigation})=>{
             &&
             (birthday.day.length != 0 && birthday.month.length ==2 && birthday.error == '')
             &&
-            (cni.value != '' && cni.error == '')
+            (user_cni.value != '' && user_cni.error == '')
             &&
             loading == false
           )
@@ -78,7 +90,7 @@ const  CertifyProfileInfoScreen = ({navigation})=>{
       first_name: firstName,
       last_name: lastName,
       birthday:birthday.year+"-"+birthday.month+"-"+birthday.day,
-      cni:cni.value,
+      cni:user_cni.value,
       api_key:APPENV.apiKey,
       access_token:authData.token
     })
@@ -87,9 +99,12 @@ const  CertifyProfileInfoScreen = ({navigation})=>{
 
   return (
     <ScrollView style={{backgroundColor:"#fff"}}>
-    <CertifyLayout
-      subtitle={"Mettre à jour vos informations de profile "} 
+    <Starter
+      subtitle={"vous pouvez mettre à jour vos informations de profile maintenant "} 
+      title={""}
       navigation={navigation}
+      headerHeight={200}
+      headerIcon={<FontAweSome5  name='user-circle' size={70} color={COLORS.white}/>}
     >
         
         <View style={styles.auth}>
@@ -169,19 +184,19 @@ const  CertifyProfileInfoScreen = ({navigation})=>{
             <BlockInput
                 containerStyle={{marginTop:SIZES.base}}
                 label="Numero cni"
-                onChange={(value)=>{value.length < 4 ?setCni({...cni,error:'cni invalide'}):setCni({value:value,error:''})}}
-                errorMsg={cni.error}
+                onChange={(value)=>{value.length < 4 ?setCni({...user_cni,error:'cni invalide'}):setCni({value:value,error:''})}}
+                errorMsg={user_cni.error}
                 appendComponent={
                     <View style={styles.center}>
                         <Icon 
-                            name={cni.value == "" ||(cni.value !="" &&  cni.error == "") ? "check-circle":"disc"} 
+                            name={user_cni.value == "" ||(user_cni.value !="" &&  user_cni.error == "") ? "check-circle":"disc"} 
                             size={20} 
-                            color={cni.value == "" ||(cni.value !="" &&  cni.error == "") ? COLORS.green:COLORS.red}
+                            color={user_cni.value == "" ||(user_cni.value !="" &&  user_cni.error == "") ? COLORS.green:COLORS.red}
                         />
                     </View>
                 }
                 prependComponent={<></>}
-                defaultValue={cni.value}
+                defaultValue={user_cni.value}
             />
             <View style={{marginTop:SIZES.padding,...styles.center}}>
                 <TextButton 
@@ -198,7 +213,7 @@ const  CertifyProfileInfoScreen = ({navigation})=>{
                 />
             </View>
         </View>
-    </CertifyLayout>
+    </Starter>
     </ScrollView>
   );
 }

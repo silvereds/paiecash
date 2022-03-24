@@ -1,12 +1,12 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { 
-  CertifyOptionListScreen, 
   CertifyProfileInfoScreen, 
   CertifyProfilePhoneScreen, 
-  CertifyProfilePwdScreen 
+  CertifyProfilePwdScreen, 
+  Localisation
 } from './CertifyProfileScreen/screen';
-import ProfileHomeScreen from './HomeProfileTabScreen';
+import ProfileHomeScreen from './Home';
 import { COLORS } from '../../../constants';
 
 const stack = createStackNavigator()
@@ -20,6 +20,17 @@ const  ProfileTabScreens =({navigation})=>{
       <stack.Screen 
         name="Tnformations Personnelles" 
         component={CertifyProfileInfoScreen}
+        options={{
+          title: '',
+          headerStyle: {
+            backgroundColor: COLORS.primary,
+          },
+          headerShown:false
+        }}
+      />
+      <stack.Screen 
+        name="LocalisationSettings" 
+        component={Localisation}
         options={{
           title: '',
           headerStyle: {
@@ -51,18 +62,7 @@ const  ProfileTabScreens =({navigation})=>{
           headerShown:false
         }}
       />
-      <stack.Screen 
-        name="Certifiez Votre Profile" 
-        component={CertifyOptionListScreen}
-        options={{
-          title: '',
-          headerStyle: {
-            backgroundColor: COLORS.primary,
-          },
-          headerTintColor: '#fff',
-          headerShown:false
-        }} 
-      />
+      
       <stack.Screen 
         name="Manage Profile" 
         component={ProfileHomeScreen} 

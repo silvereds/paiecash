@@ -15,7 +15,7 @@ import TransfertCard from "./TransfertCard";
 import PrintQrCode from './VirtualCard/QrCode/print';
 import BuyCard from './VirtualCard/BuyCard';
 import AccountValidation from './ProfileTab/AccountValidation';
-//import CertifyProfileScreen from './ProfileTab/CertifyProfileScreen';
+import EnterpriseList from './Enterprises';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,7 +33,8 @@ function Dashboard({navigation}) {
             <Tab.Screen name="Acceuil" component={HomeTabScreens}/>
             <Tab.Screen name="Scan" component={QrCodeTabScreens}/>
             <Tab.Screen name="Profile" component={ProfileTabScreens}/>
-            <Tab.Screen name="Transfert" component={TransfertCard}/>
+            {/*<Tab.Screen name="Transfert" component={TransfertCard}/>*/}
+            <Tab.Screen name="Entreprise" component={EnterpriseList}/>
             <Stack.Screen name="Carte" component={VirtualCard}/>
           </Tab.Navigator>
     );

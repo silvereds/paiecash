@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, SafeAreaView, ScrollView, StyleSheet} from 'react-native';
+import { View, SafeAreaView, ScrollView} from 'react-native';
 import FilterCountry from '../../../../Authentification/Register/FilterCountry';
 import styles from '../../ProfileStyle';
 import {COLORS,FONTS,SIZES} from './../../../../../constants'
-import CertifyLayout from '../../Components/CertifyLayout';
+
+import Starter from '../../../../../components/Layout/Starter';
 import useFetchApi from '../../../../../helpers/fetchApi/useFetchApi';
 import {APPENV} from "../../../../../core/config";
 import TextInput from '../../../../../components/TextInput';
@@ -71,9 +72,11 @@ const  CertifyProfilePhoneScreen = ({navigation})=>{
   return (
     <SafeAreaView style={styles.container}>
     <ScrollView style={{backgroundColor:"#fff"}}>
-      <CertifyLayout
-        title={authData.user?.phone == null ? "définir votre numéro de téléphone":"Changer De Numéro"}
+      <Starter
+        subtitle={authData.user?.phone == null ? "définir votre numéro de téléphone":"Changer De Numéro"}
         navigation={navigation}
+        headerHeight={70}
+        //headerIcon={""}
       >
         <FilterCountry 
           select={number.country_id} 
@@ -100,7 +103,7 @@ const  CertifyProfilePhoneScreen = ({navigation})=>{
                   label={ loading == true ? 'Réinitialisation en cours...' : 'Réinitialiser'}
                   labelStyle={{color:COLORS.white}}
                   buttonStyle={{
-                    width:SIZES.width*0.8,
+                    width:SIZES.width*0.9,
                     height:50,
                     backgroundColor:phoneResetEnable()? COLORS.primary2 : COLORS.lightGreen,
                     //borderRadius:20
@@ -109,7 +112,7 @@ const  CertifyProfilePhoneScreen = ({navigation})=>{
                   onPress={()=>phoneResetEnable()?updatePhone():""}
               />
           </View>
-    </CertifyLayout>
+    </Starter>
   </ScrollView>
   </SafeAreaView>
   );

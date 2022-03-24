@@ -1,11 +1,11 @@
 
-import CertifyOptionListScreen from "./CertifyListOptionScreen";
+import Localisation from "./Localisation";
 import CertifyProfileInfoScreen from "./PersonalInfo";
 import CertifyProfilePhoneScreen from "./Phone";
 import CertifyProfilePwdScreen from "./ChPwd";
 
 export {
-    CertifyOptionListScreen,
+    Localisation,
     CertifyProfileInfoScreen,
     CertifyProfilePwdScreen,
     CertifyProfilePhoneScreen

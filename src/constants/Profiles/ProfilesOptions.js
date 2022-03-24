@@ -1,10 +1,19 @@
 import React from 'react';
-import {theme} from "../../../core/theme";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome5'
+import {COLORS } from '../theme';
 export default actions = [
+    {
+        title:"Localisation" ,
+        subtitle:"subtitle",
+        route:"",
+        icon:<Icon name="map-marker-alt" size={30} color={COLORS.lightGreen} />
+    },
+    {
+        title:"Profile" ,
+        subtitle:"subtitle",
+        route:"",
+        icon:<Icon name="map-marker-alt" size={30} color={COLORS.lightGreen} />
+    },
     {
         title : 'Abonnement',
         route : 'Onboarding',

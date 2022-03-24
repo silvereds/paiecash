@@ -10,17 +10,17 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import useAsyncData from '../../../services/DataStorage/UseAsyncData';
-import AuthentificationContext from '../../../context/AuthentificationContext';
-import {TabScreenHeader} from '../../../components/TabScreenHeader';
+import useAsyncData from '../src/services/DataStorage/UseAsyncData';
+import AuthentificationContext from '../src/context/AuthentificationContext';
+import {TabScreenHeader} from '../src/components/TabScreenHeader';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import styles from './ProfileStyle';
+import styles from '../src/screens/Dashboard/ProfileTab/ProfileStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {theme} from '../../../core/theme';
+import {theme} from '../src/core/theme';
 import Feather from 'react-native-vector-icons/Feather';
 import Toast from 'react-native-toast-message';
-import actions from './actions';
-import Action from './Components/Action';
+import actions from '../src/screens/Dashboard/ProfileTab/actions';
+import Action from '../src/screens/Dashboard/ProfileTab/Components/Action';
 import shortid from 'shortid';
 
 /**
