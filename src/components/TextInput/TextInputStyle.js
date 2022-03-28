@@ -4,7 +4,7 @@ import {theme} from '../../core/theme'
 
 export default styles = StyleSheet.create({
     container: {
-      width: '100%',
+      width: '98%',
     },
     input: {
       backgroundColor: theme.colors.surface,

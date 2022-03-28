@@ -42,56 +42,58 @@ export default function HomeTabScreens({navigation}) {
     <SafeAreaView style={styles.container}>
       <SkeletonContent containerStyle={{flex: 1, width: '100%'}} isLoading={loading} layout={SkeletonWidgets}>
         <ScrollView>
-          <View style={{backgroundColor:COLORS.primary2, paddingBottom:10}}>          
-            <View style={{flexDirection:'row',paddingHorizontal:SIZES.base,marginTop:SIZES.base,height:80,justifyContent:'space-evenly',alignItems:'center'}}>
-               <View style={{justifyContent:'flex-start',alignItems:'center',justifyContent:'center',paddingHorizontal:SIZES.padding}} >
-                  
+          <ImageBackground 
+            source={require('./../../../../assets/bg4.png')} 
+            style={{
+            width:SIZES.width,
+            height:SIZES.height*0.5,
+            paddingHorizontal:SIZES.base
+            }}
+          >
+            <View style={{paddingBottom:10}}>          
+              <View style={{flexDirection:'row',paddingHorizontal:SIZES.base,marginTop:SIZES.base,height:80,justifyContent:'space-evenly',alignItems:'center'}}>
+                <View style={{justifyContent:'flex-start',alignItems:'center',justifyContent:'center',paddingHorizontal:SIZES.padding}} >
+                    
+                </View>
+                <View style={{flex:1,alignItems:'center',flexDirection:'row',justifyContent:'flex-end'}}>
+                    <Icon name='bell' size={30} color={COLORS.white2} style={{marginRight:SIZES.base}}/>  
+                    <Text style={{color:COLORS.white2,...FONTS.h3}}>
+                      {authData.user?.lastName}
+                    </Text>
+                </View>
               </View>
-              <View style={{flex:1,alignItems:'center',flexDirection:'row',justifyContent:'flex-end'}}>
-                  <Icon name='bell' size={30} color={COLORS.white2} style={{marginRight:SIZES.base}}/>  
-                  <Text style={{color:COLORS.white2,...FONTS.h3}}>
-                    {authData.user?.lastName}
-                  </Text>
-              </View>
-            </View>
-            
-            <View style={{alignItems:'center'}}>
               
-              <View 
-                style={{
-                  width:SIZES.width*0.98,
-                  height:SIZES.height*0.35,
-                  alignItems:'center'
-                  
-                }} 
-              >
-                <ImageBackground source={require('./../../../../assets/bg4.png')} 
-                     style={{
-                      width:SIZES.width,
-                      height:SIZES.height*0.45,
-                      paddingHorizontal:SIZES.base
-                     }}
-                >
-           
-                  <View style={{flexDirection:'row',height:60,alignItems:'center',justifyContent:'space-between'}}>
-                    <View style={{flexDirection:'row',height:60,alignItems:'center'}}>
-                      <Image source={require('./../../../../assets/logo-blanc.png')} style={{height:50,width:50,borderRadius:25 }}/>
-                      
-                    </View>
-                    <Image source={require('./../../../../assets/masterCard.png')} style={{height:40,width:90 }} resizeMode='contain'/>
-                  </View>
-                  <View style={{height:(SIZES.height*0.35-100),flexDirection:'row'}}>
-                    <View style={{justifyContent:'center',alignItems:'flex-start',justifyContent:'flex-end'}}>
-                      <Text style={{color:"#fff",...FONTS.h2}}> {authData.user.firstName} </Text>
-                      <Text style={{color:"#fff",...FONTS.h4}}> {authData.user.lastName} </Text>
-                      <Text style={{color:"#fff",...FONTS.h2}}> 123 456 678 910 111</Text>
-                    </View>
-                  </View>
-                </ImageBackground>
+              <View style={{alignItems:'center'}}>
                 
+                <View 
+                  style={{
+                    width:SIZES.width*0.98,
+                    height:SIZES.height*0.35,
+                    alignItems:'center'
+                    
+                  }} 
+                >
+            
+                    <View style={{flexDirection:'row',height:60,alignItems:'center',justifyContent:'space-between',width:'90%'}}>
+                      <View style={{flexDirection:'row',height:60,alignItems:'center'}}>
+                        <Image source={require('./../../../../assets/logo-blanc.png')} style={{height:50,width:50,borderRadius:25 }}/>
+                        
+                      </View>
+                      <Image source={require('./../../../../assets/masterCard.png')} style={{height:40,width:90 }} resizeMode='contain'/>
+                    </View>
+                    <View style={{height:(SIZES.height*0.35-100),flexDirection:'row',width:'90%'}}>
+                      <View style={{justifyContent:'center',alignItems:'flex-start',justifyContent:'flex-end'}}>
+                        <Text style={{color:"#fff",...FONTS.h2}}> {authData.user?.firstName} </Text>
+                        <Text style={{color:"#fff",...FONTS.h4}}> {authData.user?.lastName} </Text>
+                        <Text style={{color:"#fff",...FONTS.h2}}> 123 456 678 910 111</Text>
+                      </View>
+                    </View>
+                  
+                  
+                </View>
               </View>
-            </View>
-          </View> 
+            </View> 
+          </ImageBackground>
           <View style={{backgroundColor:theme.colors.background,marginTop:-30,borderTopEndRadius:40,borderTopStartRadius:30}}>
 
             <View style={{paddingVertical:SIZES.padding,justifyContent:'center',alignItems:'center'}}>

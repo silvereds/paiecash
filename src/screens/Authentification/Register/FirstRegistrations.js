@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {TouchableOpacity, View} from "react-native";
+import {TouchableOpacity, View ,Text ,Image } from "react-native";
 import TextInput from "../../../components/TextInput";
-import {Text} from "react-native-paper";
+//import {Text} from "react-native-paper";
 import {theme} from "../../../core/theme";
 import Button from "../../../components/Button";
 import useFetchApi from "../../../helpers/fetchApi/useFetchApi";
@@ -78,13 +78,14 @@ export default function FirstRegistrations({setStep, navigation, setUserData}) {
 
     return (
         <View style={styles.bodyContent}>
-            <Text style={styles.largeText}>Bienvenu !</Text>
+            <View style={{alignItems:'center',justifyContent:'center',flexDirection:'row',marginBottom:20}}>
+                <Image source={require('../../../assets/logo-blanc.png')} style={{height:30,width:30,tintColor:'green'}}/>
+                <Text style={styles.largeText}>Bienvenu !</Text>
+            </View>
+            
             <Text style={styles.smallText}>
                 Inscrivez vous et entrer dans la grands communaute paiecash
             </Text>
-
-            <SocialRegistration navigation={navigation} loading={loading}/>
-
             <View style={styles.inputRow}>
                 <TextInput
                     label="Email"
@@ -153,9 +154,11 @@ export default function FirstRegistrations({setStep, navigation, setUserData}) {
             <View style={{
                 flexDirection: 'row',
                 marginTop: 10,
-                marginBottom: 50,
+                marginBottom: 20,
                 width: '100%',
-                textAlign: 'center'
+                textAlign: 'center',
+                justifyContent:'center',
+                alignItems:'center'
             }}>
                 <Text style={{textAlign: 'center'}}>Vous a avez deja en un compte ? </Text>
                 <TouchableOpacity onPress={() => navigation.replace('LoginScreen')}>
@@ -164,7 +167,10 @@ export default function FirstRegistrations({setStep, navigation, setUserData}) {
                         color: theme.colors.primary
                     }}>Connectez vous</Text>
                 </TouchableOpacity>
+                
+
             </View>
+            <SocialRegistration navigation={navigation} loading={loading}/>
         </View>
     );
 }

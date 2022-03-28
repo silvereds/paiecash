@@ -6,6 +6,8 @@ import useFetchApi from "../../../../helpers/fetchApi/useFetchApi";
 import {APPENV} from "../../../../core/config";
 import useAsyncData from "../../../../services/DataStorage/UseAsyncData";
 import Toast from "react-native-toast-message";
+import { COLORS } from '../../../../constants';
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 /**
  * Jaures Kano <ruddyjaures@gmail.com>
@@ -62,9 +64,9 @@ export default function GoogleAuth({loading, setAuthData, navigation}) {
     };
 
     return (
-        <View style={{width: '48%'}}>
-            <Button mode="outlined" color="#DE4032" disabled={loading === true || loadSign} onPress={googleSignIn}>
-                Google
+        <View style={{width: '100%'}}>
+            <Button  color={COLORS.white} disabled={loading === true || loadSign} onPress={googleSignIn} style={{backgroundColor:"#d93025"}}>
+                <Icon name="google-plus" size={20} /> Google
             </Button>
         </View>
     );

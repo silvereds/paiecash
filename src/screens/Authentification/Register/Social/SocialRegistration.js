@@ -11,7 +11,7 @@ export default function SocialRegistration({loading, navigation}) {
     const {setAuthData} = useContext(AuthentificationContext);
 
     return (
-        <View style={{diplay: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View style={{diplay: 'flex', flexDirection: 'row', justifyContent: 'space-between',marginBottom:50}}>
             <GoogleRegistration loading={loading} navigation={navigation} setAuthData={setAuthData}/>
             <FacebookRegistration loading={loading} navigation={navigation} setAuthData={setAuthData}/>
         </View>

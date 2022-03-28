@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react'
-import {TouchableOpacity, View} from 'react-native'
+import {TouchableOpacity, View,Image} from 'react-native'
 import {Text} from 'react-native-paper'
 import Background from '../../../components/Background'
 import TextInput from '../../../components/TextInput'
@@ -63,11 +63,15 @@ export default function LoginScreen({navigation}) {
     return (
         <Background navigation={navigation} back={true} background={true}>
             <View style={styles.bodyContent}>
-                <Text style={styles.largeText}>Bon retour parmis!</Text>
+                <View style={{alignItems:'center',justifyContent:'center',flexDirection:'row',marginBottom:20}}>
+                    <Image source={require('../../../assets/logo-blanc.png')} style={{height:30,width:30,tintColor:'green'}}/>
+                    <Text style={styles.largeText}>Bon retour parmis Nous!</Text>
+                </View>
+                
                 <Text style={styles.smallText}>
                     Entrer vos identifiants et votre mot de passe pour vous connectez
                 </Text>
-                <SocialAuth setAuthData={setAuthData} loading={loading} navigation={navigation}/>
+                
                 <View style={styles.inputRow}>
                     <TextInput
                         label="Email ou numero de telephone"
@@ -96,7 +100,7 @@ export default function LoginScreen({navigation}) {
                         />
                     </View>
                     <View style={{
-                        width: '100%',
+                        //width: '100%',
                         alignItems: 'flex-end',
                         marginBottom: 24,
                         marginTop: 10,
@@ -119,7 +123,8 @@ export default function LoginScreen({navigation}) {
                     flexDirection: 'row',
                     marginTop: 10,
                     width: '100%',
-                    textAlign: 'center'
+                    alignItems:'center',
+                    justifyContent:'center'
                 }}>
                     <Text style={{textAlign: 'center'}}>Vous n'avez pas encore de compte ? </Text>
                     <TouchableOpacity onPress={() => navigation.replace('RegisterScreen')}>
@@ -129,7 +134,9 @@ export default function LoginScreen({navigation}) {
                             }}>Inscrivez vous</Text>
                         </TouchableOpacity>
                     </View>
+                    <SocialAuth setAuthData={setAuthData} loading={loading} navigation={navigation}/>
                 </View>
+                
         </Background>
     )
 }

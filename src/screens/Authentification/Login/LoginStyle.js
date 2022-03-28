@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 20,
         lineHeight: 32,
-        marginBottom: 10,
+        marginLeft:10
+        //marginBottom: 10,
     },
     smallText: {
         fontSize: 14,

@@ -6,7 +6,8 @@ import {APPENV} from "../../../../core/config";
 import Button from "../../../../components/Button";
 import useAsyncData from "../../../../services/DataStorage/UseAsyncData";
 import Toast from "react-native-toast-message";
-
+import { COLORS } from '../../../../constants';
+import Icon from 'react-native-vector-icons/FontAwesome'
 /**
  * Jaures Kano <ruddyjaures@gmail.com>
  */
@@ -76,9 +77,9 @@ export default function FacebookAuth({loading, setAuthData, navigation}) {
     }
 
     return (
-        <View style={{width: '48%'}}>
-            <Button mode="outlined" color="#3b5998" disabled={loading === true} onPress={onFbLogin}>
-                Facebook
+        <View style={{width: '100%'}}>
+            <Button  color={COLORS.white} disabled={loading === true} onPress={onFbLogin} style={{backgroundColor:COLORS.blue}}>
+            <Icon name="facebook" size={20} /> Facebook
             </Button>
         </View>
     );

@@ -9,7 +9,7 @@ import FacebookAuth from "./FacebookAuth";
 export default function SocialAuth({loading, setAuthData, navigation}) {
 
     return (
-        <View style={{diplay: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View style={{justifyContent: 'center',alignItems:'center',marginVertical:20}}>
             <GoogleAuth loading={loading} navigation={navigation} setAuthData={setAuthData}/>
             <FacebookAuth loading={loading} navigation={navigation} setAuthData={setAuthData}/>
         </View>
