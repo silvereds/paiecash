@@ -17,7 +17,7 @@ const ServicesButton = ({item,key,icon,width,height,onPress})=>{
             shadowOffset: {width: 0.8, height: 2},
             shadowOpacity: 0.5,
             shadowRadius: 1,
-            elevation: 6,
+            //elevation: 6,
             borderRadius:10,
 
             }}
@@ -26,7 +26,7 @@ const ServicesButton = ({item,key,icon,width,height,onPress})=>{
         >
             {icon}
             
-            <Text style={{color:COLORS.darkGray,...FONTS.h3}}>
+            <Text style={{color:COLORS.darkGray,...FONTS.h4}}>
                 {item.title}
             </Text>
         </TouchableOpacity>

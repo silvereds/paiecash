@@ -177,7 +177,8 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     alignItems:'center',
     height:50,
-    backgroundColor:COLORS.primary2
+    backgroundColor:COLORS.primary2,
+    borderRadius:25
   },
   statusSubscription: {
     color: theme.colors.textWhite,

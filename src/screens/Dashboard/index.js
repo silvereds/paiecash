@@ -16,6 +16,7 @@ import PrintQrCode from './VirtualCard/QrCode/print';
 import BuyCard from './VirtualCard/BuyCard';
 import AccountValidation from './ProfileTab/AccountValidation';
 import EnterpriseList from './Enterprises';
+import Market from './marketPlace';
 
 const Tab = createBottomTabNavigator();
 
@@ -56,6 +57,7 @@ export default function DashboardStack({navigation}) {
         <Stack.Screen name="Historique" component={Historique} />
         <Stack.Screen name="QrCode" component={QrCode} />
         <Stack.Screen name="printQrCode" component={PrintQrCode} />
+        <Stack.Screen name="market" component={Market} />
       </Stack.Navigator>
     );
   }

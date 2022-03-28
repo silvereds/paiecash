@@ -5,21 +5,15 @@ import {theme} from "../../../../../core/theme";
 import ItemCardPartenaires from "../ItemCardPartenaires";
 import styles, { itemWidth, sliderWidth } from './PartenairesStyle';
 import PartenaireList from '../../../../../constants/Partenaires';
-import { SIZES } from '../../../../../constants';
-import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import { COLORS, FONTS, SIZES } from '../../../../../constants';
+import { FlatList, ScrollView, TouchableHighlight } from 'react-native-gesture-handler';
 
-function Partenaires(props) {
+function Partenaires({navigation}) {
 
     return (
-        <View style={{
-            flex: 1, paddingTop: 15,
-            paddingHorizontal: 16,
-        }}>
-            <View>
-                <Text style={{
-                    color: theme.colors.backdrop,
-                    fontWeight: 'bold', fontSize: 20
-                }}>Il utilise paiecash</Text>
+        <View style={{flex: 1,marginTop:20}}>
+            <View style={{paddingVertical:SIZES.base,paddingHorizontal:SIZES.base}}> 
+                <Text style={{color: COLORS.black,...FONTS.h3}}>Ils utilisent paiecash</Text>
             </View>
             <FlatList
                 horizontal
@@ -28,32 +22,45 @@ function Partenaires(props) {
                 keyExtractor={item => item.id}
                 renderItem={({item,index})=>{
                     return(
-                        <TouchableOpacity 
-                                style={{
-                                    width:SIZES.width*0.9,
-                                    height:200,
-                                    borderRadius:20,
-                                    marginTop:SIZES.padding,
-                                    backgroundColor:'#fff',
-                                    
-                                   // paddingHorizontal:SIZES.padding
-                                    }}
-                            >
+                        <View style={{backgroundColor:COLORS.lightGray2,paddingHorizontal:SIZES.base}}>
+                            <View style={{alignItems:'center',justifyContent:'center'}}>
                                 <Image 
                                     source={item.image} 
                                     resizeMode='contain'
                                     style={{
-                                        height:200,
-                                        width:SIZES.width*0.85,
+                                        height:150,
+                                        width:SIZES.width*0.5,
                                         borderRadius:20
                                     }}
                                 />
-                        </TouchableOpacity>
+                            </View>
+                            <View style={{justifyContent:'center',alignItems:'center',paddingBottom:SIZES.padding}}>
+                                <Text style={{color:COLORS.darkGray,...FONTS.h2}}>
+                                    {item.title}
+                                </Text>
+                                <Text style={{color:COLORS.darkGray,...FONTS.body4}}>
+                                    {item.description}
+                                </Text>
+                                <TouchableHighlight 
+                                    style={{
+                                        height:50,
+                                        justifyContent:'center',
+                                        alignItems:'center',
+                                        backgroundColor:COLORS.primary2,
+                                        width:SIZES.width*0.8
+                                    }}
+                                    onPress={()=>navigation.navigate('market')}
+                                >
+                                    <Text style={{color:COLORS.white,...FONTS.body4}}>
+                                        {item.buttonText}
+                                    </Text>
+                                </TouchableHighlight>
+                            </View>
+                        </View>
                     )
                 }}
             />
         </View>
-
     );
 }
 

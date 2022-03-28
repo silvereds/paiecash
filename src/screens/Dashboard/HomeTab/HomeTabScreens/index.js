@@ -3,7 +3,6 @@ import {Image, ImageBackground, ScrollView, Text, TouchableOpacity, View} from '
 import SafeAreaView from 'react-native/Libraries/Components/SafeAreaView/SafeAreaView';
 
 import styles from './HomeTabStyle';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {theme} from '../../../../core/theme';
 import projectState from '../../../../helpers/projectState';
 import tasksState from '../../../../helpers/taskState';
@@ -17,9 +16,13 @@ import { FONTS,COLORS, SIZES } from "../../../../constants";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { DATA } from '../../../../constants';
 import ServicesButton from '../../../../components/Button/ServiceButton';
+import { ItemTransaction } from '../../../../components/Transactions';
+import { FlatList } from 'react-native-gesture-handler';
+import TransactionsList from '../../../../constants/Transaction';
 
 /**
  * @author Jaures Kano <ruddyjaures@gmail.com>
+ * @author silvere Tchoffo Djousse <tchofsilvere@gmail.com>
  */
 export default function HomeTabScreens({navigation}) {
   const {authData} = useContext(AuthentificationContext);
@@ -37,55 +40,95 @@ export default function HomeTabScreens({navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <SkeletonContent
-        containerStyle={{flex: 1, width: '100%'}}
-        isLoading={loading}
-        layout={SkeletonWidgets}>
+      <SkeletonContent containerStyle={{flex: 1, width: '100%'}} isLoading={loading} layout={SkeletonWidgets}>
         <ScrollView>
-        <ImageBackground source={require('./../../../../assets/bg4.png')}>
-          <View style={{paddingBottom:80/*,backgroundColor:COLORS.primary2*/}} >
+          <View style={{backgroundColor:COLORS.primary2, paddingBottom:10}}>          
+            <View style={{flexDirection:'row',paddingHorizontal:SIZES.base,marginTop:SIZES.base,height:80,justifyContent:'space-evenly',alignItems:'center'}}>
+               <View style={{justifyContent:'flex-start',alignItems:'center',justifyContent:'center',paddingHorizontal:SIZES.padding}} >
+                  
+              </View>
+              <View style={{flex:1,alignItems:'center',flexDirection:'row',justifyContent:'flex-end'}}>
+                  <Icon name='bell' size={30} color={COLORS.white2} style={{marginRight:SIZES.base}}/>  
+                  <Text style={{color:COLORS.white2,...FONTS.h3}}>
+                    {authData.user?.lastName}
+                  </Text>
+              </View>
+            </View>
             
-              <View style={{flexDirection:'row',paddingHorizontal:SIZES.base,marginTop:SIZES.base}}>
-                <Image source={require('./../../../../assets/parisfc.jpg')} style={{height:50,width:50,borderRadius:25}}/>
-                <View style={{justifyContent:'flex-start',alignItems:'center',justifyContent:'center',paddingHorizontal:SIZES.padding}} >
-                    <Text style={{color:COLORS.white,...FONTS.h3}}>
-                      {authData.user?.lastName}
-                    </Text>
-                    
-                </View>
-                <View style={{flex:1,alignItems:'center',flexDirection:'row',justifyContent:'flex-end'}}>
-                    <Icon name='bell' size={30} color={COLORS.white} style={{marginRight:SIZES.base}}/>
-                    
-                </View>
+            <View style={{alignItems:'center'}}>
+              
+              <View 
+                style={{
+                  width:SIZES.width*0.98,
+                  height:SIZES.height*0.35,
+                  alignItems:'center'
+                  
+                }} 
+              >
+                <ImageBackground source={require('./../../../../assets/bg4.png')} 
+                     style={{
+                      width:SIZES.width,
+                      height:SIZES.height*0.45,
+                      paddingHorizontal:SIZES.base
+                     }}
+                >
+           
+                  <View style={{flexDirection:'row',height:60,alignItems:'center',justifyContent:'space-between'}}>
+                    <View style={{flexDirection:'row',height:60,alignItems:'center'}}>
+                      <Image source={require('./../../../../assets/logo-blanc.png')} style={{height:50,width:50,borderRadius:25 }}/>
+                      
+                    </View>
+                    <Image source={require('./../../../../assets/masterCard.png')} style={{height:40,width:90 }} resizeMode='contain'/>
+                  </View>
+                  <View style={{height:(SIZES.height*0.35-100),flexDirection:'row'}}>
+                    <View style={{justifyContent:'center',alignItems:'flex-start',justifyContent:'flex-end'}}>
+                      <Text style={{color:"#fff",...FONTS.h2}}> {authData.user.firstName} </Text>
+                      <Text style={{color:"#fff",...FONTS.h4}}> {authData.user.lastName} </Text>
+                      <Text style={{color:"#fff",...FONTS.h2}}> 123 456 678 910 111</Text>
+                    </View>
+                  </View>
+                </ImageBackground>
                 
               </View>
-            
-              <View style={{alignItems:'center',marginTop:SIZES.base}}>
-                <Image source={require('./../../../../assets/partenaire4.png')} resizeMode='stretch'  style={{width:SIZES.width*0.9,height:180,borderRadius:25}}/>
-                {/* premiere listes des services */}
-                <View style={{flexDirection:'row',width:SIZES.width,paddingHorizontal:SIZES.padding,justifyContent:'space-between'}}>
-                      {
-                      mainServices.map((item,key)=>{
-                        return(
-                          <ServicesButton
-                            item={item}
-                            key={item.id}
-                            width={(SIZES.width-SIZES.padding)/3.5}
-                            height={100}
-                            onPress={()=>{}}
-                            icon={<Icon name={item.image} size={30} color={COLORS.lightGreen}/>}
-                          />
-                        )
-                      })
-                      }
-                </View>
-                
+            </View>
+          </View> 
+          <View style={{backgroundColor:theme.colors.background,marginTop:-30,borderTopEndRadius:40,borderTopStartRadius:30}}>
+
+            <View style={{paddingVertical:SIZES.padding,justifyContent:'center',alignItems:'center'}}>
+              <View style={{padding:SIZES.base,backgroundColor:'#fffdfd4a',marginVertical:SIZES.base}}>
+                <Text style={{color:COLORS.black,...FONTS.h2}}>Obtenez une carte Paiecash  </Text>
+                <Text style={{color:COLORS.black,...FONTS.body4}}>il suffit de  choisir un abonnement</Text>
               </View>
-          </View>
-          
-        </ImageBackground>
-        
-          <View style={{backgroundColor:theme.colors.background,marginTop:-40,borderTopEndRadius:40,borderTopStartRadius:40}}>
+              <TouchableOpacity
+                onPress={() =>
+                  Toast.show({
+                    type: 'info',
+                    text1: 'Vous devez remplir vos informations avant',
+                  })
+                }
+                style={styles.boutton_abonnement}
+              >
+                <Text style={{textAlign:'center',color:COLORS.white2,...FONTS.h3}}>
+                  Choisir un abonnement
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flexDirection:'row',width:SIZES.width,paddingHorizontal:SIZES.padding,justifyContent:'space-between'}}>
+                  {
+                  mainServices.map((item,key)=>{
+                    return(
+                      <ServicesButton
+                        item={item}
+                        key={item.id}
+                        width={(SIZES.width-SIZES.padding)/3.5}
+                        height={100}
+                        onPress={()=>{}}
+                        icon={<Icon name={item.image} size={30} color={COLORS.lightGreen}/>}
+                      />
+                    )
+                  })
+                  }
+            </View>
             <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',paddingHorizontal:SIZES.padding}}>
                 {
                 DATA.map((item,key)=>{
@@ -102,36 +145,24 @@ export default function HomeTabScreens({navigation}) {
                 })
                 }
             </View>
-
-            {/** bouton d 'abonnement  */}
-            <View style={{paddingVertical:SIZES.padding,justifyContent:'center',alignItems:'center'}}>
-              <TouchableOpacity
-                onPress={() =>
-                  Toast.show({
-                    type: 'info',
-                    text1: 'Vous devez remplir vos informations avant',
+          </View>
+          <Partenaires navigation={navigation} />
+          <View style={{marginTop:SIZES.padding,paddingHorizontal:SIZES.base}}>
+                <Text style={{color:COLORS.black , ...FONTS.h3}}>Transactions récentes</Text>
+                {
+                  TransactionsList.map((item,key)=>{
+                    return(
+                      <View style={{backgroundColor:"#fff",alignItems:'center'}} key={key}>
+                          <ItemTransaction 
+                          title={item.title}
+                          subtitle={item.subtitle}
+                          image={item.image}
+                          price={item.price}
+                        />
+                      </View>
+                    )
                   })
                 }
-                style={styles.boutton_abonnement}
-              >
-                <Text style={{textAlign:'center',color:COLORS.white2,...FONTS.h3}}>
-                  Choisir un abonnement
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <Partenaires />
-          <View style={{marginTop:SIZES.padding,paddingHorizontal:SIZES.padding}}>
-                <Text style={{...FONTS.h2}}>Transactions récentes</Text>
-                <View style={{
-                  justifyContent:'center',
-                  alignItems:'center',
-                  marginTop:SIZES.padding,
-                  height:200,
-                  backgroundColor:theme.colors.white2
-                }}>
-                  <Text>Aucune Transactions récentes </Text>
-                </View>
           </View>
         </ScrollView>
 
