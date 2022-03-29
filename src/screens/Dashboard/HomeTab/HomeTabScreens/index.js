@@ -38,6 +38,13 @@ export default function HomeTabScreens({navigation}) {
     }
   }, [loading])
 
+  function showToast(){
+    Toast.show({
+      type: 'info',
+      text1: 'module indisponible pour le moment',
+    })
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <SkeletonContent containerStyle={{flex: 1, width: '100%'}} isLoading={loading} layout={SkeletonWidgets}>
@@ -51,7 +58,7 @@ export default function HomeTabScreens({navigation}) {
             }}
           >
             <View style={{paddingBottom:10}}>          
-              <View style={{flexDirection:'row',paddingHorizontal:SIZES.base,marginTop:SIZES.base,height:80,justifyContent:'space-evenly',alignItems:'center'}}>
+              <View style={{flexDirection:'row',paddingHorizontal:SIZES.base,marginTop:SIZES.base,height:60,justifyContent:'space-evenly',alignItems:'center'}}>
                 <View style={{justifyContent:'flex-start',alignItems:'center',justifyContent:'center',paddingHorizontal:SIZES.padding}} >
                     
                 </View>
@@ -83,9 +90,10 @@ export default function HomeTabScreens({navigation}) {
                     </View>
                     <View style={{height:(SIZES.height*0.35-100),flexDirection:'row',width:'90%'}}>
                       <View style={{justifyContent:'center',alignItems:'flex-start',justifyContent:'flex-end'}}>
-                        <Text style={{color:"#fff",...FONTS.h2}}> {authData.user?.firstName} </Text>
-                        <Text style={{color:"#fff",...FONTS.h4}}> {authData.user?.lastName} </Text>
-                        <Text style={{color:"#fff",...FONTS.h2}}> 123 456 678 910 111</Text>
+                        {/* <Text style={{color:"#fff",...FONTS.h2}}> {authData.user?.firstName} </Text> */}
+                        {/* <Text style={{color:"#fff",...FONTS.h4}}> {authData.user?.lastName} </Text> */}
+                        <Text style={{color:"#fff",...FONTS.h2}}> Aucuns Abonnements</Text>
+                        <Text style={{color:"#fff",...FONTS.h4}}> vous avez la possibilité de vous abonner maintenant et obtenir une carte Paiecash </Text>
                       </View>
                     </View>
                   
@@ -94,7 +102,7 @@ export default function HomeTabScreens({navigation}) {
               </View>
             </View> 
           </ImageBackground>
-          <View style={{backgroundColor:theme.colors.background,marginTop:-30,borderTopEndRadius:40,borderTopStartRadius:30}}>
+          <View style={{backgroundColor:theme.colors.background,marginTop:-30,borderTopEndRadius:40,borderTopStartRadius:40}}>
 
             <View style={{paddingVertical:SIZES.padding,justifyContent:'center',alignItems:'center'}}>
               <View style={{padding:SIZES.base,backgroundColor:'#fffdfd4a',marginVertical:SIZES.base}}>
@@ -119,14 +127,15 @@ export default function HomeTabScreens({navigation}) {
                   {
                   mainServices.map((item,key)=>{
                     return(
-                      <ServicesButton
-                        item={item}
-                        key={item.id}
-                        width={(SIZES.width-SIZES.padding)/3.5}
-                        height={100}
-                        onPress={()=>{}}
-                        icon={<Icon name={item.image} size={30} color={COLORS.lightGreen}/>}
-                      />
+                      <View key={key}>
+                        <ServicesButton
+                          item={item}
+                          width={(SIZES.width-SIZES.padding)/3.5}
+                          height={100}
+                          onPress={()=>showToast()}
+                          icon={<Icon name={item.image} size={30} color={COLORS.lightGreen}/>}
+                        />
+                      </View>
                     )
                   })
                   }
@@ -135,14 +144,15 @@ export default function HomeTabScreens({navigation}) {
                 {
                 DATA.map((item,key)=>{
                   return(
+                    <View key={key}>
                     <ServicesButton
                       item={item}
-                      key={item.id}
                       icon={<Icon name={item.icon} size={30} color={COLORS.lightGreen}/>}
                       height={100}
                       width={(SIZES.width-SIZES.padding)/3.5}
-                      onPress={()=>{}}
+                      onPress={()=>showToast()}
                     />
+                    </View>
                   )
                 })
                 }

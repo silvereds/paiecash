@@ -83,7 +83,9 @@ const  CertifyProfilePwdScreen = ({navigation})=>{
   }
 
   return (
+   
     <SafeAreaView style={styles.container}>
+      
       <ScrollView style={{backgroundColor:"#fff"}} >
         <Starter
           subtitle={""}

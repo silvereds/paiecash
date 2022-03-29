@@ -1,12 +1,12 @@
 import React from "react";
 import {View,Text,StyleSheet ,ImageBackground,TouchableOpacity} from 'react-native'
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import  Icon  from "react-native-vector-icons/FontAwesome";
 import { COLORS, FONTS, SIZES} from "../../constants";
 
 const Starter = ({title,subtitle,navigation,children,headerHeight,headerIcon})=>{
     return(
-        <>
+        <KeyboardAwareScrollView>
         <View style={{backgroundColor:COLORS.primary2}} >
 
             {/*<ImageBackground source={require('../../assets/background.jpg')}>*/}
@@ -32,7 +32,7 @@ const Starter = ({title,subtitle,navigation,children,headerHeight,headerIcon})=>
         <View style={styles.rounder} >
             {children}
         </View>
-        </>
+        </KeyboardAwareScrollView>
     )
 }
 

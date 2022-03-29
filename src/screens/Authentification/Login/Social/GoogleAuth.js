@@ -66,7 +66,7 @@ export default function GoogleAuth({loading, setAuthData, navigation}) {
     return (
         <View style={{width: '100%'}}>
             <Button  color={COLORS.white} disabled={loading === true || loadSign} onPress={googleSignIn} style={{backgroundColor:"#d93025"}}>
-                <Icon name="google-plus" size={20} /> Google
+                <Icon name="google-plus" size={20} /> Se Connecter Avec Google
             </Button>
         </View>
     );

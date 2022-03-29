@@ -154,13 +154,13 @@ export default function FirstRegistrations({setStep, navigation, setUserData}) {
             <View style={{
                 flexDirection: 'row',
                 marginTop: 10,
-                marginBottom: 20,
+                marginBottom: 10,
                 width: '100%',
                 textAlign: 'center',
                 justifyContent:'center',
                 alignItems:'center'
             }}>
-                <Text style={{textAlign: 'center'}}>Vous a avez deja en un compte ? </Text>
+                <Text style={{textAlign: 'center'}}>Vous avez deja en un compte ? </Text>
                 <TouchableOpacity onPress={() => navigation.replace('LoginScreen')}>
                     <Text style={{
                         fontWeight: 'bold',

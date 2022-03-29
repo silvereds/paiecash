@@ -1,13 +1,15 @@
 import React from "react";
 import {Text , TouchableOpacity} from 'react-native'
+
+
 import { SIZES,COLORS,FONTS} from "../../constants";
 
-const ServicesButton = ({item,key,icon,width,height,onPress})=>{
+const ServicesButton = ({item,index,icon,onPress})=>{
     return(
-        <TouchableOpacity 
+        <TouchableOpacity
             style={{
-            //width:width,
-            //height:height,
+            width:100,
+            height:100,
             padding:SIZES.base,
             justifyContent:'center',
             alignItems:'center',
@@ -17,11 +19,11 @@ const ServicesButton = ({item,key,icon,width,height,onPress})=>{
             shadowOffset: {width: 0.8, height: 2},
             shadowOpacity: 0.5,
             shadowRadius: 1,
-            //elevation: 6,
+            elevation: 2,
             borderRadius:10,
 
             }}
-            key={key}
+            
             onPress={onPress}
         >
             {icon}

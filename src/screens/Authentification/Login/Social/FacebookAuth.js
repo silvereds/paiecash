@@ -79,7 +79,7 @@ export default function FacebookAuth({loading, setAuthData, navigation}) {
     return (
         <View style={{width: '100%'}}>
             <Button  color={COLORS.white} disabled={loading === true} onPress={onFbLogin} style={{backgroundColor:COLORS.blue}}>
-            <Icon name="facebook" size={20} /> Facebook
+            <Icon name="facebook" size={20}/>  Se Connecter Avec Facebook
             </Button>
         </View>
     );

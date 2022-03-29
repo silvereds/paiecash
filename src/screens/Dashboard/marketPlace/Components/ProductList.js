@@ -15,7 +15,7 @@ return (
             keyExtractor={item => item.id}
             renderItem={({item,index})=>{
                 return(
-                        <View style={styles.HorrizontalListProduct} key={index}>
+                        <View style={styles.HorrizontalListProduct} key={item.id}>
                             <View style={{width:(SIZES.width)*0.4}}>
                                 <Image 
                                     resizeMode='contain' 

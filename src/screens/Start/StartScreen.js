@@ -6,7 +6,7 @@ import Logo from "../../components/Logo";
 import Paragraph from "../../components/Paragraph";
 import Button from "../../components/Button";
 import styles from './StartStyle';
-
+import {COLORS} from '../../constants'
 export default function StartScreen({ navigation }) {
     const {authData} = useContext(AuthentificationContext)
     const [state, setState] = useState(false)
@@ -50,8 +50,9 @@ export default function StartScreen({ navigation }) {
                             Connexion
                         </Button>
                         <Button
-                            mode="outlined"
+                            mode="contained"
                             onPress={() => navigation.navigate('RegisterScreen')}
+                            style={{color:COLORS.lightGray1}}
                         >
                             Inscription
                         </Button>

@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 20,
+        marginBottom: 10,
         height: heightScreen/10,
     },
     textInput: {fontSize: 17, flex: 1, color: '#000', height: heightScreen/10},
