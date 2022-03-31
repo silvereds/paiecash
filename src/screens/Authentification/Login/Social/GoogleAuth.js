@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View} from "react-native";
+import {View , Text} from "react-native";
 import {GoogleSignin, statusCodes} from "@react-native-google-signin/google-signin";
 import Button from "../../../../components/Button";
 import useFetchApi from "../../../../helpers/fetchApi/useFetchApi";
@@ -66,7 +66,7 @@ export default function GoogleAuth({loading, setAuthData, navigation}) {
     return (
         <View style={{width: '100%'}}>
             <Button  color={COLORS.white} disabled={loading === true || loadSign} onPress={googleSignIn} style={{backgroundColor:"#d93025"}}>
-                <Icon name="google-plus" size={20} /> Se Connecter Avec Google
+                <Icon name="google-plus" size={15} /> <Text style={{fontSize:10}}> Se Connecter Avec Google </Text> 
             </Button>
         </View>
     );

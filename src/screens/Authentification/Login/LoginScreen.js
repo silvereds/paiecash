@@ -63,7 +63,7 @@ export default function LoginScreen({navigation}) {
     return (
         <Background navigation={navigation} back={true} background={true}>
             <View style={styles.bodyContent}>
-                <View style={{alignItems:'center',justifyContent:'center',flexDirection:'row',marginBottom:20}}>
+                <View style={{alignItems:'center',flexDirection:'row',marginBottom:20}}>
                     <Image source={require('../../../assets/logo-blanc.png')} style={{height:30,width:30,tintColor:'green'}}/>
                     <Text style={styles.largeText}>Bon retour parmis Nous!</Text>
                 </View>
@@ -120,7 +120,7 @@ export default function LoginScreen({navigation}) {
                 </Button>
 
                 <View style={{
-                    flexDirection: 'row',
+                    //flexDirection: 'row',
                     marginTop: 10,
                     width: '100%',
                     alignItems:'center',

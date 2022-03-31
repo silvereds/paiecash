@@ -46,12 +46,12 @@ function Partenaires({navigation}) {
                                         height:50,
                                         justifyContent:'center',
                                         alignItems:'center',
-                                        backgroundColor:COLORS.primary2,
+                                        backgroundColor:COLORS.lightGray,
                                         width:SIZES.width*0.8
                                     }}
                                     onPress={()=>navigation.navigate('market')}
                                 >
-                                    <Text style={{color:COLORS.white,...FONTS.body4}}>
+                                    <Text style={{color:COLORS.darkGray,...FONTS.body4}}>
                                         {item.buttonText}
                                     </Text>
                                 </TouchableHighlight>

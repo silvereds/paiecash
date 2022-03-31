@@ -123,14 +123,14 @@ export default function HomeTabScreens({navigation}) {
                 </Text>
               </TouchableOpacity>
             </View>
-            <View style={{flexDirection:'row',width:SIZES.width,paddingHorizontal:SIZES.padding,justifyContent:'space-between'}}>
+            <View style={{flexDirection:'row',width:SIZES.width,paddingHorizontal:SIZES.base,justifyContent:'space-between'}}>
                   {
                   mainServices.map((item,key)=>{
                     return(
                       <View key={key}>
                         <ServicesButton
                           item={item}
-                          width={(SIZES.width-SIZES.padding)/3.5}
+                          width={(SIZES.width-SIZES.padding)/4}
                           height={100}
                           onPress={()=>showToast()}
                           icon={<Icon name={item.image} size={30} color={COLORS.lightGreen}/>}
@@ -140,7 +140,7 @@ export default function HomeTabScreens({navigation}) {
                   })
                   }
             </View>
-            <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',paddingHorizontal:SIZES.padding}}>
+            <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',paddingHorizontal:SIZES.base}}>
                 {
                 DATA.map((item,key)=>{
                   return(
@@ -149,7 +149,7 @@ export default function HomeTabScreens({navigation}) {
                       item={item}
                       icon={<Icon name={item.icon} size={30} color={COLORS.lightGreen}/>}
                       height={100}
-                      width={(SIZES.width-SIZES.padding)/3.5}
+                      width={(SIZES.width-SIZES.padding)/4}
                       onPress={()=>showToast()}
                     />
                     </View>

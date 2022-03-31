@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {GraphRequest, GraphRequestManager, LoginManager} from "react-native-fbsdk-next";
-import {View} from "react-native";
+import {View , Text} from "react-native";
 import useFetchApi from "../../../../helpers/fetchApi/useFetchApi";
 import {APPENV} from "../../../../core/config";
 import Button from "../../../../components/Button";
@@ -78,8 +78,8 @@ export default function FacebookAuth({loading, setAuthData, navigation}) {
 
     return (
         <View style={{width: '100%'}}>
-            <Button  color={COLORS.white} disabled={loading === true} onPress={onFbLogin} style={{backgroundColor:COLORS.blue}}>
-            <Icon name="facebook" size={20}/>  Se Connecter Avec Facebook
+            <Button  color={COLORS.white} disabled={loading === true} onPress={onFbLogin} style={{backgroundColor:COLORS.blue,fontSize:10}} size={10}>
+            <Icon name="facebook" size={15}/>   <Text style={{fontSize:10}}> Se Connecter Avec Facebook</Text>
             </Button>
         </View>
     );
