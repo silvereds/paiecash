@@ -41,15 +41,14 @@ export default function CustomTabBar(props) {
         <TouchableOpacity onPress={() => handleNavigation('Acceuil')}>
           <Ionicons name="grid" size={30} color={getColor('Acceuil')} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('Entreprise')}>
+        {/* <TouchableOpacity onPress={() => handleNavigation('Entreprise')}>
           <Feather name="send" size={30} color={getColor('Entreprise')} />
-        </TouchableOpacity>
-        {/*
+        </TouchableOpacity> */}
+        
         <TouchableOpacity onPress={() => handleNavigation('Transfert')}>
           <Feather name="send" size={30} color={getColor('Transfert')} />
         </TouchableOpacity>
-        */
-        }
+        
         <TouchableOpacity
           style={styles.plusBtnContainer}
           onPress={() => handleNavigation('Scan')}>

@@ -8,7 +8,7 @@ export const SCREEN_WIDTH = Dimensions.get("window").width;
 
 const overlayColor = "rgba(0,0,0,0.5)"; // this gives us a black color with a 50% transparency
 
-const rectDimensions = SCREEN_WIDTH * 0.65; // this is equivalent to 255 from a 393 device width
+const rectDimensions = SCREEN_WIDTH * 0.5; // this is equivalent to 255 from a 393 device width
 const rectBorderWidth = SCREEN_WIDTH * 0.005; // this is equivalent to 2 from a 393 device width
 const rectBorderColor = theme.colors.primary;
 
@@ -23,7 +23,8 @@ export default styles = {
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "transparent"
+        backgroundColor:"transparent",
+        //height:200
     },
 
     rectangle: {
@@ -39,26 +40,26 @@ export default styles = {
     topOverlay: {
         flex: 1,
         width: SCREEN_WIDTH,
-        backgroundColor: overlayColor,
+        backgroundColor: 'red',//overlayColor,
         justifyContent: "center",
         alignItems: "center"
     },
 
     bottomOverlay: {
         flex: 1,
-        width: SCREEN_WIDTH,
-        backgroundColor: overlayColor
+       // width: SCREEN_WIDTH,
+        backgroundColor: 'red',//overlayColor
     },
 
     leftAndRightOverlay: {
-        height: SCREEN_WIDTH * 0.65,
-        width: SCREEN_WIDTH,
+        //height: SCREEN_WIDTH * 0.65,
+       // width: SCREEN_WIDTH,
         backgroundColor: overlayColor
     },
 
     scanBar: {
         width: scanBarWidth,
         height: scanBarHeight,
-        backgroundColor: scanBarColor
+        backgroundColor: 'red',//scanBarColor
     }
 };

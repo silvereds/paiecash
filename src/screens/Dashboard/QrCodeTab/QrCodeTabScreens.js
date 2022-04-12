@@ -27,7 +27,7 @@ export default function QrCodeTabScreens(props) {
                         removeClippedSubviews={false}>
                 {data === '' ?
                     <View style={{flex: 1}}>
-                        <QrCodeScan reactivate={reactivate} setData={setData} data={data}/>
+                        <QrCodeScan reactivate={reactivate} setData={setData} data={data} setScan={()=>{}}/>
                     </View>
                     :
                     <View>

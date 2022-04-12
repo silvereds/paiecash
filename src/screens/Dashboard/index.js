@@ -17,6 +17,7 @@ import BuyCard from './VirtualCard/BuyCard';
 import AccountValidation from './ProfileTab/AccountValidation';
 import EnterpriseList from './Enterprises';
 import Market from './marketPlace';
+import PaymentScreens from './HomeTab/MainActions/Payment';
 
 const Tab = createBottomTabNavigator();
 
@@ -34,7 +35,7 @@ function Dashboard({navigation}) {
             <Tab.Screen name="Acceuil" component={HomeTabScreens}/>
             <Tab.Screen name="Scan" component={QrCodeTabScreens}/>
             <Tab.Screen name="Profile" component={ProfileTabScreens}/>
-            {/*<Tab.Screen name="Transfert" component={TransfertCard}/>*/}
+            <Tab.Screen name="Transfert" component={TransfertCard}/>
             <Tab.Screen name="Entreprise" component={EnterpriseList}/>
             <Stack.Screen name="Carte" component={VirtualCard}/>
           </Tab.Navigator>
@@ -53,11 +54,12 @@ export default function DashboardStack({navigation}) {
         <Stack.Screen name="Recharge" component={Recharge} />
         <Stack.Screen name="AccountValidation" component={AccountValidation} />
         <Stack.Screen name="BuyCard" component={BuyCard} />
-        {/* <Stack.Screen name="Transfer" component={Transfer} /> */}
+        <Stack.Screen name="Transfer" component={Transfer} />
         <Stack.Screen name="Historique" component={Historique} />
         <Stack.Screen name="QrCode" component={QrCode} />
         <Stack.Screen name="printQrCode" component={PrintQrCode} />
         <Stack.Screen name="market" component={Market} />
+        <Stack.Screen name="payment" component={PaymentScreens} />
       </Stack.Navigator>
     );
   }

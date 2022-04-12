@@ -17,7 +17,6 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { DATA } from '../../../../constants';
 import ServicesButton from '../../../../components/Button/ServiceButton';
 import { ItemTransaction } from '../../../../components/Transactions';
-import { FlatList } from 'react-native-gesture-handler';
 import TransactionsList from '../../../../constants/Transaction';
 
 /**
@@ -63,7 +62,7 @@ export default function HomeTabScreens({navigation}) {
                     
                 </View>
                 <View style={{flex:1,alignItems:'center',flexDirection:'row',justifyContent:'flex-end'}}>
-                    <Icon name='bell' size={30} color={COLORS.white2} style={{marginRight:SIZES.base}}/>  
+                    <Icon name='bell' size={30} color={COLORS.white2} style={{marginRight:SIZES.base}}/> 
                     <Text style={{color:COLORS.white2,...FONTS.h3}}>
                       {authData.user?.lastName}
                     </Text>
@@ -110,12 +109,7 @@ export default function HomeTabScreens({navigation}) {
                 <Text style={{color:COLORS.black,...FONTS.body4}}>il suffit de  choisir un abonnement</Text>
               </View>
               <TouchableOpacity
-                onPress={() =>
-                  Toast.show({
-                    type: 'info',
-                    text1: 'Vous devez remplir vos informations avant',
-                  })
-                }
+                onPress={() =>{}}
                 style={styles.boutton_abonnement}
               >
                 <Text style={{textAlign:'center',color:COLORS.white2,...FONTS.h3}}>
@@ -132,7 +126,7 @@ export default function HomeTabScreens({navigation}) {
                           item={item}
                           width={(SIZES.width-SIZES.padding)/4}
                           height={100}
-                          onPress={()=>showToast()}
+                          onPress={()=>navigation.navigate('payment')}
                           icon={<Icon name={item.image} size={30} color={COLORS.lightGreen}/>}
                         />
                       </View>

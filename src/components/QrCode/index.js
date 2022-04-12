@@ -5,9 +5,10 @@ import * as Animatable from "react-native-animatable";
 import {theme} from "../../core/theme";
 import Toast from "react-native-toast-message";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from './QrCodeStyle';
+import styles from './QrCodeStyle'
 
 
-export default function QrCodeScan({reactivate, setData, data}) {
+export default function QrCodeScan({reactivate, setData, data,setScan}) {
 
     useEffect(() => {
         setData('')
@@ -15,7 +16,7 @@ export default function QrCodeScan({reactivate, setData, data}) {
     }, []);
 
     const onSuccess = (e)  => {
-        e.type === 'QR_CODE' && setData(e.data)
+        e.type === 'QR_CODE' && (setData(e.data) ,setScan(false))
         e.type !== 'QR_CODE' && Toast.show({
             type: 'error',
             text1: 'Qr code invalide'
@@ -24,22 +25,26 @@ export default function QrCodeScan({reactivate, setData, data}) {
 
     const makeSlideOutTranslation = (translationType, fromValue) => {
         return {
-            from: {[translationType]: SCREEN_WIDTH * 0.5},
+            from: {[translationType]: SCREEN_WIDTH * 0.4},
             to: {[translationType]: fromValue }
         };
     }
 
     return (
+        <View style={{flex:1}}>
         <QRCodeScanner
+            
             showMarker
             reactivate={data === '' || reactivate}
             onRead={onSuccess}
-            cameraStyle={{ height: SCREEN_HEIGHT/1.2 }}
+            
+            cameraStyle={{alignSelf: 'center', justifyContent: 'center',width:SCREEN_WIDTH*0.35,height:SCREEN_HEIGHT*0.5 }}
+            
             customMarker={
                 <View style={styles.rectangleContainer}>
-                    <View style={styles.topOverlay}/>
+                    {/* <View style={styles.topOverlay}/> */}
                     <View style={{ flexDirection: "row" }}>
-                        <View style={styles.leftAndRightOverlay} />
+                        {/* <View style={styles.leftAndRightOverlay} /> */}
 
                         <View style={styles.rectangle}>
                             {/*<Icon*/}
@@ -55,15 +60,16 @@ export default function QrCodeScan({reactivate, setData, data}) {
                                 easing="linear"
                                 animation={makeSlideOutTranslation(
                                     "translateY",
-                                    SCREEN_WIDTH * -0.54
+                                    SCREEN_WIDTH * -0.4
                                 )}
                             />
                         </View>
-                        <View style={styles.leftAndRightOverlay} />
+                        {/* <View style={styles.leftAndRightOverlay} /> */}
                     </View>
-                    <View style={styles.bottomOverlay} />
+                    {/* <View style={styles.bottomOverlay} /> */}
                 </View>
             }
         />
+        </View>
     );
 }
