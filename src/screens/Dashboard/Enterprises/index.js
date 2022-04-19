@@ -142,7 +142,7 @@ const  EnterpriseList = (props)=>{
                 }}
             />
             </View>
-            <FormModal visible={visible} setVisible={setVisible} />
+            
             
         </ScrollView>
             

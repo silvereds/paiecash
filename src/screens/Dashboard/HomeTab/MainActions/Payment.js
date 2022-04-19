@@ -9,6 +9,7 @@ import AuthentificationContext from '../../../../context/AuthentificationContext
 import Toast from 'react-native-toast-message';
 import SkeletonContent from 'react-native-skeleton-content-nonexpo';
 import SkeletonWidgets from './../HomeTabScreens/SkeletonWidgets';
+import ModalCountry from '../../../../components/Enterprises/ModalCountry';
 
 import { FONTS,COLORS, SIZES } from "../../../../constants";
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -25,16 +26,20 @@ export default function PaymentScreens({navigation}) {
   const [showInput,setShowInput]=React.useState(false)
   const [data,setData]=React.useState('')
   const [country,setCountry]=React.useState({'code':'+50','pays':'france'})
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
+  const [visible,setVisible] = React.useState(false)
 
 
-  useEffect(() => {
-    if(loading){
-      setTimeout(function() {
-        setLoading(false)
-      }, 3000)
-    }
-  }, [loading])
+  // useEffect(() => {
+  //   if(loading){
+  //     setTimeout(function() {
+  //       setLoading(false)
+  //     }, 3000)
+  //   }
+  // }, [loading])
+  function setCode(code){
+    setCountry({...country,code:code})
+  }
   function getInfo(data){
     setScan(false);
     setData(data)
@@ -87,23 +92,41 @@ export default function PaymentScreens({navigation}) {
                         
                       </View>
                       <View style={{paddingVertical:SIZES.padding}}>
-                      <TextInput 
-                            style={{width:SIZES.width*0.9,fontSize:12}}
+                        <TextInput 
+                            style={{width:SIZES.width*0.9,fontSize:12,height:50}}
                             placeholder="veuillez saisir le montant de la facture"
                             placeholderTextColor={COLORS.gray}
                             keyboardType='numeric'
                             //onChangeText={(text)=>onChange(text)}
                             //defaultValue={defaultValue}
                         /> 
-                        <TouchableOpacity
-                          onPress={() =>setShowInput(true)}
-                          style={{paddingVertical:10,alignItems:'center',justifyContent:'center',width:SIZES.width*0.9,backgroundColor:COLORS.primary2,marginTop:10}}
-                        >
-                          <Text style={{textAlign:'center',color:COLORS.white,...FONTS.h3}}>
-                            valider
-                          </Text>
-                          
-                        </TouchableOpacity>
+                        <TextInput 
+                            style={{width:SIZES.width*0.9,fontSize:12,marginTop:SIZES.base,height:50}}
+                            placeholder="mot de passe"
+                            placeholderTextColor={COLORS.gray}
+                            secureTextEntry
+                            onChangeText={(text)=>onChange(text)}
+                            defaultValue={''}
+                        />
+                        <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                            <TouchableOpacity
+                              onPress={() =>setShowInput(true)}
+                              style={{paddingVertical:10,alignItems:'center',justifyContent:'center',width:SIZES.width*0.4,backgroundColor:COLORS.primary2,marginTop:10}}
+                            >
+                              <Text style={{textAlign:'center',color:COLORS.white,...FONTS.h3}}>
+                                valider
+                              </Text>
+                              
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                              onPress={() =>{setScan(false),setData('')}}
+                              style={{paddingVertical:10,alignItems:'center',justifyContent:'center',width:SIZES.width*0.4,backgroundColor:COLORS.primary2,marginTop:10}}
+                            >
+                              <Text style={{textAlign:'center',color:COLORS.white,...FONTS.h3}}>
+                                Annuler
+                              </Text>
+                            </TouchableOpacity>
+                        </View>
                       </View>
                       {/* <View>
                         <Text>
@@ -148,7 +171,7 @@ export default function PaymentScreens({navigation}) {
                 {
                     showInput &&  <View style={{flexDirection:'row',width:SIZES.width*0.95}}> 
                                     <TouchableOpacity
-                                      onPress={() =>setShowInput(true)}
+                                      onPress={()=>setVisible(!visible)}
                                       style={{paddingVertical:10,alignItems:'center',justifyContent:'center',width:SIZES.width*0.2}}
                                     >
                                       <Text style={{textAlign:'center',color:COLORS.primary2,...FONTS.h3}}>
@@ -157,7 +180,7 @@ export default function PaymentScreens({navigation}) {
                                       
                                     </TouchableOpacity>
                                     <TextInput 
-                                        style={{flex:1,width:SIZES.width*0.75}}
+                                        style={{flex:1,width:SIZES.width*0.75,height:50}}
                                         placeholder="Téléphone du destinataire"
                                         placeholderTextColor={COLORS.gray}
                                         //onChangeText={(text)=>onChange(text)}
@@ -166,10 +189,11 @@ export default function PaymentScreens({navigation}) {
                                   </View>
 
                 }
+                
               </View>
+              <ModalCountry visible={visible} setVisible={setVisible} setCode={setCode}/>
             </View>
           </View>
-         
         </ScrollView>
 
       </SkeletonContent>
