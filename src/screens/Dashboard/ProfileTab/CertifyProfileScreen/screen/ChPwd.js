@@ -77,9 +77,9 @@ const  CertifyProfilePwdScreen = ({navigation})=>{
       old_password:old_password.value.length != 0 ? old_password.value:'',
       new_password:new_password.value,
       new_password_confirm: new_confirm_password.value,
-      api_key:APPENV.apiKey,
-      access_token:authData.token
-    }):Toast.show({type:'error',text1:"les mot de passe saisie ne sont pas identiques "})
+      // api_key:APPENV.apiKey,
+      // access_token:authData.token
+    }):Toast.show({type:'error',text1:"les mots de passe saisie ne sont pas identiques "})
   }
 
   return (

@@ -64,8 +64,8 @@ const  CertifyProfilePhoneScreen = ({navigation})=>{
       //country_id: number.country_id,
       //phone: authData.user.phone != null?  number.old : number.new,
       code:"0100",
-      api_key: APPENV.apiKey,
-      access_token: authData.token
+      // api_key: APPENV.apiKey,
+      // access_token: authData.token
     })
     console.log("loading = ",loading)
   }

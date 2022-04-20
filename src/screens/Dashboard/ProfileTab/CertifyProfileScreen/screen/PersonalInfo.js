@@ -91,8 +91,8 @@ const  CertifyProfileInfoScreen = ({navigation})=>{
       last_name: lastName,
       birthday:birthday.year+"-"+birthday.month+"-"+birthday.day,
       cni:user_cni.value,
-      api_key:APPENV.apiKey,
-      access_token:authData.token
+      // api_key:APPENV.apiKey,
+      // access_token:authData.token
     })
     
   }

@@ -73,8 +73,8 @@ const  Localisation = ({navigation})=>{
       city:city.value,
       adresse:adresse.value,
       postal_code:postal_code.value,
-      api_key:APPENV.apiKey,
-      access_token:authData.token
+      // api_key:APPENV.apiKey,
+      // access_token:authData.token
     })
   }
 

@@ -1,12 +1,20 @@
-import {useCallback, useState} from 'react';
+import {useCallback, useContext, useState , useEffect} from 'react';
 import AllElements from "./fetch_api_components/AllElements";
 import ItemElements from "./fetch_api_components/ItemElements";
 import PostData from "./fetch_api_components/PostData";
 import PatchData from "./fetch_api_components/PatchData";
 import ValidateData from "./fetch_api_components/ValidateData";
 import SearchData from "./fetch_api_components/SearchData";
+import axios from 'axios';
+import AuthentificationContext from '../../context/AuthentificationContext';
 
 function useFetchApi(url) {
+    const {authData} = useContext(AuthentificationContext)
+    useEffect(()=>{
+        axios.defaults.headers.common['Authorization'] = 'Bearer' + authData?.token;
+        axios.defaults.headers.common['api-key'] = process.env.REACT_APP_API_KEY;
+    },[url,authData?.token])
+    
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
     const [query, setQuery] = useState('')
