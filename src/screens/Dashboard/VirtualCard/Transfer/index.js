@@ -13,9 +13,33 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import TextInput from '../../../../components/TextInput';
 import Button from '../../../../components/Button';
 import CreditCardDisplay from 'react-native-credit-card-display';
+import useFetchApi from '../../../../helpers/fetchApi/useFetchApi';
 
 function Transfer({route, navigation}) {
+  const {
+    data: dataCards,
+    loading,
+    searchData,
+    status,
+    error,
+  } = useFetchApi(APPENV.domain + '/api/card/list');
+  
   const {card} = route.params;
+
+  useEffect(() => {
+    if (status >= 400 && status <= 600) {
+      Toast.show({
+        type: 'error',
+        text2: error.message,
+      });
+    } else {
+      // if (props.cards !== dataCards.cards) props.refreshCardsList(dataCards);
+      // if (dataCards.cards && cardSelect === undefined)
+      //   setCardSelect(dataCards.cards[0]);
+      console.log('cards here',dataCards)
+    }
+    console.log('cards here',dataCards)
+  }, [error, dataCards]);
 
   function showLeftComponent() {
     return (

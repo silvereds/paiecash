@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState ,useEffect } from 'react';
 import { View, Text, ScrollView,TouchableOpacity ,StyleSheet} from 'react-native';
 import useFetchApi from '../../../../../helpers/fetchApi/useFetchApi';
 import styles from '../../ProfileStyle';
@@ -11,11 +11,14 @@ import Icon from "react-native-vector-icons/Feather"
 import { SafeAreaView } from 'react-native-safe-area-context';
 import TextButton from '../../../../../components/Button/TextButton';
 import Toast from 'react-native-toast-message';
-import AuthentificationContext from '../../../../../context/AuthentificationContext';
-import FontAweSome5 from 'react-native-vector-icons/FontAwesome5'
-
+import getUser from "../../../../../helpers/getUserInfo";
 const  CertifyProfilePwdScreen = ({navigation})=>{
-  const {authData,setAuthData} = React.useContext(AuthentificationContext);
+
+  const [authData,setAuthData] = React.useState({})
+  useEffect(()=>{
+      getUser(setAuthData)     
+  },[authData])
+
   const {
     data:pwdResponse,
     loading,
@@ -44,17 +47,16 @@ const  CertifyProfilePwdScreen = ({navigation})=>{
             type: 'info',
             text1: pwdResponse.message,
           }),
-          authData.user.passwordDefined = true,
-          setAuthData(authData)
+          setAuthData({...authData,passwordDefined:true})
         )
         : 
         ''
     }
-  }, [status,pwdResponse,error,authData])
+  }, [status,pwdResponse,error])
 
   function changePwdIsEnable(){
 
-    if(authData.user?.passwordDefined){
+    if(authData?.passwordDefined){
       return  (old_password.value != '' && old_password.error == '')
               &&
               (new_password.error =='' && new_password.value !='') 
@@ -78,7 +80,7 @@ const  CertifyProfilePwdScreen = ({navigation})=>{
       new_password:new_password.value,
       new_password_confirm: new_confirm_password.value,
       // api_key:APPENV.apiKey,
-      // access_token:authData.token
+      // access_token:token
     }):Toast.show({type:'error',text1:"les mots de passe saisie ne sont pas identiques "})
   }
 
@@ -88,13 +90,13 @@ const  CertifyProfilePwdScreen = ({navigation})=>{
       
       <ScrollView style={{backgroundColor:"#fff"}} >
         <Starter
-          subtitle={""}
-          title={authData.user?.passwordDefined?"Changer Votre Mot de Passe":"définir votre mot de passe"}
+          subtitle="manager votre mot de passe"
+          //title={}
           navigation={navigation}
           headerHeight={50}
-          //headerIcon={<FontAweSome5  name='user-circle' size={70} color={COLORS.white}/>}
+          //headerIcon={<FontAweSome5  name='authData-circle' size={70} color={COLORS.white}/>}
         >
-          {authData.user.passwordDefined &&
+          {authData?.passwordDefined &&
               <BlockInput
                   label="ancien mot de passe"
                   autoCompleteType="password"

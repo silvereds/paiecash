@@ -10,13 +10,14 @@ import {APPENV} from "../../../core/config";
 import useFetchApi from "../../../helpers/fetchApi/useFetchApi";
 import useAsyncData from "../../../services/DataStorage/UseAsyncData";
 import Toast from "react-native-toast-message";
-import AuthentificationContext from "../../../context/AuthentificationContext";
+//import AuthentificationContext from "../../../context/AuthentificationContext";
 import styles from "./LoginStyle";
 import Button from "../../../components/Button";
 import SocialAuth from "./Social/SocialAuth";
+import axios from 'axios'
 
 export default function LoginScreen({navigation}) {
-    const {setAuthData} = useContext(AuthentificationContext);
+    //const {setAuthData} = useContext(AuthentificationContext);
     const {updateStorage} = useAsyncData('data')
     const {
         data: dataLogin,
@@ -29,9 +30,11 @@ export default function LoginScreen({navigation}) {
     const [password, setPassword] = useState({value: '', error: ''})
 
     useEffect(() => {
-        if(dataLogin.token){
-            setAuthData(dataLogin)
+        
+        if(dataLogin?.token){
             updateStorage(JSON.stringify(dataLogin))
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + dataLogin?.token
+            axios.defaults.headers.common['api-key'] = APPENV.apiKey
             navigation.reset({
                 index: 0,
                 routes: [{ name: 'Dashboard' }],
@@ -58,6 +61,7 @@ export default function LoginScreen({navigation}) {
             return
         }
         postData({"username": email.value, "password": password.value})
+        
     }
 
     return (
@@ -134,7 +138,8 @@ export default function LoginScreen({navigation}) {
                             }}>Inscrivez vous</Text>
                         </TouchableOpacity>
                     </View>
-                    <SocialAuth setAuthData={setAuthData} loading={loading} navigation={navigation}/>
+                    {/* <SocialAuth setAuthData={setAuthData} loading={loading} navigation={navigation}/> */}
+                    <SocialAuth/>
                 </View>
                 
         </Background>

@@ -1,22 +1,23 @@
-import React from "react";
+import React, {useEffect } from "react";
 import { View,Text,TouchableOpacity,ScrollView,SafeAreaView, Image} from "react-native";
 import ProgressCircle from 'react-native-progress-circle';
 import { FONTS,COLORS, SIZES } from "../../../constants";
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import Toast from 'react-native-toast-message';
-import AuthentificationContext from "../../../context/AuthentificationContext";
 import TextIconButton from "../../../components/Button/TextIconButton";
 import ProfileActionButton from "../../../components/Button/ProfileAction";
-import useAsyncData from '../../../services/DataStorage/UseAsyncData';
+import getUser from "../../../helpers/getUserInfo";
+import useAsyncData from "../../../services/DataStorage/UseAsyncData";
 
 const ProfileHomeScreen = ({navigation})=>{
-    
-    const {authData,setAuthData} = React.useContext(AuthentificationContext)
-    const {data, removeStorage} = useAsyncData('data');
-    console.log(authData.user)
+    const [authData,setAuthData] = React.useState({})
+    const {removeStorage} = useAsyncData('data')
+    useEffect(()=>{
+        getUser(setAuthData)     
+    },[])
     function logoutAction() {
-        setAuthData({});
-        removeStorage()
+        removeStorage('data')
+        
         navigation.navigate('StartScreen');
     }
     return(
@@ -33,22 +34,22 @@ const ProfileHomeScreen = ({navigation})=>{
             >
                 <View style={{justifyContent:'flex-end',flexDirection:'row',marginBottom:SIZES.padding}}>
                     <ProgressCircle
-                        percent={authData.user?.percentCertification}
+                        percent={authData?.percentCertification}
                         radius={30}
                         borderWidth={10}
                         color={COLORS.lightOrange}
                         shadowColor="#fff"
                         bgColor={COLORS.darkBlue}>
-                        <Text style={{color:COLORS.white,...FONTS.h3}}>{authData.user?.percentCertification}%</Text>
+                        <Text style={{color:COLORS.white,...FONTS.h3}}>{authData?.percentCertification}%</Text>
                     </ProgressCircle>
                 </View>
                 
                 <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center',paddingHorizontal:SIZES.padding}}>
                     <Image source={require('../../../assets/ballon.jpg')} style={{height:90,width:90,borderRadius:45}}/>
                     <View style={{paddingHorizontal:SIZES.base}}>
-                        <Text style={{color:COLORS.white,...FONTS.h2}}> {authData.user?.firstName} </Text>
-                        <Text style={{color:COLORS.lightGreen,...FONTS.body3}}> {authData.user?.lastName} </Text>
-                        <Text style={{color:COLORS.lightGreen,...FONTS.body3}}> {authData.user?.email} </Text>
+                        <Text style={{color:COLORS.white,...FONTS.h2}}> {authData?.firstName} </Text>
+                        <Text style={{color:COLORS.lightGreen,...FONTS.body3}}> {authData?.lastName} </Text>
+                        <Text style={{color:COLORS.lightGreen,...FONTS.body3}}> {authData?.email} </Text>
                     </View>
                     
                 </View>
@@ -80,20 +81,20 @@ const ProfileHomeScreen = ({navigation})=>{
                     </View>
                     <ProfileActionButton 
                         title="Localisation" 
-                        subtitle={authData.user?.city == null ? "aucunes informations de localisation": authData.user?.city}
+                        subtitle={authData?.city == null ? "aucunes informations de localisation": authData?.city}
                         onPress={()=>navigation.navigate("LocalisationSettings")}
                         Icon={<Icon name="map-marker-alt" size={30} color={COLORS.lightGreen} />}
                     />
                     <ProfileActionButton
                         title="Profile"
-                        subtitle={authData.user?.email}
+                        subtitle={authData?.email}
                         Icon={<Icon name="user-edit" size={30} color={COLORS.lightGreen}/>}
                         onPress={()=>navigation.navigate("Tnformations Personnelles")}
                         
                     />
                     <ProfileActionButton
                         title="Téléphone"
-                        subtitle={authData.user?.phone!=null?authData.user?.phone:"aucun numéro enregistré"}
+                        subtitle={authData?.phone!=null?authData?.phone:"aucun numéro enregistré"}
                         Icon={<Icon name="phone-alt" size={30} color={COLORS.lightGreen}/>}
                         onPress={()=>navigation.navigate("Telephone")}
                         

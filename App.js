@@ -15,16 +15,22 @@ import toastConfig from './src/core/toastConfig';
 import {Provider} from 'react-native-paper';
 import {Provider as ReduxProvider} from 'react-redux';
 import {configureStore} from './src/redux/store';
+import axios from 'axios';
+import { APPENV } from './src/core/config';
 
 const Stack = createStackNavigator();
 
 const App: () => Node = () => {
-  const {data} = UseAsyncData('data');
+
+  //const {data} = UseAsyncData('data');
   const [authData, setAuthData] = useState({});
 
-  useEffect(() => {
-    data !== null && setAuthData(JSON.parse(data));
-  }, [data]);
+  // useEffect(() => {
+  //   if(data !== null){
+  //     //setAuthData(JSON.parse(data));
+  //   }
+    
+  // }, [data]);
 
   return (
     <AuthentificationContext.Provider value={{authData, setAuthData}}>

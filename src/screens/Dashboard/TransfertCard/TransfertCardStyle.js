@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import { COLORS } from '../../../constants';
 import {theme} from '../../../core/theme';
 
 const styles = StyleSheet.create({
@@ -50,7 +51,8 @@ const styles = StyleSheet.create({
   },
   statisticsText: {
     color: theme.colors.primary,
-    fontSize: 20,
+    fontSize: 15,
+    textAlign:'center',
     fontWeight: 'bold',
   },
   statisticsTitle: {
@@ -128,10 +130,10 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     borderColor: theme.colors.textLight,
-    borderWidth: 1,
+    //borderWidth: 1,
     paddingHorizontal: 10,
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.lightGray1,
     borderRadius: 10,
   },
   rounderIco: {
@@ -155,6 +157,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginBottom: 3,
     marginTop: 20,
+    
   },
 
   VerticalBar: {

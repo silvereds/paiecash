@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     singleExplore: {
-        height: 50,
+        height: 80,
         width: SIZES.width*0.9,
         shadowColor: '#000',
         shadowOffset: {width: 0, height: 1},

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView,TouchableOpacity,SafeAreaView ,StyleSheet} from 'react-native';
 import useFetchApi from '../../../../../helpers/fetchApi/useFetchApi';
 import styles from '../../ProfileStyle';
@@ -11,10 +11,10 @@ import TextButton from '../../../../../components/Button/TextButton';
 import Toast from 'react-native-toast-message';
 import AuthentificationContext from '../../../../../context/AuthentificationContext';
 import FontAweSome5 from 'react-native-vector-icons/FontAwesome5'
+import getUser from '../../../../../helpers/getUserInfo';
 
 
 const  CertifyProfileInfoScreen = ({navigation})=>{
-  const {setAuthData,authData} = React.useContext(AuthentificationContext);
 
   const {
     data :personnalData,
@@ -24,25 +24,28 @@ const  CertifyProfileInfoScreen = ({navigation})=>{
     error,
   } = useFetchApi(APPENV.domain + '/api/profile/certification/personnal-information')
 
-  const [user,setUser]= React.useState(authData.user)
-  const [firstName,setFirstName] = React.useState(user?.firstName)
+  const [firstName,setFirstName] = React.useState("")
   const [firstNameError,setFirstNameError] = React.useState("")
-  const [lastName,setLastName] = React.useState(user?.lastName)
+  const [lastName,setLastName] = React.useState("")
   const [lastNameError,setLastNameError] = React.useState("")
-  const [user_cni,setCni] = React.useState({value:user?.cni, error:''})
+  const [user_cni,setCni] = React.useState({value:'', error:''})
   const [birthday,setBirthay] = React.useState({
     day:'',
     month:'',
     year:'',
     error:''
   })
-
-  React.useEffect(()=>{
-    if(authData.user?.birthDay != null ){
-      let birth = authData.user?.birthDay.split("T")[0].split("-")
-      setBirthay({...birthday,day:birth[2],month:birth[1],year:birth[0]})
-    } 
-  },[authData.user?.birthDay])
+  const [authData,setAuthData]= useState({})
+  useEffect(()=>{
+      getUser(setAuthData)
+      setFirstName(authData?.firstName)
+      setLastName(authData.lastName)
+      setCni({...user_cni,value:authData?.cni})
+      if(authData?.birthDay){
+        let birth = authData?.birthDay.split("T")[0].split("-")
+        setBirthay({...birthday,day:birth[2],month:birth[1],year:birth[0]})
+      }
+  },[authData?.firstName])
 
   React.useEffect(() => {
     
@@ -58,11 +61,7 @@ const  CertifyProfileInfoScreen = ({navigation})=>{
           Toast.show({
           type: 'info',
           text1: personnalData.message,
-          }),
-          authData.user.cni = user_cni.value,
-          authData.user.firstName=firstName,
-          authData.user.lastName=lastName,
-          authData.user.birthDay = birthday.year+"-"+birthday.month+"-"+birthday.day
+          }),setAuthData({...authData,birthday:birthday.year+"-"+birthday.month+"-"+birthday.day})
         )
       :''
      }
@@ -114,7 +113,7 @@ const  CertifyProfileInfoScreen = ({navigation})=>{
                   ? 
                   setFirstNameError("nom invalide")
                   :
-                  (setFirstNameError(""),setFirstName(value),authData.user.firstName=value)
+                  (setFirstNameError(""),setFirstName(value))
                 }}
                 errorMsg={firstNameError}
                 appendComponent={
@@ -136,7 +135,7 @@ const  CertifyProfileInfoScreen = ({navigation})=>{
                   ?
                   setLastNameError("prenom invalide")
                   :
-                  (setLastName(value),setLastNameError(""),authData.user.lastName=value)
+                  (setLastName(value),setLastNameError(""))
                 }}
                 errorMsg={lastNameError}
                 appendComponent={

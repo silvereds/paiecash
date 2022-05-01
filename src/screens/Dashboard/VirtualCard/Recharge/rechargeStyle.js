@@ -58,6 +58,7 @@ export default styles = StyleSheet.create({
 
   methodTab: {
     width: '30%',
+    minHeight:50,
     borderRadius: 7,
   },
   activeMethodTab: {

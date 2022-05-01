@@ -6,25 +6,30 @@ import Logo from "../../components/Logo";
 import Paragraph from "../../components/Paragraph";
 import Button from "../../components/Button";
 import styles from './StartStyle';
-import {COLORS} from '../../constants'
+import axios from 'axios';
+import { APPENV } from '../../core/config';
+import UseAsyncData from '../../services/DataStorage/UseAsyncData';
+
+
 export default function StartScreen({ navigation }) {
-    const {authData} = useContext(AuthentificationContext)
+    //const {authData} = useContext(AuthentificationContext)
+    const {data} = UseAsyncData('data')
     const [state, setState] = useState(false)
 
     useEffect(() => {
-        if (authData.user) {
+        console.log(data)
+        if (data) {
             navigation.reset({
                 index: 0,
                 routes: [{name: 'Dashboard'}],
             })
         }
-
         return () => null
-    }, [authData]);
+    }, [data]);
 
     useEffect(() => {
         setTimeout(() => {
-            authData.user === undefined && setState(true)
+            data?.token === undefined && setState(true)
         }, 3000)
 
         return () => {setState(false)}
@@ -50,9 +55,8 @@ export default function StartScreen({ navigation }) {
                             Connexion
                         </Button>
                         <Button
-                            mode="contained"
+                            mode="outlined"
                             onPress={() => navigation.navigate('RegisterScreen')}
-                            style={{color:COLORS.lightGray1}}
                         >
                             Inscription
                         </Button>

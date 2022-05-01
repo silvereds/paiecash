@@ -10,6 +10,7 @@ function PostData(sendData, url, data, setData, setLoading, setStatus, setError)
         setStatus(error.response?.status)
         setError(error.response?.data)
         setLoading(false)
+        
     })
 }
 

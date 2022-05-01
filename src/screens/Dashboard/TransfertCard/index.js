@@ -10,6 +10,7 @@ import {
   TouchableHighlight,
   PermissionsAndroid,
   ActivityIndicator,
+  FlatList
 } from 'react-native';
 import Toast from 'react-native-toast-message';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -29,6 +30,8 @@ import {ADD_RECENT_CONTACT} from '../../../redux/user/constants';
 import SkeletonContent from 'react-native-skeleton-content-nonexpo';
 import SkeletonWidgets from './SkeletonWidgets';
 import RecentContact from './Components/RecentContact';
+import CardItem from './Components/CardItem';
+import axios from 'axios';
 
 
 
@@ -42,6 +45,7 @@ function TransfertCard(props) {
   const [amount, setAmount] = useState('0');
   const emailInput = useRef(null);
   const amountInput = useRef(null);
+  const [activeCard,setActiveCard] = useState({})
 
   const {
     data: dataCards,
@@ -67,6 +71,10 @@ function TransfertCard(props) {
     error: error3,
   } = useFetchApi(APPENV.domain + '/api/card/transfert');
 
+  useEffect(()=>{
+    props.cards && setActiveCard(props.cards[0])
+  },[props.cards])
+
   useEffect(() => {
     if (
       (status >= 400 && status <= 600) ||
@@ -79,10 +87,11 @@ function TransfertCard(props) {
         text2: error ? error.message : error2 ? error2.message : error3.message,
       });
     }
+    
   }, [error, error2, error3]);
 
   useEffect(() => {
-    searchData(`?access_token=${authData.token}&api_key=${APPENV.apiKey}`);
+    searchData('');//`?access_token=${authData.token}&api_key=${APPENV.apiKey}`
   }, []);
 
   useEffect(() => {
@@ -98,17 +107,17 @@ function TransfertCard(props) {
         text1: paymentResponse.message,
       });
       setEmail('');
-      setAmount('0');
+      setAmount('000');
       amountInput.current?.clear();
       emailInput.current?.clear();
       setPassword('');
+      console.log(paymentResponse)
     }
   });
-
-  function onSearchCard(emailValue = email) {
-    searchCard(
-      `?access_token=${authData.token}&api_key=${APPENV.apiKey}&email=${emailValue}`,
-    );
+  // access_token=${authData.token}&api_key=${APPENV.apiKey}&
+  async function onSearchCard(emailValue = email) {
+    searchCard(`?email=${emailValue}`);
+    setEmail(emailValue)
   }
 
   function onMakePayment(userPassword = password) {
@@ -158,7 +167,7 @@ function TransfertCard(props) {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <TabScreenHeader
-        leftComponent={() => <Text style={styles.headerTitle}>Transfert</Text>}
+        leftComponent={() => <Text style={styles.headerTitle}>Transfert ici</Text>}
         isSearchBtnVisible={true}
         isMoreBtnVisible={true}
       />
@@ -171,14 +180,39 @@ function TransfertCard(props) {
             <View style={styles.profileDetailsSection}>
               <View style={styles.profileInfoSection}>
                 <View style={styles.statisticsContainer}>
-                  <Text style={styles.statisticsTitle}>Solde Principal</Text>
+                  <Text style={styles.statisticsTitle}> selectionner la carte à débiter </Text>
+                  {dataCards?.cards && <FlatList
+                    horizontal
+                    data={dataCards.cards}
+                    key={(item)=>item.item.cardNumber}
+                    showsHorizontalScrollIndicator={false}
+                    renderItem={(item,key)=>{
+                      
+                      return(
+                        <CardItem
+                          data={item.item}
+                          key={item.item.cardNumber}
+                          activeCard={activeCard}
+                          setActiveCard={setActiveCard}
+                        />
+                      )
+                    }}
+                  />}
+                  <Text style={styles.statisticsText}> solde de la carte selectionnée:</Text>
                   <Text style={styles.statisticsText}>
-                    {props.cards && props.cards[0]
+                    
+                  {activeCard?.amount
+                      ? activeCard?.amount
+                          .toFixed(2)
+                          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+                      : '...'}{' '}
+                    {activeCard !== {} ? '£' : null}
+                    {/* {props.cards && props.cards[0]
                       ? props.cards[0].amount
                           .toFixed(2)
                           .replace(/\d(?=(\d{3})+\.)/g, '$&,')
                       : '...'}{' '}
-                    {props.cards ? 'Xaf' : null}
+                    {props.cards ? '£' : null} */}
                   </Text>
                 </View>
               </View>
@@ -197,7 +231,7 @@ function TransfertCard(props) {
                 <View style={styles.inputContainer}>
                   <TextInput
                     ref={emailInput}
-                    placeholder="Numéro ou E-mail du bénéficiaire"
+                    //placeholder="Numéro ou E-mail du bénéficiaire"
                     returnKeyType="next"
                     autoCapitalize="none"
                     autoCompleteType="email"
@@ -265,6 +299,7 @@ function TransfertCard(props) {
                     keyboardType="numeric"
                     defaultValue="0"
                     onSubmitEditing={event => setAmount(event.nativeEvent.text)}
+                    onChangeText={(text)=>setAmount(text)}
                   />
                   <Pressable
                     onPress={() => amountInput.current.clear()}
@@ -325,10 +360,8 @@ function TransfertCard(props) {
                 ? {}
                 : styles.submitButton
             }
-            disabled={
-              card === null || email === '' || amount === '0' || loading3
-            }
-            onPress={() => toggleDialog(!isDialogVisible)}
+            disabled={card === null || email === '' || amount === '0' || loading3}
+            onPress={() =>toggleDialog(!isDialogVisible)} 
             mode="contained">
             Transférer
           </Button>

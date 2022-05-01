@@ -18,7 +18,7 @@ import { DATA } from '../../../../constants';
 import ServicesButton from '../../../../components/Button/ServiceButton';
 import { ItemTransaction } from '../../../../components/Transactions';
 import TransactionsList from '../../../../constants/Transaction';
-
+import getUser from '../../../../helpers/getUserInfo';
 /**
  * @author Jaures Kano <ruddyjaures@gmail.com>
  * @author silvere Tchoffo Djousse <tchofsilvere@gmail.com>
@@ -28,13 +28,14 @@ export default function HomeTabScreens({navigation}) {
   const project = projectState.projects[2];
   const tasks = tasksState.tasks;
   const [loading, setLoading] = useState(true)
-
+  
   useEffect(() => {
     if(loading){
       setTimeout(function() {
         setLoading(false)
       }, 3000)
     }
+   // console.log(getUser())
   }, [loading])
 
   function showToast(){
@@ -109,11 +110,11 @@ export default function HomeTabScreens({navigation}) {
                 <Text style={{color:COLORS.black,...FONTS.body4}}>il suffit de  choisir un abonnement</Text>
               </View>
               <TouchableOpacity
-                onPress={() =>{}}
+                onPress={() =>navigation.navigate('BuyCard')}
                 style={styles.boutton_abonnement}
               >
                 <Text style={{textAlign:'center',color:COLORS.white2,...FONTS.h3}}>
-                  Choisir un abonnement
+                  Acheter une Carte
                 </Text>
               </TouchableOpacity>
             </View>

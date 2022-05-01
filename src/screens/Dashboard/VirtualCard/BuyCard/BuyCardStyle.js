@@ -11,11 +11,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     marginVertical: 10,
-    textAlign: 'left'
+    textAlign: 'center',
+    
   },
   scrollContainer: {
     paddingVertical: 10,
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    justifyContent:'center',
+    alignItems:'center'
   }
 })
 

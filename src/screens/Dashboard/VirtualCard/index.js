@@ -15,9 +15,9 @@ import {REFRESH_CARDS_LIST} from '../../../redux/card/constants';
 import Button from '../../../components/Button';
 import SkeletonContent from 'react-native-skeleton-content-nonexpo';
 import SkeletonWidgets from './SkeletonWidgets';
+import ProfileActionButton from '../../../components/Button/ProfileAction';
 
 function VirtualCard(props) {
-  const {authData} = useContext(AuthentificationContext);
   const {
     data: dataCards,
     loading,
@@ -25,23 +25,14 @@ function VirtualCard(props) {
     status,
     error,
   } = useFetchApi(APPENV.domain + '/api/card/list');
+  
+  const {authData} = useContext(AuthentificationContext);
 
   const [cardSelect, setCardSelect] = useState(
     props.cards ? props.cards[0] : null,
   );
 
-  useEffect(() => {
-    if (status >= 400 && status <= 600) {
-      Toast.show({
-        type: 'error',
-        text2: error.message,
-      });
-    } else {
-      if (props.cards !== dataCards.cards) props.refreshCardsList(dataCards);
-      if (dataCards.cards && cardSelect === undefined)
-        setCardSelect(dataCards.cards[0]);
-    }
-  }, [error, dataCards]);
+
 
   useEffect(() => {
     searchData(`?access_token=${authData.token}&api_key=${APPENV.apiKey}`);
@@ -84,6 +75,7 @@ function VirtualCard(props) {
                 <View style={styles.exploreContent}>
                   {cardSelect ? (
                     actions.map(action => (
+                      
                       <Action
                         title={action.title}
                         route={action.route}

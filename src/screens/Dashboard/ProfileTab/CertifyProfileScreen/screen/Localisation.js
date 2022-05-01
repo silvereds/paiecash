@@ -13,9 +13,10 @@ import Toast from 'react-native-toast-message';
 import AuthentificationContext from '../../../../../context/AuthentificationContext';
 import Starter from '../../../../../components/Layout/Starter';
 import FilterCountry from '../../../../Authentification/Register/FilterCountry';
+import getUser from '../../../../../helpers/getUserInfo';
 
 const  Localisation = ({navigation})=>{
-  const {authData,setAuthData} = React.useContext(AuthentificationContext);
+  // const {authData,setAuthData} = React.useContext(AuthentificationContext);
   const {
     data:dataLocalisation,
     loading,
@@ -23,10 +24,21 @@ const  Localisation = ({navigation})=>{
     status,
     error
   } = useFetchApi(APPENV.domain + '/api/profile/certification/localisation')
-  const [country_id,setCountry_id] = React.useState({value:authData.user?.country,error:'',name:''})
-  const [city,setCity] = React.useState({value:authData.user?.city,error:''})
+  const [country_id,setCountry_id] = React.useState({value:authData?.country,error:'',name:''})
+  const [city,setCity] = React.useState({value:authData?.city,error:''})
   const [postal_code,setPostal_code] = React.useState({value:'',error:''})
   const [adresse,setAdress] = React.useState({value:'',error:''})
+
+  const [authData,setAuthData]= React.useState({})
+
+  React.useEffect(()=>{
+      getUser(setAuthData)
+      setCountry_id({...country_id,value:authData?.country})
+      setCity({...city,value:authData?.city})
+      setPostal_code({...postal_code,value:authData?.postal_code})
+      setAdress({...adresse,value:authData?.address})
+      console.log(authData)
+  },[authData?.country])
 
   React.useEffect(() => {
     if (status >= 400 && status <= 600) {
@@ -43,10 +55,7 @@ const  Localisation = ({navigation})=>{
           Toast.show({
             type: 'info',
             text1: dataLocalisation.message,
-          }),
-          authData.user.city = city.value,
-          authData.user.country = country_id.name,
-          setAuthData(authData)
+          })
         )
         : 
         ''
@@ -68,6 +77,7 @@ const  Localisation = ({navigation})=>{
   }
 
   function updateLocalisation(){
+    console.log(city.value)
     postData({
       country_id:country_id.value,
       city:city.value,

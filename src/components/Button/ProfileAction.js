@@ -8,7 +8,6 @@ const ProfileActionButton = ({title,subtitle, Icon, route, onPress}) => {
     <TouchableOpacity
       style={{
         flexDirection:'row',
-        
         height:80,
         borderBottomWidth:2,
         borderBottomColor:COLORS.lightGray2,
